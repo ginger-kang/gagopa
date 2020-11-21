@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-gagopa-dev-13646-authRole",
+      "UnauthRoleArn": "arn:aws:iam::649630554728:role/amplify-gagopa-dev-13646-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::649630554728:role/amplify-gagopa-dev-13646-authRole",
+      "Region": "ap-northeast-2",
+      "DeploymentBucketName": "amplify-gagopa-dev-13646-deployment",
+      "UnauthRoleName": "amplify-gagopa-dev-13646-unauthRole",
+      "StackName": "amplify-gagopa-dev-13646",
+      "StackId": "arn:aws:cloudformation:ap-northeast-2:649630554728:stack/amplify-gagopa-dev-13646/c17a74b0-2c17-11eb-872a-06db8e521b78",
+      "AmplifyAppId": "d251bijre279z4"
+    }
+  }
+}
