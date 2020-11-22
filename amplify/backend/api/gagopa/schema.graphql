@@ -1,0 +1,15 @@
+type Picture @model {
+  id: ID!
+  city: String!
+  location: String!
+  instagram: String
+  description: String
+  attachment: S3Object
+}
+
+type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
+  uri: String!
+}
