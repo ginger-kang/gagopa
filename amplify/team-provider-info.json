@@ -10,6 +10,11 @@
       "StackName": "amplify-gagopa-dev-13646",
       "StackId": "arn:aws:cloudformation:ap-northeast-2:649630554728:stack/amplify-gagopa-dev-13646/c17a74b0-2c17-11eb-872a-06db8e521b78",
       "AmplifyAppId": "d251bijre279z4"
+    },
+    "categories": {
+      "auth": {
+        "gagopa6c94aac1": {}
+      }
     }
   }
 }

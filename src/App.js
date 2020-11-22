@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { GlobalStyle } from './global-styles';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 
 const Hello = styled.div`
   background-color: orange;
@@ -15,4 +16,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App);
