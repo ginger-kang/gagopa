@@ -1,7 +1,7 @@
 {
-    "bucketName": "gagopa70741fc12740447ca261ae978d4f6e47",
-    "authPolicyName": "s3_amplify_388d5ffe",
-    "unauthPolicyName": "s3_amplify_388d5ffe",
+    "bucketName": "mytravel-picture",
+    "authPolicyName": "s3_amplify_14d02acc",
+    "unauthPolicyName": "s3_amplify_14d02acc",
     "authRoleName": {
         "Ref": "AuthRoleName"
     },
@@ -19,15 +19,15 @@
         "s3:DeleteObject"
     ],
     "s3PermissionsAuthenticatedPublic": "s3:PutObject,s3:GetObject,s3:DeleteObject",
-    "s3PublicPolicy": "Public_policy_ce0d9341",
+    "s3PublicPolicy": "Public_policy_e1217336",
     "s3PermissionsAuthenticatedUploads": "s3:PutObject",
-    "s3UploadsPolicy": "Uploads_policy_ce0d9341",
+    "s3UploadsPolicy": "Uploads_policy_e1217336",
     "s3PermissionsAuthenticatedProtected": "s3:PutObject,s3:GetObject,s3:DeleteObject",
-    "s3ProtectedPolicy": "Protected_policy_ce0d9341",
+    "s3ProtectedPolicy": "Protected_policy_e1217336",
     "s3PermissionsAuthenticatedPrivate": "s3:PutObject,s3:GetObject,s3:DeleteObject",
-    "s3PrivatePolicy": "Private_policy_ce0d9341",
+    "s3PrivatePolicy": "Private_policy_e1217336",
     "AuthenticatedAllowList": "ALLOW",
-    "s3ReadPolicy": "read_policy_ce0d9341",
+    "s3ReadPolicy": "read_policy_e1217336",
     "s3PermissionsGuestPublic": "DISALLOW",
     "s3PermissionsGuestUploads": "DISALLOW",
     "GuestAllowList": "DISALLOW",
