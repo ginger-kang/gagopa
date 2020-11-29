@@ -1,12 +1,26 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import bgImage from '../static/assets/bgImage.png';
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import { listPictures } from '../graphql/queries';
 import awsconfig from '../aws-exports';
 Amplify.configure(awsconfig);
 
-const Hello = styled.div`
-  background-color: orange;
+const HomeContainer = styled.main`
+  width: 100%;
+`;
+
+const BackgroundContainer = styled.div`
+  width: 100%;
+  height: 750px;
+`;
+
+const ImageWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  & img {
+    object-fit: cover;
+  }
 `;
 
 const Home = () => {
@@ -22,7 +36,15 @@ const Home = () => {
       console.log(error);
     }
   };
-  return <Hello>안녕하세요</Hello>;
+  return (
+    <HomeContainer>
+      <BackgroundContainer>
+        <ImageWrap>
+          <img src={bgImage} alt="bgimage" />
+        </ImageWrap>
+      </BackgroundContainer>
+    </HomeContainer>
+  );
 };
 
 export default Home;
