@@ -12,7 +12,6 @@ const UploadPicture = () => {
     e.preventDefault();
     if (file) {
       Storage.put(name, file, {
-        // level: 'protected',
         contentType: file.type,
       })
         .then((result) => {

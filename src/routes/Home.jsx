@@ -4,6 +4,7 @@ import bgImage from '../static/assets/bgImage.png';
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import { listPictures } from '../graphql/queries';
 import awsconfig from '../aws-exports';
+import HomeCityList from '../components/HomeCityList';
 Amplify.configure(awsconfig);
 
 const HomeContainer = styled.main`
@@ -23,6 +24,16 @@ const ImageWrap = styled.div`
   }
 `;
 
+const HomeCityListContainer = styled.div`
+  width: 100%;
+  height: 250px;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 70px 30px 70px;
+`;
+
 const Home = () => {
   useEffect(() => {
     fetchPictures();
@@ -30,7 +41,11 @@ const Home = () => {
 
   const fetchPictures = async () => {
     try {
-      const data = await API.graphql(graphqlOperation(listPictures));
+      const data = await API.graphql(
+        graphqlOperation(listPictures, {
+          filter: { city: { beginsWith: 'tokyo' } },
+        }),
+      );
       console.log(data.data.listPictures);
     } catch (error) {
       console.log(error);
@@ -43,6 +58,9 @@ const Home = () => {
           <img src={bgImage} alt="bgimage" />
         </ImageWrap>
       </BackgroundContainer>
+      <HomeCityListContainer>
+        <HomeCityList />
+      </HomeCityListContainer>
     </HomeContainer>
   );
 };
