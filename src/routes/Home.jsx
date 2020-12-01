@@ -43,7 +43,7 @@ const Home = () => {
     try {
       const data = await API.graphql(
         graphqlOperation(listPictures, {
-          filter: { city: { beginsWith: 'tokyo' } },
+          filter: { city: { beginsWith: '도쿄' } },
         }),
       );
       console.log(data.data.listPictures);
