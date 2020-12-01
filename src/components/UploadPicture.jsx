@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import styled from 'styled-components';
 import { createPicture } from '../graphql/mutations';
 import Amplify, { API, graphqlOperation, Storage } from 'aws-amplify';
@@ -8,6 +8,8 @@ import { ThemeProvider } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FiUpload } from 'react-icons/fi';
+import { ThemeContext } from '../App';
+import { lightTheme } from '../theme';
 
 Amplify.configure(awsconfig);
 
@@ -33,7 +35,8 @@ const UploadFormWrap = styled.div`
   justify-content: center;
   align-items: center;
   padding: 30px;
-
+  background: ${(props) => props.themeProps.itemBackground};
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
   @media screen and (max-width: 950px) {
     flex-direction: column;
     width: 55%;
@@ -110,23 +113,6 @@ const FileUploadContainer = styled.div`
   align-items: center;
 `;
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#7038d4',
-      main: '#7038d4',
-      dark: '#002884',
-      contrastText: '#fff',
-    },
-    secondary: {
-      light: '#ff7961',
-      main: '#f44336',
-      dark: '#ba000d',
-      contrastText: '#000',
-    },
-  },
-});
-
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -143,9 +129,36 @@ const UploadPicture = () => {
   const [location, setLocation] = useState('');
   const [instagram, setInstagram] = useState('');
   const [description, setDescription] = useState('');
+  let materialTheme;
 
+  const { theme } = useContext(ThemeContext);
   const classes = useStyles();
   const hiddenFileInput = useRef(null);
+
+  if (theme === lightTheme) {
+    materialTheme = createMuiTheme({
+      palette: {
+        primary: {
+          light: '#7038d4',
+          main: '#7038d4',
+          dark: '#002884',
+          contrastText: '#fff',
+        },
+      },
+    });
+  } else {
+    materialTheme = createMuiTheme({
+      palette: {
+        primary: {
+          light: '#fcfcfc',
+          main: '#fcfcfc',
+          dark: '#002884',
+          contrastText: '#fff',
+        },
+        type: 'dark',
+      },
+    });
+  }
 
   const onSubmit = async (e) => {
     let key;
@@ -223,9 +236,9 @@ const UploadPicture = () => {
   const citys = ['도쿄', '오사카', '삿포로'];
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={materialTheme}>
       <UploadContainer>
-        <UploadFormWrap>
+        <UploadFormWrap themeProps={theme}>
           <FileUploadContainer>
             {attachment ? (
               <ContentsWrap>
@@ -276,6 +289,9 @@ const UploadPicture = () => {
               label="위치"
               variant="outlined"
               color="primary"
+              InputProps={{
+                className: classes.input,
+              }}
               maxLength={20}
             />
             <TextField

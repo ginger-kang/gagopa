@@ -5,6 +5,7 @@ import awsconfig from './aws-exports';
 import Router from './Router';
 import { useDarkMode } from './hooks/useDarkMode';
 import { lightTheme, darkTheme } from './theme';
+import Navigation from './components/Navigation';
 
 Amplify.configure(awsconfig);
 
@@ -20,6 +21,7 @@ const App = () => {
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <React.Fragment>
         <GlobalStyle theme={theme === lightTheme ? lightTheme : darkTheme} />
+        <Navigation />
         <Router />
       </React.Fragment>
     </ThemeContext.Provider>
