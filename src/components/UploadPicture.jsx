@@ -113,8 +113,8 @@ const FileUploadContainer = styled.div`
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#672dce',
-      main: '#672dce',
+      light: '#7038d4',
+      main: '#7038d4',
       dark: '#002884',
       contrastText: '#fff',
     },

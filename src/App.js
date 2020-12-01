@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import { GlobalStyle } from './global-styles';
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
 import Router from './Router';
+import { useDarkMode } from './hooks/useDarkMode';
+import { lightTheme, darkTheme } from './theme';
+
 Amplify.configure(awsconfig);
 
+export const ThemeContext = createContext({
+  theme: darkTheme,
+  setTheme: () => {},
+});
+
 const App = () => {
+  const [theme, toggleTheme] = useDarkMode();
+
   return (
-    <React.Fragment>
-      <GlobalStyle />
-      <Router />
-    </React.Fragment>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <React.Fragment>
+        <GlobalStyle theme={theme === lightTheme ? lightTheme : darkTheme} />
+        <Router />
+      </React.Fragment>
+    </ThemeContext.Provider>
   );
 };
 
