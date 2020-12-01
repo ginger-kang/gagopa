@@ -7,6 +7,7 @@ import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { FiUpload } from 'react-icons/fi';
 
 Amplify.configure(awsconfig);
 
@@ -16,26 +17,34 @@ const UploadContainer = styled.div`
   top: 0;
   width: 100vw;
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-`;
-
-const UploadFormWrap = styled.div`
-  width: 55%;
-  min-width: 600px;
-  border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  margin-top: 80px;
-  margin-bottom: 50px;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
+const UploadFormWrap = styled.div`
+  width: 70%;
+  min-width: 1000px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 120px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+
+  @media screen and (max-width: 950px) {
+    flex-direction: column;
+    width: 55%;
+    min-width: 600px;
+  }
+`;
+
 const UploadForm = styled.form`
-  min-width: 550px;
-  width: 60%;
+  min-width: 500px;
+  width: 45%;
+  height: 450px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -69,14 +78,14 @@ const FileWrap = styled.div`
 
 const SubmitButton = styled.input`
   width: 400px;
-  height: 50px;
+  height: 53px;
   border-radius: 8px;
   border: none;
   color: white;
   background: #672dce;
   font-size: 0.8rem;
   cursor: pointer;
-  margin-top: 30px;
+  margin-top: 10px;
 `;
 
 const ContentsWrap = styled.div`
@@ -88,7 +97,17 @@ const ContentsWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+`;
+
+const FileUploadContainer = styled.div`
+  width: 45%;
+  min-width: 500px;
+  height: 450px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const theme = createMuiTheme({
@@ -207,12 +226,7 @@ const UploadPicture = () => {
     <ThemeProvider theme={theme}>
       <UploadContainer>
         <UploadFormWrap>
-          <UploadForm
-            className={classes.root}
-            noValidate
-            autoComplete="off"
-            onSubmit={(e) => onSubmit(e)}
-          >
+          <FileUploadContainer>
             {attachment ? (
               <ContentsWrap>
                 <Preview>
@@ -221,9 +235,7 @@ const UploadPicture = () => {
               </ContentsWrap>
             ) : (
               <FileWrap onClick={handleFileClick} themeProps={theme}>
-                <p style={{ marginTop: '20px' }}>
-                  여기서 사진을 업로드하고 미리보기로 보실 수 있습니다.
-                </p>
+                <FiUpload size={35} />
               </FileWrap>
             )}
             <input
@@ -234,6 +246,13 @@ const UploadPicture = () => {
               onChange={(e) => onFileChange(e)}
               style={{ display: 'none' }}
             />
+          </FileUploadContainer>
+          <UploadForm
+            className={classes.root}
+            noValidate
+            autoComplete="off"
+            onSubmit={(e) => onSubmit(e)}
+          >
             <Autocomplete
               options={citys}
               getOptionLabel={(option) => option}
