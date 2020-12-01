@@ -5,6 +5,7 @@ import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import { listPictures } from '../graphql/queries';
 import awsconfig from '../aws-exports';
 import HomeCityList from '../components/HomeCityList';
+import DarkModeToggle from '../components/DarkModeToggle';
 Amplify.configure(awsconfig);
 
 const HomeContainer = styled.main`
@@ -61,6 +62,7 @@ const Home = () => {
       <HomeCityListContainer>
         <HomeCityList />
       </HomeCityListContainer>
+      <DarkModeToggle />
     </HomeContainer>
   );
 };
