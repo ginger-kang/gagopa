@@ -24,7 +24,6 @@ const DarkModeToggle = () => {
             justifyContent: 'center',
             alignItems: 'center',
             height: '100%',
-            paddingLeft: '8px',
             fontSize: 16,
           }}
         >
@@ -40,6 +39,7 @@ const DarkModeToggle = () => {
             justifyContent: 'center',
             alignItems: 'center',
             height: '100%',
+            paddingLeft: '8px',
             fontSize: 16,
           }}
         >

@@ -289,9 +289,6 @@ const UploadPicture = () => {
               label="위치"
               variant="outlined"
               color="primary"
-              InputProps={{
-                className: classes.input,
-              }}
               maxLength={20}
             />
             <TextField
