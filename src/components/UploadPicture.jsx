@@ -1,8 +1,7 @@
 import React, { useState, useRef, useContext } from 'react';
 import styled from 'styled-components';
 import { createPicture } from '../graphql/mutations';
-import Amplify, { API, graphqlOperation, Storage } from 'aws-amplify';
-import awsconfig from '../aws-exports';
+import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
@@ -10,8 +9,6 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FiUpload } from 'react-icons/fi';
 import { ThemeContext } from '../App';
 import { lightTheme } from '../theme';
-
-Amplify.configure(awsconfig);
 
 const UploadContainer = styled.div`
   position: absolute;
@@ -236,87 +233,89 @@ const UploadPicture = () => {
   const citys = ['도쿄', '오사카', '삿포로'];
 
   return (
-    <ThemeProvider theme={materialTheme}>
-      <UploadContainer>
-        <UploadFormWrap themeProps={theme}>
-          <FileUploadContainer>
-            {attachment ? (
-              <ContentsWrap>
-                <Preview>
-                  <img src={attachment} alt="file" />
-                </Preview>
-              </ContentsWrap>
-            ) : (
-              <FileWrap onClick={handleFileClick} themeProps={theme}>
-                <FiUpload size={35} />
-              </FileWrap>
-            )}
-            <input
-              type="file"
-              id="file-input"
-              accept="image/*, video/*"
-              ref={hiddenFileInput}
-              onChange={(e) => onFileChange(e)}
-              style={{ display: 'none' }}
-            />
-          </FileUploadContainer>
-          <UploadForm
-            className={classes.root}
-            noValidate
-            autoComplete="off"
-            onSubmit={(e) => onSubmit(e)}
-          >
-            <Autocomplete
-              options={citys}
-              getOptionLabel={(option) => option}
-              style={{ width: 400 }}
-              name="city"
-              onChange={(event, value) => onAutoCompleteChange(event, value)}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  value={cityName}
-                  label="도시"
-                  variant="outlined"
-                />
+    <>
+      <ThemeProvider theme={materialTheme}>
+        <UploadContainer>
+          <UploadFormWrap themeProps={theme}>
+            <FileUploadContainer>
+              {attachment ? (
+                <ContentsWrap>
+                  <Preview>
+                    <img src={attachment} alt="file" />
+                  </Preview>
+                </ContentsWrap>
+              ) : (
+                <FileWrap onClick={handleFileClick} themeProps={theme}>
+                  <FiUpload size={35} />
+                </FileWrap>
               )}
-            />
-            <TextField
-              name="location"
-              value={location}
-              onChange={onChange}
-              type="text"
-              label="위치"
-              variant="outlined"
-              color="primary"
-              maxLength={20}
-            />
-            <TextField
-              name="instagram"
-              value={instagram}
-              onChange={onChange}
-              type="text"
-              label="인스타그램"
-              variant="outlined"
-              color="primary"
-              maxLength={10}
-            />
-            <TextField
-              name="description"
-              value={description}
-              onChange={onChange}
-              label="추가설명"
-              variant="outlined"
-              color="primary"
-              type="text"
-              maxLength={10}
-            />
+              <input
+                type="file"
+                id="file-input"
+                accept="image/*, video/*"
+                ref={hiddenFileInput}
+                onChange={(e) => onFileChange(e)}
+                style={{ display: 'none' }}
+              />
+            </FileUploadContainer>
+            <UploadForm
+              className={classes.root}
+              noValidate
+              autoComplete="off"
+              onSubmit={(e) => onSubmit(e)}
+            >
+              <Autocomplete
+                options={citys}
+                getOptionLabel={(option) => option}
+                style={{ width: 400 }}
+                name="city"
+                onChange={(event, value) => onAutoCompleteChange(event, value)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    value={cityName}
+                    label="도시"
+                    variant="outlined"
+                  />
+                )}
+              />
+              <TextField
+                name="location"
+                value={location}
+                onChange={onChange}
+                type="text"
+                label="위치"
+                variant="outlined"
+                color="primary"
+                maxLength={20}
+              />
+              <TextField
+                name="instagram"
+                value={instagram}
+                onChange={onChange}
+                type="text"
+                label="인스타그램"
+                variant="outlined"
+                color="primary"
+                maxLength={10}
+              />
+              <TextField
+                name="description"
+                value={description}
+                onChange={onChange}
+                label="추가설명"
+                variant="outlined"
+                color="primary"
+                type="text"
+                maxLength={10}
+              />
 
-            <SubmitButton type="submit" value="사진 업로드"></SubmitButton>
-          </UploadForm>
-        </UploadFormWrap>
-      </UploadContainer>
-    </ThemeProvider>
+              <SubmitButton type="submit" value="사진 업로드"></SubmitButton>
+            </UploadForm>
+          </UploadFormWrap>
+        </UploadContainer>
+      </ThemeProvider>
+    </>
   );
 };
 
