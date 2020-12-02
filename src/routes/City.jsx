@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listPictures } from '../graphql/queries';
-import introImage from '../static/assets/example.jpeg';
+import CityIntro from '../components/CityIntro';
 
 const CityContainer = styled.div`
   margin-top: 60px;
@@ -10,45 +10,6 @@ const CityContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const CityIntroContainer = styled.div`
-  width: 100%;
-  height: 220px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const CityIntroWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content:
-  align-items: center;
-`;
-
-const IntroPictureWrap = styled.div`
-  width: 150px;
-  height: 150px;
-
-  & img {
-    border-radius: 100%;
-  }
-`;
-
-const IntroContentWrap = styled.div`
-  padding: 30px;
-`;
-
-const IntroSubhead = styled.h3`
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 10px 0 10px 0;
-`;
-
-const IntroContent = styled.p`
-  font-size: 14px;
-  color: #777777;
 `;
 
 const City = ({ match }) => {
@@ -74,17 +35,7 @@ const City = ({ match }) => {
   };
   return (
     <CityContainer>
-      <CityIntroContainer>
-        <CityIntroWrap>
-          <IntroPictureWrap>
-            <img src={introImage} alt="city" />
-          </IntroPictureWrap>
-          <IntroContentWrap>
-            <IntroSubhead>도쿄</IntroSubhead>
-            <IntroContent>일본의 수도이자 중심</IntroContent>
-          </IntroContentWrap>
-        </CityIntroWrap>
-      </CityIntroContainer>
+      <CityIntro cityName={cityName} />
     </CityContainer>
   );
 };
