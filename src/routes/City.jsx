@@ -8,12 +8,25 @@ const CityContainer = styled.div`
   margin-top: 60px;
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
+const CityGridWrap = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 8px;
+  grid-row-gap: 8px;
+`;
+
+const CityPost = styled.div`
+  width: 21vw;
+  height: 21vw;
+`;
+
 const City = ({ match }) => {
-  const [cityObjects, setCityObjects] = useState(null);
+  const [cityObjects, setCityObjects] = useState([]);
   const cityName = match.params.cityName;
 
   useEffect(() => {
@@ -27,8 +40,8 @@ const City = ({ match }) => {
           filter: { city: { beginsWith: '도쿄' } },
         }),
       );
-      console.log(data.data.listPictures.items);
-      setCityObjects(data.data.listPictures.items);
+      const pictures = await data.data.listPictures.items;
+      setCityObjects(pictures);
     } catch (error) {
       console.log(error);
     }
@@ -36,6 +49,14 @@ const City = ({ match }) => {
   return (
     <CityContainer>
       <CityIntro cityName={cityName} />
+      <CityGridWrap>
+        {cityObjects.map((post) => (
+          <CityPost>
+            <img src={post.attachment.uri} alt="attachment" />
+            <span>{post.instagram}</span>
+          </CityPost>
+        ))}
+      </CityGridWrap>
     </CityContainer>
   );
 };

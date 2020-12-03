@@ -13,7 +13,9 @@
     },
     "categories": {
       "auth": {
-        "gagopa6c94aac1": {}
+        "gagopa6c94aac1": {
+          "hostedUIProviderCreds": "[]"
+        }
       }
     }
   }

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import bgImage from '../static/assets/bgImage.png';
-import awsconfig from '../aws-exports';
 import HomeCityList from '../components/HomeCityList';
 
 const HomeContainer = styled.main`

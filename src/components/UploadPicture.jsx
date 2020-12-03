@@ -178,6 +178,7 @@ const UploadPicture = () => {
   };
 
   const addPicture = async (key) => {
+    console.log(key);
     const inputData = {
       city: cityName,
       location: location,
