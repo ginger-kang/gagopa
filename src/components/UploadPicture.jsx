@@ -170,7 +170,6 @@ const UploadPicture = () => {
   const onSubmit = async (e) => {
     let key;
     e.preventDefault();
-    //console.log(cityName, location, instagram);
     if (attachment) {
       Storage.put(fileName, attachment, {
         contentType: attachment.type,
@@ -188,7 +187,6 @@ const UploadPicture = () => {
   };
 
   const addPicture = async (key) => {
-    //console.log(key);
     const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
     const inputData = {
       city: cityName,
@@ -228,10 +226,8 @@ const UploadPicture = () => {
     const {
       target: { files },
     } = event;
-    console.log(files);
     const file = files[0];
     setFileName(files[0].name);
-    console.log(fileName);
     const reader = new FileReader();
     reader.onloadend = (finishedEvent) => {
       const {

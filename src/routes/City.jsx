@@ -18,6 +18,7 @@ const CityGridWrap = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 8px;
   grid-row-gap: 8px;
+  margin-bottom: 60px;
 `;
 
 const CityPost = styled.div`
@@ -41,7 +42,6 @@ const City = ({ match }) => {
         }),
       );
       const pictures = await data.data.listPictures.items;
-      // console.log(pictures);
       setCityObjects(pictures);
     } catch (error) {
       console.log(error);
