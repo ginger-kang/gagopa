@@ -41,6 +41,7 @@ const City = ({ match }) => {
         }),
       );
       const pictures = await data.data.listPictures.items;
+      // console.log(pictures);
       setCityObjects(pictures);
     } catch (error) {
       console.log(error);
@@ -51,9 +52,8 @@ const City = ({ match }) => {
       <CityIntro cityName={cityName} />
       <CityGridWrap>
         {cityObjects.map((post) => (
-          <CityPost>
+          <CityPost key={post.id}>
             <img src={post.attachment.uri} alt="attachment" />
-            <span>{post.instagram}</span>
           </CityPost>
         ))}
       </CityGridWrap>

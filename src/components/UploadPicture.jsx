@@ -1,5 +1,6 @@
 import React, { useState, useRef, useContext } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { createPicture } from '../graphql/mutations';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
@@ -9,6 +10,13 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FiUpload } from 'react-icons/fi';
 import { ThemeContext } from '../App';
 import { lightTheme } from '../theme';
+
+import config from '../aws-exports';
+
+const {
+  aws_user_files_s3_bucket_region: region,
+  aws_user_files_s3_bucket: bucket,
+} = config;
 
 const UploadContainer = styled.div`
   position: absolute;
@@ -121,7 +129,8 @@ const useStyles = makeStyles((theme) => ({
 
 const UploadPicture = () => {
   const [fileName, setFileName] = useState('');
-  const [attachment, setAttachment] = useState('');
+  const [attachment, setAttachment] = useState(null);
+  const [filePreview, setFilePreview] = useState(null);
   const [cityName, setCityName] = useState('');
   const [location, setLocation] = useState('');
   const [instagram, setInstagram] = useState('');
@@ -131,6 +140,7 @@ const UploadPicture = () => {
   const { theme } = useContext(ThemeContext);
   const classes = useStyles();
   const hiddenFileInput = useRef(null);
+  const history = useHistory();
 
   if (theme === lightTheme) {
     materialTheme = createMuiTheme({
@@ -160,7 +170,7 @@ const UploadPicture = () => {
   const onSubmit = async (e) => {
     let key;
     e.preventDefault();
-    console.log(cityName, location, instagram);
+    //console.log(cityName, location, instagram);
     if (attachment) {
       Storage.put(fileName, attachment, {
         contentType: attachment.type,
@@ -178,19 +188,23 @@ const UploadPicture = () => {
   };
 
   const addPicture = async (key) => {
-    console.log(key);
+    //console.log(key);
+    const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
     const inputData = {
       city: cityName,
       location: location,
       instagram: instagram,
       description: description,
       attachment: {
-        bucket: 'mytravel-picture',
+        bucket: 'mytravel-picture13646-dev',
         key: `public/${key}`,
-        uri: `s3://mytravel-picture13646-dev/public/${key}`,
+        uri: url,
       },
     };
-    await API.graphql(graphqlOperation(createPicture, { input: inputData }));
+    await API.graphql(graphqlOperation(createPicture, { input: inputData }))
+      .then(() => alert('사진을 성공적으로 업로드했습니다 🙆'))
+      .then(() => history.push('/'))
+      .catch((error) => alert(error.message));
   };
 
   const onChange = (event) => {
@@ -214,6 +228,7 @@ const UploadPicture = () => {
     const {
       target: { files },
     } = event;
+    console.log(files);
     const file = files[0];
     setFileName(files[0].name);
     console.log(fileName);
@@ -222,7 +237,8 @@ const UploadPicture = () => {
       const {
         currentTarget: { result },
       } = finishedEvent;
-      setAttachment(result);
+      setFilePreview(result);
+      setAttachment(file);
     };
     reader.readAsDataURL(file);
   };
@@ -239,10 +255,10 @@ const UploadPicture = () => {
         <UploadContainer>
           <UploadFormWrap themeProps={theme}>
             <FileUploadContainer>
-              {attachment ? (
+              {filePreview ? (
                 <ContentsWrap>
                   <Preview>
-                    <img src={attachment} alt="file" />
+                    <img src={filePreview} alt="file" />
                   </Preview>
                 </ContentsWrap>
               ) : (
@@ -253,7 +269,7 @@ const UploadPicture = () => {
               <input
                 type="file"
                 id="file-input"
-                accept="image/*, video/*"
+                accept="image/*"
                 ref={hiddenFileInput}
                 onChange={(e) => onFileChange(e)}
                 style={{ display: 'none' }}
