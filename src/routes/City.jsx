@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listPictures } from '../graphql/queries';
 import CityIntro from '../components/CityIntro';
@@ -24,6 +25,20 @@ const CityGridWrap = styled.div`
 const CityPost = styled.div`
   width: 21vw;
   height: 21vw;
+  cursor: pointer;
+  position: relative;
+
+  & div {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.08);
+    }
+  }
 `;
 
 const City = ({ match }) => {
@@ -54,6 +69,9 @@ const City = ({ match }) => {
         {cityObjects.map((post) => (
           <CityPost key={post.id}>
             <img src={post.attachment.uri} alt="attachment" />
+            <Link to={`/city/${cityName}/${post.id}`}>
+              <div />
+            </Link>
           </CityPost>
         ))}
       </CityGridWrap>
