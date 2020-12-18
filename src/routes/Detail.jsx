@@ -3,8 +3,6 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { getPicture } from '../graphql/queries';
 
 const Detail = ({ match }) => {
-  console.log(match.params.cityName);
-  console.log(match.params.id);
   const [pictureObj, setPictureObj] = useState(null);
 
   useEffect(() => {
@@ -21,7 +19,7 @@ const Detail = ({ match }) => {
       const picture = data.data.getPicture;
       setPictureObj(picture);
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
   return <div>detail</div>;

@@ -61,7 +61,6 @@ const HomeCityList = () => {
       );
       const menus = await data.data.listPictures.items;
       setMenuObj(menus);
-      console.log(menus);
     } catch (error) {
       console.log(error);
     }
