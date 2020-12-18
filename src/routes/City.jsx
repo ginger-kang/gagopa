@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listPictures } from '../graphql/queries';
 import CityIntro from '../components/CityIntro';
+import { cityToKo } from '../utils/utils';
 
 const CityContainer = styled.div`
   margin-top: 60px;
@@ -53,7 +54,7 @@ const City = ({ match }) => {
     try {
       const data = await API.graphql(
         graphqlOperation(listPictures, {
-          filter: { city: { beginsWith: '도쿄' } },
+          filter: { city: { beginsWith: cityToKo[cityName] } },
         }),
       );
       const pictures = await data.data.listPictures.items;
