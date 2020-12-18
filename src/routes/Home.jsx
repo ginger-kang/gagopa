@@ -23,7 +23,6 @@ const ImageWrap = styled.div`
 const HomeCityListContainer = styled.div`
   width: 100%;
   height: 250px;
-  background: rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
