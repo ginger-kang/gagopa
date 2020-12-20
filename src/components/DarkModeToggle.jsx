@@ -17,6 +17,9 @@ const DarkModeToggle = () => {
       onChange={toggleTheme}
       onColor="#464646"
       offColor="#2388de"
+      handleDiameter={20}
+      width={46}
+      height={22}
       uncheckedIcon={
         <div
           style={{
@@ -24,7 +27,9 @@ const DarkModeToggle = () => {
             justifyContent: 'center',
             alignItems: 'center',
             height: '100%',
-            fontSize: 16,
+            fontSize: 14,
+            paddingLeft: '2px',
+            paddingTop: '2px',
           }}
         >
           <span role="img" aria-label="lightSun">
@@ -39,12 +44,13 @@ const DarkModeToggle = () => {
             justifyContent: 'center',
             alignItems: 'center',
             height: '100%',
-            paddingLeft: '8px',
-            fontSize: 16,
+            paddingTop: '2px',
+            paddingLeft: '6px',
+            fontSize: 14,
           }}
         >
           <span role="img" aria-label="darkMoon">
-            🌚
+            🌝
           </span>
         </div>
       }

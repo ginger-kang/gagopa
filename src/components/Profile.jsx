@@ -29,8 +29,8 @@ const ProfileMenuDropDown = styled.div`
     height: 100%;
   }
   & li {
-    height: 40px;
-    padding: 0 13px 0 13px;
+    height: 42px;
+    padding: 0 18px 0 18px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
