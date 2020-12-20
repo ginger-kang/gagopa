@@ -63,6 +63,7 @@ const City = ({ match }) => {
       console.log(error);
     }
   };
+
   return (
     <CityContainer>
       <CityIntro cityName={cityName} />

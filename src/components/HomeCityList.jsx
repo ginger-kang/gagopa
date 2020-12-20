@@ -7,8 +7,6 @@ import { cityToKo } from '../utils/utils';
 import { ThemeContext } from '../App';
 
 const HomeCityListWrap = styled.div`
-  width: 100%;
-  height: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 8px;

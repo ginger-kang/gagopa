@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import bgImage from '../static/assets/bgImage.png';
+import mainImage from '../static/assets/mainImage.jpg';
 import HomeCityList from '../components/HomeCityList';
 
 const HomeContainer = styled.main`
@@ -22,11 +22,10 @@ const ImageWrap = styled.div`
 
 const HomeCityListContainer = styled.div`
   width: 100%;
-  height: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px 70px 30px 70px;
+  padding: 30px 50px 30px 50px;
 `;
 
 const Home = () => {
@@ -34,7 +33,7 @@ const Home = () => {
     <HomeContainer>
       <BackgroundContainer>
         <ImageWrap>
-          <img src={bgImage} alt="bgimage" />
+          <img src={mainImage} alt="main" />
         </ImageWrap>
       </BackgroundContainer>
       <HomeCityListContainer>
