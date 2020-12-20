@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import UploadPicture from './components/UploadPicture';
+import UploadPicture from './routes/UploadPicture';
 import City from './routes/City';
 import Home from './routes/Home';
 import Detail from './routes/Detail';
