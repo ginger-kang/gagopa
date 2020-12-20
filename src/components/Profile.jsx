@@ -31,7 +31,9 @@ const Profile = () => {
   return (
     <ProfileWrap onClick={onProfileClick}>
       <FaUserCircle size={33} />
-      {profileMenuFlag && <ProfileMenuDropDown theme={theme} />}
+      {profileMenuFlag && (
+        <ProfileMenuDropDown theme={theme}></ProfileMenuDropDown>
+      )}
     </ProfileWrap>
   );
 };

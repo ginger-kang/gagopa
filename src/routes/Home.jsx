@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import mainImage from '../static/assets/mainImage.jpg';
 import HomeCityList from '../components/HomeCityList';
+import Navigation from '../components/Navigation';
 
 const HomeContainer = styled.main`
   width: 100%;
@@ -30,16 +31,19 @@ const HomeCityListContainer = styled.div`
 
 const Home = () => {
   return (
-    <HomeContainer>
-      <BackgroundContainer>
-        <ImageWrap>
-          <img src={mainImage} alt="main" />
-        </ImageWrap>
-      </BackgroundContainer>
-      <HomeCityListContainer>
-        <HomeCityList />
-      </HomeCityListContainer>
-    </HomeContainer>
+    <React.Fragment>
+      <Navigation />
+      <HomeContainer>
+        <BackgroundContainer>
+          <ImageWrap>
+            <img src={mainImage} alt="main" />
+          </ImageWrap>
+        </BackgroundContainer>
+        <HomeCityListContainer>
+          <HomeCityList />
+        </HomeCityListContainer>
+      </HomeContainer>
+    </React.Fragment>
   );
 };
 
