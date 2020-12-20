@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import introImage from '../static/assets/example.jpeg';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listPictures } from '../graphql/queries';
+import { cityToKo } from '../utils/utils';
 
 const CityIntroContainer = styled.div`
   width: 100%;
@@ -20,11 +20,11 @@ const CityIntroWrap = styled.div`
 `;
 
 const IntroPictureWrap = styled.div`
-  width: 130px;
-  height: 130px;
-
-  & img {
+  & div {
+    width: 110px;
+    height: 110px;
     border-radius: 100%;
+    background: ${(props) => props.city.description};
   }
 `;
 
@@ -44,7 +44,7 @@ const IntroContent = styled.p`
 `;
 
 const CityIntro = ({ cityName }) => {
-  const [cityInfo, setCityInfo] = useState(null);
+  const [cityInfo, setCityInfo] = useState();
 
   useEffect(() => {
     fetchPictures();
@@ -60,8 +60,7 @@ const CityIntro = ({ cityName }) => {
           },
         }),
       );
-      const city = await data.data.listPictures.items;
-      console.log(city);
+      const city = await data.data.listPictures.items[0];
       setCityInfo(city);
     } catch (error) {
       console.log(error);
@@ -71,15 +70,19 @@ const CityIntro = ({ cityName }) => {
   return (
     <CityIntroContainer>
       <CityIntroWrap>
-        <IntroPictureWrap>
-          <img src={introImage} alt="city" />
-        </IntroPictureWrap>
-        <IntroContentWrap>
-          <IntroSubhead>
-            <span>{cityInfo[0].city}</span>
-          </IntroSubhead>
-          <IntroContent>#일본 #감성</IntroContent>
-        </IntroContentWrap>
+        {cityInfo && (
+          <>
+            <IntroPictureWrap city={cityInfo}>
+              <div />
+            </IntroPictureWrap>
+            <IntroContentWrap>
+              <IntroSubhead>
+                <span>{cityToKo[cityInfo.city]}</span>
+              </IntroSubhead>
+              <IntroContent>#일본</IntroContent>
+            </IntroContentWrap>
+          </>
+        )}
       </CityIntroWrap>
     </CityIntroContainer>
   );

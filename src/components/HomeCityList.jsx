@@ -68,8 +68,8 @@ const HomeCityList = () => {
     <HomeCityListWrap>
       {menuObj &&
         menuObj.map((menu) => (
-          <Link to={`/city/${menu.city}`}>
-            <CityMenu key={menu.id} theme={theme}>
+          <Link to={`/city/${menu.city}`} key={menu.id}>
+            <CityMenu theme={theme}>
               <MenuThumbnail bgColor={menu.description} />
               <MenuContentWrap>
                 <span>{cityToKo[menu.city]}</span>
