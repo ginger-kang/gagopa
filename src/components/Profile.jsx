@@ -57,6 +57,9 @@ const Profile = () => {
       {profileMenuFlag && (
         <ProfileMenuDropDown theme={theme}>
           <ul>
+            <NavLink to="/login">
+              <li>로그인</li>
+            </NavLink>
             <NavLink to="/upload">
               <li>여행 사진 올리기</li>
             </NavLink>

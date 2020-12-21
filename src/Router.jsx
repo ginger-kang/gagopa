@@ -4,6 +4,7 @@ import UploadPicture from './routes/UploadPicture';
 import City from './routes/City';
 import Home from './routes/Home';
 import Detail from './routes/Detail';
+import Login from './routes/Login';
 
 const Router = () => {
   return (
@@ -14,6 +15,7 @@ const Router = () => {
           <Route path="/upload" exact component={UploadPicture} />
           <Route path="/city/:cityName" exact component={City} />
           <Route path="/city/:cityName/:id" exact component={Detail} />
+          <Route path="/login" exact component={Login} />
         </Switch>
       </BrowserRouter>
     </>
