@@ -59,8 +59,11 @@ const Profile = () => {
       {isActive && (
         <ProfileMenuDropDown theme={theme}>
           <ul>
-            <NavLink to="/login">
+            <NavLink to="/signin">
               <li>로그인</li>
+            </NavLink>
+            <NavLink to="/signup">
+              <li>회원가입</li>
             </NavLink>
             <NavLink to="/upload">
               <li>여행 사진 올리기</li>
