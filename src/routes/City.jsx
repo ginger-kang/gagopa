@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
@@ -46,11 +46,7 @@ const City = ({ match }) => {
   const [cityObjects, setCityObjects] = useState([]);
   const cityName = match.params.cityName;
 
-  useEffect(() => {
-    fetchPictures();
-  }, []);
-
-  const fetchPictures = async () => {
+  const fetchPictures = useCallback(async () => {
     try {
       const data = await API.graphql(
         graphqlOperation(listPictures, {
@@ -62,7 +58,11 @@ const City = ({ match }) => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [cityName]);
+
+  useEffect(() => {
+    fetchPictures();
+  }, [fetchPictures]);
 
   return (
     <CityContainer>

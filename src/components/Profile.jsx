@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
 import { ThemeContext } from '../App';
 import { FaUserCircle } from 'react-icons/fa';

@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getPicture } from '../graphql/queries';
 
 const Detail = ({ match }) => {
   const [pictureObj, setPictureObj] = useState(null);
+  const pictureId = match.params.id;
 
-  useEffect(() => {
-    fetchPictures();
-  }, []);
-
-  const fetchPictures = async () => {
+  const fetchPictures = useCallback(async () => {
     try {
       const data = await API.graphql(
         graphqlOperation(getPicture, {
-          id: match.params.id,
+          id: pictureId,
         }),
       );
       const picture = data.data.getPicture;
@@ -21,7 +18,12 @@ const Detail = ({ match }) => {
     } catch (error) {
       alert(error);
     }
-  };
+  }, [pictureId]);
+
+  useEffect(() => {
+    fetchPictures();
+  }, [fetchPictures]);
+
   return <div>detail</div>;
 };
 
