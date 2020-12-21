@@ -1,8 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import styled from 'styled-components';
 import { ThemeContext } from '../App';
 import { FaUserCircle } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
+import { useDetectOutsideClick } from '../hooks/useDetectOutsideClick';
 
 const ProfileWrap = styled.div`
   position: relative;
@@ -46,15 +47,16 @@ const ProfileMenuDropDown = styled.div`
 `;
 
 const Profile = () => {
-  const [profileMenuFlag, setProfileMenuFlag] = useState(false);
   const { theme } = useContext(ThemeContext);
+  const dropdownRef = useRef(null);
+  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
 
-  const onProfileClick = () => setProfileMenuFlag((prev) => !prev);
+  const onClick = () => setIsActive(!isActive);
 
   return (
-    <ProfileWrap onClick={onProfileClick}>
+    <ProfileWrap onClick={onClick} ref={dropdownRef}>
       <FaUserCircle size={30} />
-      {profileMenuFlag && (
+      {isActive && (
         <ProfileMenuDropDown theme={theme}>
           <ul>
             <NavLink to="/login">
