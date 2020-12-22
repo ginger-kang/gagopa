@@ -4,6 +4,7 @@ import { IoIosClose } from 'react-icons/io';
 import { Auth } from 'aws-amplify';
 import { useHistory } from 'react-router-dom';
 import { ThemeContext } from '../../App';
+import { UserContext } from '../../App';
 
 const SignInContainer = styled.div`
   width: 100vw;
@@ -103,6 +104,7 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
   const history = useHistory();
   const { theme } = useContext(ThemeContext);
+  const { refreshUser } = useContext(UserContext);
 
   const onChange = (event) => {
     const {
@@ -117,7 +119,9 @@ const SignIn = () => {
 
   const signIn = async () => {
     try {
-      await Auth.signIn(username, password).then(history.push('/'));
+      await Auth.signIn(username, password)
+        .then(history.push('/'))
+        .then(() => refreshUser(true));
     } catch (error) {
       console.log('error signing in', error);
     }

@@ -30,9 +30,19 @@ const App = () => {
     }
   }, []);
 
+  const refreshUser = async (sign) => {
+    if (sign) {
+      const user = await Auth.currentAuthenticatedUser();
+      console.log(user);
+      setUserObj(user);
+    } else {
+      setUserObj(null);
+    }
+  };
+
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <UserContext.Provider value={userObj}>
+      <UserContext.Provider value={{ userObj, refreshUser }}>
         <React.Fragment>
           <GlobalStyle theme={theme === lightTheme ? lightTheme : darkTheme} />
           {init && <Router />}

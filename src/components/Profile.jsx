@@ -4,7 +4,7 @@ import { ThemeContext, UserContext } from '../App';
 import { FaUserCircle, FaUser } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { useDetectOutsideClick } from '../hooks/useDetectOutsideClick';
-import { signOut } from '../routes/Auth/SignOut';
+import { Auth } from 'aws-amplify';
 
 const ProfileWrap = styled.div`
   position: relative;
@@ -36,6 +36,8 @@ const ProfileMenuDropDown = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    cursor: pointer;
+    font-size: 13px;
 
     &:hover {
       background: rgba(0, 0, 0, 0.05);
@@ -49,11 +51,22 @@ const ProfileMenuDropDown = styled.div`
 
 const Profile = () => {
   const { theme } = useContext(ThemeContext);
-  const userObj = useContext(UserContext);
+  const { userObj, refreshUser } = useContext(UserContext);
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
 
   const onClick = () => setIsActive(!isActive);
+
+  const signOut = async () => {
+    const ok = window.confirm('로그아웃 하시겠습니까?');
+    if (ok) {
+      try {
+        await Auth.signOut().then(() => refreshUser(false));
+      } catch (error) {
+        console.log('error signing out: ', error);
+      }
+    }
+  };
 
   return (
     <ProfileWrap onClick={onClick} ref={dropdownRef}>
@@ -61,16 +74,20 @@ const Profile = () => {
       {isActive && (
         <ProfileMenuDropDown theme={theme}>
           <ul>
-            <NavLink to="/signin">
-              <li>로그인</li>
-            </NavLink>
-            <NavLink to="/signup">
-              <li>회원가입</li>
-            </NavLink>
+            {!userObj && (
+              <>
+                <NavLink to="/signin">
+                  <li>로그인</li>
+                </NavLink>
+                <NavLink to="/signup">
+                  <li>회원가입</li>
+                </NavLink>
+              </>
+            )}
             <NavLink to="/upload">
               <li>여행 사진 올리기</li>
             </NavLink>
-            <li onClick={signOut}>로그아웃</li>
+            {userObj && <li onClick={signOut}>로그아웃</li>}
           </ul>
         </ProfileMenuDropDown>
       )}
