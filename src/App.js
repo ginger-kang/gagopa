@@ -15,6 +15,7 @@ export const UserContext = createContext();
 const App = () => {
   const [theme, toggleTheme] = useDarkMode();
   const [userObj, setUserObj] = useState(null);
+  const [init, setInit] = useState(false);
 
   useEffect(() => {
     try {
@@ -22,6 +23,7 @@ const App = () => {
         if (user) {
           setUserObj(user);
         }
+        setInit(true);
       });
     } catch (error) {
       console.log(error);
@@ -33,7 +35,7 @@ const App = () => {
       <UserContext.Provider value={userObj}>
         <React.Fragment>
           <GlobalStyle theme={theme === lightTheme ? lightTheme : darkTheme} />
-          <Router />
+          {init && <Router />}
         </React.Fragment>
       </UserContext.Provider>
     </ThemeContext.Provider>
