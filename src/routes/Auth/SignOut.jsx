@@ -1,7 +1,9 @@
-import React from 'react';
+import { Auth } from 'aws-amplify';
 
-const SignOut = () => {
-  return <div>로그아웃</div>;
+export const signOut = async () => {
+  try {
+    await Auth.signOut();
+  } catch (error) {
+    console.log('error signing out: ', error);
+  }
 };
-
-export default SignOut;

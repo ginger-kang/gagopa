@@ -8,7 +8,7 @@ import SignIn from './routes/Auth/SignIn';
 import SignUp from './routes/Auth/SignUp';
 import Test from './components/test';
 
-const Router = () => {
+const Router = ({ userObj }) => {
   return (
     <>
       <BrowserRouter>

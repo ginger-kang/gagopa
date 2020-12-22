@@ -4,6 +4,7 @@ import { ThemeContext } from '../App';
 import { FaUserCircle } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { useDetectOutsideClick } from '../hooks/useDetectOutsideClick';
+import { signOut } from '../routes/Auth/SignOut';
 
 const ProfileWrap = styled.div`
   position: relative;
@@ -68,6 +69,7 @@ const Profile = () => {
             <NavLink to="/upload">
               <li>여행 사진 올리기</li>
             </NavLink>
+            <li onClick={signOut}>로그아웃</li>
           </ul>
         </ProfileMenuDropDown>
       )}
