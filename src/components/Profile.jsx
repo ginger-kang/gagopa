@@ -16,7 +16,6 @@ const ProfileWrap = styled.div`
 
 const ProfileMenuDropDown = styled.div`
   width: 230px;
-  height: 220px;
   position: absolute;
   left: -190px;
   top: 45px;
@@ -68,6 +67,8 @@ const Profile = () => {
     }
   };
 
+  const alertMessage = () => alert('로그인 먼저 해주세요!');
+
   return (
     <ProfileWrap onClick={onClick} ref={dropdownRef}>
       {userObj ? <FaUser size={25} /> : <FaUserCircle size={30} />}
@@ -84,9 +85,13 @@ const Profile = () => {
                 </NavLink>
               </>
             )}
-            <NavLink to="/upload">
-              <li>여행 사진 올리기</li>
-            </NavLink>
+            {userObj ? (
+              <NavLink to="/upload">
+                <li>여행 사진 올리기</li>
+              </NavLink>
+            ) : (
+              <li onClick={alertMessage}>여행 사진 올리기</li>
+            )}
             <NavLink to="/city/tokyo">
               <li>사진 둘러보기</li>
             </NavLink>
