@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
-import { ThemeContext } from '../App';
-import { FaUserCircle } from 'react-icons/fa';
+import { ThemeContext, UserContext } from '../App';
+import { FaUserCircle, FaUser } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { useDetectOutsideClick } from '../hooks/useDetectOutsideClick';
 import { signOut } from '../routes/Auth/SignOut';
@@ -49,6 +49,7 @@ const ProfileMenuDropDown = styled.div`
 
 const Profile = () => {
   const { theme } = useContext(ThemeContext);
+  const userObj = useContext(UserContext);
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
 
@@ -56,7 +57,7 @@ const Profile = () => {
 
   return (
     <ProfileWrap onClick={onClick} ref={dropdownRef}>
-      <FaUserCircle size={30} />
+      {userObj ? <FaUser size={25} /> : <FaUserCircle size={30} />}
       {isActive && (
         <ProfileMenuDropDown theme={theme}>
           <ul>

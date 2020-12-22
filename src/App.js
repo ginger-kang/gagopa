@@ -10,6 +10,8 @@ export const ThemeContext = createContext({
   setTheme: () => {},
 });
 
+export const UserContext = createContext();
+
 const App = () => {
   const [theme, toggleTheme] = useDarkMode();
   const [userObj, setUserObj] = useState(null);
@@ -18,7 +20,6 @@ const App = () => {
     try {
       Auth.currentUserInfo().then((user) => {
         if (user) {
-          console.log(user);
           setUserObj(user);
         }
       });
@@ -29,10 +30,12 @@ const App = () => {
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <React.Fragment>
-        <GlobalStyle theme={theme === lightTheme ? lightTheme : darkTheme} />
-        <Router userObj={userObj} />
-      </React.Fragment>
+      <UserContext.Provider value={userObj}>
+        <React.Fragment>
+          <GlobalStyle theme={theme === lightTheme ? lightTheme : darkTheme} />
+          <Router />
+        </React.Fragment>
+      </UserContext.Provider>
     </ThemeContext.Provider>
   );
 };

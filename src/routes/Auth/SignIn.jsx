@@ -117,10 +117,7 @@ const SignIn = () => {
 
   const signIn = async () => {
     try {
-      const user = await Auth.signIn(username, password).then(
-        history.push('/'),
-      );
-      console.log(user);
+      await Auth.signIn(username, password).then(history.push('/'));
     } catch (error) {
       console.log('error signing in', error);
     }
