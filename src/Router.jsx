@@ -6,6 +6,7 @@ import Home from './routes/Home';
 import Detail from './routes/Detail';
 import SignIn from './routes/Auth/SignIn';
 import SignUp from './routes/Auth/SignUp';
+import Test from './components/test';
 
 const Router = () => {
   return (
