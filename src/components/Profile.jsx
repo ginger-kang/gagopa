@@ -87,6 +87,9 @@ const Profile = () => {
             <NavLink to="/upload">
               <li>여행 사진 올리기</li>
             </NavLink>
+            <NavLink to="/city/tokyo">
+              <li>사진 둘러보기</li>
+            </NavLink>
             {userObj && <li onClick={signOut}>로그아웃</li>}
           </ul>
         </ProfileMenuDropDown>
