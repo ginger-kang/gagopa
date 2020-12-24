@@ -1,10 +1,19 @@
-type Picture @model {
+type Picture @model @key(name: "picturesByUserId", fields: ["authorId"]) {
   id: ID!
+  authorId: ID!
   city: String!
   location: String!
+  author: User @connection(fields: ["authorId"])
   instagram: String
   description: String
   attachment: S3Object
+}
+
+type User @model(subscriptions: null) @key(fields: ["userId"]) {
+  userId: ID!
+  pictures: [Picture]
+    @connection(keyName: "picturesByUserId", fields: ["userId"])
+  avatar: S3Object
 }
 
 type S3Object {
