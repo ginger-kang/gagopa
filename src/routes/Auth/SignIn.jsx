@@ -5,6 +5,9 @@ import { Auth } from 'aws-amplify';
 import { useHistory } from 'react-router-dom';
 import { ThemeContext } from '../../App';
 import { UserContext } from '../../App';
+import { CreateUser } from '../../components/CreateUser';
+import { getUser } from '../../graphql/queries';
+import { API, graphqlOperation } from 'aws-amplify';
 
 const SignInContainer = styled.div`
   width: 100vw;
@@ -119,11 +122,28 @@ const SignIn = () => {
 
   const signIn = async () => {
     try {
-      await Auth.signIn(username, password)
-        .then(history.push('/'))
-        .then(() => refreshUser(true));
+      await Auth.signIn(username, password).then(() => getCurrentUserInfo());
+      history.push('/');
+      refreshUser(true);
     } catch (error) {
       console.log('error signing in', error);
+    }
+  };
+
+  const getCurrentUserInfo = async () => {
+    const user = await Auth.currentAuthenticatedUser();
+    const hasUser = await API.graphql(
+      graphqlOperation(getUser, { userId: user.attributes.sub }),
+    );
+
+    if (!hasUser.data.getUser) {
+      createUser(user);
+    }
+  };
+
+  const createUser = (userObj) => {
+    if (userObj) {
+      CreateUser(userObj);
     }
   };
 

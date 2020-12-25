@@ -33,7 +33,6 @@ const App = () => {
   const refreshUser = async (sign) => {
     if (sign) {
       const user = await Auth.currentAuthenticatedUser();
-      console.log(user);
       setUserObj(user);
     } else {
       setUserObj(null);

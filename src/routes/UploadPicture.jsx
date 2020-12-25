@@ -8,7 +8,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FiUpload } from 'react-icons/fi';
-import { ThemeContext } from '../App';
+import { ThemeContext, UserContext } from '../App';
 import { lightTheme } from '../theme';
 
 import config from '../aws-exports';
@@ -138,10 +138,12 @@ const UploadPicture = () => {
   let materialTheme;
 
   const { theme } = useContext(ThemeContext);
+  const { userObj } = useContext(UserContext);
   const classes = useStyles();
   const hiddenFileInput = useRef(null);
   const history = useHistory();
 
+  console.log(userObj);
   if (theme === lightTheme) {
     materialTheme = createMuiTheme({
       palette: {
@@ -189,6 +191,7 @@ const UploadPicture = () => {
   const addPicture = async (key) => {
     const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
     const inputData = {
+      authorId: userObj.attributes.sub,
       city: cityName,
       location: location,
       instagram: instagram,

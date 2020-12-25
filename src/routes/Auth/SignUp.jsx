@@ -131,7 +131,8 @@ const SignUp = () => {
         attributes: {
           email,
         },
-      }).then(() => setConfirm(!confirm));
+      });
+      setConfirm((confirm) => !confirm);
     } catch (error) {
       console.log('error signing up:', error);
     }
