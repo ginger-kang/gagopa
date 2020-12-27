@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
-import { listPictures } from '../graphql/queries';
+import { listMenus } from '../graphql/queries';
 import { cityToKo } from '../utils/utils';
 
 const CityIntroContainer = styled.div`
@@ -24,7 +24,7 @@ const IntroPictureWrap = styled.div`
     width: 110px;
     height: 110px;
     border-radius: 100%;
-    background: ${(props) => props.city.description};
+    background: ${(props) => props.city.content};
   }
 `;
 
@@ -38,9 +38,9 @@ const IntroSubhead = styled.h3`
   margin: 0 0 10px 0;
 `;
 
-const IntroContent = styled.p`
+const IntroContent = styled.div`
   font-size: 14px;
-  color: #777777;
+  color: #888888;
 `;
 
 const CityIntro = ({ cityName }) => {
@@ -49,14 +49,14 @@ const CityIntro = ({ cityName }) => {
   const fetchPictures = useCallback(async () => {
     try {
       const data = await API.graphql(
-        graphqlOperation(listPictures, {
+        graphqlOperation(listMenus, {
           filter: {
-            location: { beginsWith: 'menu' },
             city: { beginsWith: cityName },
           },
         }),
       );
-      const city = await data.data.listPictures.items[0];
+      const city = await data.data.listMenus.items[0];
+      console.log(city);
       setCityInfo(city);
     } catch (error) {
       console.log(error);
@@ -79,7 +79,11 @@ const CityIntro = ({ cityName }) => {
               <IntroSubhead>
                 <span>{cityToKo[cityInfo.city]}</span>
               </IntroSubhead>
-              <IntroContent>#일본</IntroContent>
+              <IntroContent>
+                {cityInfo.tag.split(' ').map((tag, idx) => (
+                  <span key={idx}>#{tag} </span>
+                ))}
+              </IntroContent>
             </IntroContentWrap>
           </>
         )}

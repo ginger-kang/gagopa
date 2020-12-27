@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
-import { listPictures } from '../graphql/queries';
+import { listMenus } from '../graphql/queries';
 import { cityToKo } from '../utils/utils';
 import { ThemeContext } from '../App';
 
@@ -37,8 +37,9 @@ const MenuContentWrap = styled.div`
   height: 100%;
   padding: 15px;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   font-size: 14px;
 `;
 
@@ -52,12 +53,8 @@ const HomeCityList = () => {
 
   const fetchPictures = async () => {
     try {
-      const data = await API.graphql(
-        graphqlOperation(listPictures, {
-          filter: { location: { beginsWith: 'menu' } },
-        }),
-      );
-      const menus = await data.data.listPictures.items;
+      const data = await API.graphql(graphqlOperation(listMenus));
+      const menus = await data.data.listMenus.items;
       setMenuObj(menus);
     } catch (error) {
       console.log(error);
@@ -70,7 +67,7 @@ const HomeCityList = () => {
         menuObj.map((menu) => (
           <Link to={`/city/${menu.city}`} key={menu.id}>
             <CityMenu theme={theme}>
-              <MenuThumbnail bgColor={menu.description} />
+              <MenuThumbnail bgColor={menu.content} />
               <MenuContentWrap>
                 <span>{cityToKo[menu.city]}</span>
               </MenuContentWrap>
