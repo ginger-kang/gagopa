@@ -8,6 +8,7 @@ import { UserContext } from '../../App';
 import { CreateUser } from '../../components/CreateUser';
 import { getUser } from '../../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
+import googleLogo from '../../static/assets/googleLogo.svg';
 
 const SignInContainer = styled.div`
   width: 100vw;
@@ -76,12 +77,11 @@ const SignInMain = styled.div`
 
 const InputWrap = styled.div`
   width: 70%;
-  height: 70px;
 
   & input {
     padding: 15px;
     width: 100%;
-    margin-top: 3px;
+    margin-top: 18px;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.2);
 
@@ -98,8 +98,30 @@ const LoginButton = styled.button`
   background: #7038d4;
   color: white;
   font-size: 14px;
-  margin-top: 3px;
+  margin-top: 18px;
   border-radius: 5px;
+`;
+
+const GoogleLoginWrap = styled.div`
+  width: 70%;
+  margin-top: 18px;
+  & button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 47px;
+    border-radius: 8px;
+    border: 2px solid #1f72eb;
+    font-size: 0.8rem;
+    cursor: pointer;
+    background: white;
+    color: #363537;
+  }
+  & img {
+    width: 25px;
+    margin-right: 10px;
+  }
 `;
 
 const SignIn = () => {
@@ -180,6 +202,14 @@ const SignIn = () => {
             />
           </InputWrap>
           <LoginButton onClick={signIn}>로그인</LoginButton>
+          <GoogleLoginWrap>
+            <button
+              onClick={() => Auth.federatedSignIn({ provider: 'Google' })}
+            >
+              <img src={googleLogo} alt="google" />
+              구글 계정으로 로그인
+            </button>
+          </GoogleLoginWrap>
         </SignInMain>
       </SignInWrap>
     </SignInContainer>
