@@ -103,3 +103,57 @@ export const onDeletePicture = /* GraphQL */ `
     }
   }
 `;
+export const onCreateMenu = /* GraphQL */ `
+  subscription OnCreateMenu {
+    onCreateMenu {
+      id
+      city
+      tag
+      content
+      thumbnail {
+        bucket
+        region
+        key
+        uri
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateMenu = /* GraphQL */ `
+  subscription OnUpdateMenu {
+    onUpdateMenu {
+      id
+      city
+      tag
+      content
+      thumbnail {
+        bucket
+        region
+        key
+        uri
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteMenu = /* GraphQL */ `
+  subscription OnDeleteMenu {
+    onDeleteMenu {
+      id
+      city
+      tag
+      content
+      thumbnail {
+        bucket
+        region
+        key
+        uri
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;

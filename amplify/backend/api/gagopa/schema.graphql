@@ -16,6 +16,14 @@ type User @model(subscriptions: null) @key(fields: ["userId"]) {
   avatar: S3Object
 }
 
+type Menu @model {
+  id: ID!
+  city: String!
+  tag: String
+  content: String
+  thumbnail: S3Object
+}
+
 type S3Object {
   bucket: String!
   region: String

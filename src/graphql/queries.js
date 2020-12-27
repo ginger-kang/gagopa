@@ -128,3 +128,46 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
+export const getMenu = /* GraphQL */ `
+  query GetMenu($id: ID!) {
+    getMenu(id: $id) {
+      id
+      city
+      tag
+      content
+      thumbnail {
+        bucket
+        region
+        key
+        uri
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listMenus = /* GraphQL */ `
+  query ListMenus(
+    $filter: ModelMenuFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMenus(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        city
+        tag
+        content
+        thumbnail {
+          bucket
+          region
+          key
+          uri
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
