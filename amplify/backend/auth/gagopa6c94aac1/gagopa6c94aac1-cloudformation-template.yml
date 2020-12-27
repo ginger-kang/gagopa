@@ -107,12 +107,12 @@ Parameters:
   hostedUIProviderMeta:
     Type: String
               
-  oAuthMetadata:
-    Type: String
-              
   hostedUIProviderCreds:
     Type: String
-            
+              
+  oAuthMetadata:
+    Type: String
+                        
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
