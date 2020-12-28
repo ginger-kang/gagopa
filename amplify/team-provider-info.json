@@ -14,7 +14,7 @@
     "categories": {
       "auth": {
         "gagopa6c94aac1": {
-          "hostedUIProviderCreds": "[]"
+          "hostedUIProviderCreds": "[{\"ProviderName\":\"Google\",\"client_id\":\"18072006268-3ah03f7pv4qm0ae3s7cqjiv4ufn78ujt.apps.googleusercontent.com\",\"client_secret\":\"FMorU0FxVP4EsnYiRrJ4YhQi\"}]"
         }
       }
     }
