@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import mainImage from '../static/assets/mainImage.jpg';
 import HomeCityList from '../components/HomeCityList';
@@ -30,9 +30,25 @@ const HomeCityListContainer = styled.div`
 `;
 
 const Home = () => {
+  const [NavBar, setNavBar] = useState(false);
+
+  useLayoutEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  });
+
+  const handleScroll = () => {
+    if (window.scrollY >= 70) {
+      setNavBar(true);
+    } else {
+      setNavBar(false);
+    }
+  };
+
   return (
     <React.Fragment>
-      <Navigation />
+      <Navigation show={NavBar} />
       <HomeContainer>
         <BackgroundContainer>
           <ImageWrap>

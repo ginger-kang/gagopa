@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import styled from 'styled-components';
+import React, { useContext, useEffect } from 'react';
+import styled, { css } from 'styled-components';
 import { ThemeContext } from '../App';
 import DarkModeToggle from '../components/DarkModeToggle';
 import Profile from './Profile';
@@ -12,11 +12,18 @@ const NavBarContainer = styled.nav`
   left: 0;
   z-index: 100;
   padding: 0 90px 0 90px;
-  background: ${(props) => props.themeProps.itemBackground};
+  color: white;
+  background: transparent;
+  ${(props) =>
+    props.show &&
+    css`
+      background: ${props.themeProps.itemBackground};
+      color: ${props.themeProps.text};
+      box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
+    `};
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const TitleContainer = styled.div`
@@ -37,11 +44,11 @@ const NavMenuContainer = styled.div`
   align-items: center;
 `;
 
-const Navigation = () => {
+const Navigation = ({ show }) => {
   const { theme } = useContext(ThemeContext);
 
   return (
-    <NavBarContainer themeProps={theme}>
+    <NavBarContainer themeProps={theme} show={show}>
       <TitleContainer />
       <SearchContainer />
       <NavMenuContainer>

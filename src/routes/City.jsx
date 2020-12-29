@@ -5,6 +5,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { listPictures } from '../graphql/queries';
 import CityIntro from '../components/CityIntro';
 import { cityToKo } from '../utils/utils';
+import Navigation from '../components/Navigation';
 
 const CityContainer = styled.div`
   margin-top: 60px;
@@ -65,19 +66,22 @@ const City = ({ match }) => {
   }, [fetchPictures]);
 
   return (
-    <CityContainer>
-      <CityIntro cityName={cityName} />
-      <CityGridWrap>
-        {cityObjects.map((post) => (
-          <CityPost key={post.id}>
-            <img src={post.attachment.uri} alt="attachment" />
-            <Link to={`/city/${cityName}/${post.id}`}>
-              <div />
-            </Link>
-          </CityPost>
-        ))}
-      </CityGridWrap>
-    </CityContainer>
+    <>
+      <Navigation show={true} />
+      <CityContainer>
+        <CityIntro cityName={cityName} />
+        <CityGridWrap>
+          {cityObjects.map((post) => (
+            <CityPost key={post.id}>
+              <img src={post.attachment.uri} alt="attachment" />
+              <Link to={`/city/${cityName}/${post.id}`}>
+                <div />
+              </Link>
+            </CityPost>
+          ))}
+        </CityGridWrap>
+      </CityContainer>
+    </>
   );
 };
 
