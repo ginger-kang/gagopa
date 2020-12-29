@@ -1,6 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import styled, { css } from 'styled-components';
 import { ThemeContext } from '../App';
+import { Link } from 'react-router-dom';
 import DarkModeToggle from '../components/DarkModeToggle';
 import Profile from './Profile';
 
@@ -29,6 +30,11 @@ const NavBarContainer = styled.nav`
 const TitleContainer = styled.div`
   width: 200px;
   height: 100%;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
 `;
 
 const SearchContainer = styled.div`
@@ -40,7 +46,7 @@ const NavMenuContainer = styled.div`
   width: 250px;
   height: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -49,7 +55,9 @@ const Navigation = ({ show }) => {
 
   return (
     <NavBarContainer themeProps={theme} show={show}>
-      <TitleContainer />
+      <TitleContainer themeProps={theme}>
+        <Link to="/">gagopa</Link>
+      </TitleContainer>
       <SearchContainer />
       <NavMenuContainer>
         <DarkModeToggle />

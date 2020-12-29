@@ -8,6 +8,7 @@ import { Auth } from 'aws-amplify';
 
 const ProfileWrap = styled.div`
   position: relative;
+  margin-left: 20px;
 
   & svg {
     cursor: pointer;
@@ -37,6 +38,7 @@ const ProfileMenuDropDown = styled.div`
     justify-content: flex-start;
     cursor: pointer;
     font-size: 13px;
+    color: ${(props) => props.theme.text};
 
     &:hover {
       background: rgba(0, 0, 0, 0.05);
