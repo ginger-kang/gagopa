@@ -11,9 +11,8 @@ export const useDarkMode = () => {
     setTheme(mode);
   };
 
-  const toggleTheme = () => {
-    theme === lightTheme ? setMode(darkTheme) : setMode(lightTheme);
-  };
+  const setLightTheme = () => setMode(lightTheme);
+  const setDarkTheme = () => setMode(darkTheme);
 
   useEffect(() => {
     const localTheme = window.localStorage.getItem('theme');
@@ -27,5 +26,5 @@ export const useDarkMode = () => {
     }
   }, []);
 
-  return [theme, toggleTheme];
+  return [theme, setLightTheme, setDarkTheme];
 };

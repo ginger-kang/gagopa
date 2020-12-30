@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { ThemeContext } from '../App';
 import { Link } from 'react-router-dom';
@@ -61,18 +61,21 @@ const NavMenuContainer = styled.div`
 
 const Navigation = ({ show }) => {
   const { theme } = useContext(ThemeContext);
-
+  const [darkTheme, setDarkTheme] = useState(false);
+  const handleDarkTheme = () => setDarkTheme(!darkTheme);
   return (
-    <NavBarContainer themeProps={theme} show={show}>
-      <TitleContainer themeProps={theme} show={show}>
-        <Link to="/">gagopa</Link>
-      </TitleContainer>
-      <SearchContainer />
-      <NavMenuContainer>
-        <DarkModeToggle />
-        <Profile />
-      </NavMenuContainer>
-    </NavBarContainer>
+    <>
+      <NavBarContainer themeProps={theme} show={show}>
+        <TitleContainer themeProps={theme} show={show}>
+          <Link to="/">gagopa</Link>
+        </TitleContainer>
+        <SearchContainer />
+        <NavMenuContainer>
+          <Profile handleDarkTheme={handleDarkTheme} />
+        </NavMenuContainer>
+      </NavBarContainer>
+      {darkTheme && <DarkModeToggle handleDarkTheme={handleDarkTheme} />}
+    </>
   );
 };
 

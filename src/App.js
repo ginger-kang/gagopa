@@ -13,7 +13,7 @@ export const ThemeContext = createContext({
 export const UserContext = createContext();
 
 const App = () => {
-  const [theme, toggleTheme] = useDarkMode();
+  const [theme, setLightTheme, setDarkTheme] = useDarkMode();
   const [userObj, setUserObj] = useState(null);
   const [init, setInit] = useState(false);
 
@@ -40,7 +40,7 @@ const App = () => {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, setLightTheme, setDarkTheme }}>
       <UserContext.Provider value={{ userObj, refreshUser }}>
         <React.Fragment>
           <GlobalStyle theme={theme === lightTheme ? lightTheme : darkTheme} />

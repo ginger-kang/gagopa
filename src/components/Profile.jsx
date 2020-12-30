@@ -1,10 +1,11 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ThemeContext, UserContext } from '../App';
 import { FaUserCircle, FaUser } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { useDetectOutsideClick } from '../hooks/useDetectOutsideClick';
 import { Auth } from 'aws-amplify';
+import DarkModeToggle from './DarkModeToggle';
 
 const ProfileWrap = styled.div`
   position: relative;
@@ -50,7 +51,7 @@ const ProfileMenuDropDown = styled.div`
   }
 `;
 
-const Profile = () => {
+const Profile = ({ handleDarkTheme }) => {
   const { theme } = useContext(ThemeContext);
   const { userObj, refreshUser } = useContext(UserContext);
   const dropdownRef = useRef(null);
@@ -102,7 +103,7 @@ const Profile = () => {
             <NavLink to="/city/tokyo">
               <li>사진 둘러보기</li>
             </NavLink>
-            <li>화면 테마 설정</li>
+            <li onClick={handleDarkTheme}>화면 테마 설정</li>
             {userObj && (
               <li
                 onClick={signOut}
