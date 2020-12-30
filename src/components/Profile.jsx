@@ -90,7 +90,9 @@ const Profile = ({ handleDarkTheme, toggleSignIn, toggleSignUp }) => {
             )}
             {userObj ? (
               <>
-                <li>내 계정</li>
+                <NavLink to="/account">
+                  <li>내 계정</li>
+                </NavLink>
                 <NavLink to="/upload">
                   <li>여행 사진 올리기</li>
                 </NavLink>

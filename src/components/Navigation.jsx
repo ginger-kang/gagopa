@@ -70,6 +70,7 @@ const Navigation = ({ show }) => {
   const handleDarkTheme = () => setDarkTheme(!darkTheme);
   const toggleSignIn = () => setSignIn(!signIn);
   const toggleSignUp = () => setSignUp(!signUp);
+
   return (
     <>
       <NavBarContainer themeProps={theme} show={show}>
