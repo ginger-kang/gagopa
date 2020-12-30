@@ -30,11 +30,20 @@ const NavBarContainer = styled.nav`
 const TitleContainer = styled.div`
   width: 200px;
   height: 100%;
-  font-size: 28px;
+  font-size: 23px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 600;
+  font-family: 'Comfortaa', cursive;
+  & a {
+    color: white;
+    ${(props) =>
+      props.show &&
+      css`
+        color: ${props.themeProps.text};
+      `};
+  }
 `;
 
 const SearchContainer = styled.div`
@@ -55,7 +64,7 @@ const Navigation = ({ show }) => {
 
   return (
     <NavBarContainer themeProps={theme} show={show}>
-      <TitleContainer themeProps={theme}>
+      <TitleContainer themeProps={theme} show={show}>
         <Link to="/">gagopa</Link>
       </TitleContainer>
       <SearchContainer />
