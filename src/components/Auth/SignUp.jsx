@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { useContext } from 'react';
 import { ThemeContext } from '../../App';
@@ -9,9 +8,13 @@ import { IoIosClose } from 'react-icons/io';
 const SignUpContainer = styled.div`
   width: 100vw;
   height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(0, 0, 0, 0.5);
 `;
 
 const SignUpWrap = styled.div`
@@ -99,13 +102,12 @@ const SubmitButton = styled.button`
   border-radius: 5px;
 `;
 
-const SignUp = () => {
+const SignUp = ({ toggleSignUp }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
   const [confirm, setConfirm] = useState(false);
-  const history = useHistory();
   const { theme } = useContext(ThemeContext);
 
   const onChange = (event) => {
@@ -138,18 +140,23 @@ const SignUp = () => {
     }
   };
 
-  const onCloseClick = () => history.push('/');
+  const onCloseClick = () => toggleSignUp();
+  const onMaskClick = (e) => {
+    if (e.target === e.currentTarget) {
+      toggleSignUp();
+    }
+  };
 
   const confirmSignUp = async () => {
     try {
-      await Auth.confirmSignUp(username, code).then(history.push('/'));
+      await Auth.confirmSignUp(username, code).then(window.location.reload());
     } catch (error) {
       console.log('error confirming sign up', error);
     }
   };
 
   return (
-    <SignUpContainer>
+    <SignUpContainer onClick={onMaskClick}>
       <SignUpWrap theme={theme}>
         <SignUpHeader>
           <CloseButton theme={theme} onClick={onCloseClick}>

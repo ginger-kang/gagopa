@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import DarkModeToggle from '../components/DarkModeToggle';
 import Profile from './Profile';
 import SignIn from './Auth/SignIn';
+import SignUp from './Auth/SignUp';
 
 const NavBarContainer = styled.nav`
   width: 100vw;
@@ -64,8 +65,11 @@ const Navigation = ({ show }) => {
   const { theme } = useContext(ThemeContext);
   const [darkTheme, setDarkTheme] = useState(false);
   const [signIn, setSignIn] = useState(false);
+  const [signUp, setSignUp] = useState(false);
+
   const handleDarkTheme = () => setDarkTheme(!darkTheme);
   const toggleSignIn = () => setSignIn(!signIn);
+  const toggleSignUp = () => setSignUp(!signUp);
   return (
     <>
       <NavBarContainer themeProps={theme} show={show}>
@@ -77,11 +81,13 @@ const Navigation = ({ show }) => {
           <Profile
             handleDarkTheme={handleDarkTheme}
             toggleSignIn={toggleSignIn}
+            toggleSignUp={toggleSignUp}
           />
         </NavMenuContainer>
       </NavBarContainer>
       {darkTheme && <DarkModeToggle handleDarkTheme={handleDarkTheme} />}
       {signIn && <SignIn toggleSignIn={toggleSignIn} />}
+      {signUp && <SignUp toggleSignUp={toggleSignUp} />}
     </>
   );
 };

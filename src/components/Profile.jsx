@@ -50,7 +50,7 @@ const ProfileMenuDropDown = styled.div`
   }
 `;
 
-const Profile = ({ handleDarkTheme, toggleSignIn }) => {
+const Profile = ({ handleDarkTheme, toggleSignIn, toggleSignUp }) => {
   const { theme } = useContext(ThemeContext);
   const { userObj, refreshUser } = useContext(UserContext);
   const dropdownRef = useRef(null);
@@ -80,11 +80,12 @@ const Profile = ({ handleDarkTheme, toggleSignIn }) => {
             {!userObj && (
               <>
                 <li onClick={toggleSignIn}>로그인</li>
-                <NavLink to="/signup">
-                  <li style={{ borderBottom: '1px solid #ababab80' }}>
-                    회원가입
-                  </li>
-                </NavLink>
+                <li
+                  style={{ borderBottom: '1px solid #ababab80' }}
+                  onClick={toggleSignUp}
+                >
+                  회원가입
+                </li>
               </>
             )}
             {userObj ? (

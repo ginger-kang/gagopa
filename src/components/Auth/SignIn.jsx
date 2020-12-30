@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { IoIosClose } from 'react-icons/io';
 import { Auth } from 'aws-amplify';
-import { useHistory } from 'react-router-dom';
 import { ThemeContext } from '../../App';
 import { UserContext } from '../../App';
 import { CreateUser } from '../CreateUser';
@@ -131,7 +130,6 @@ const GoogleLoginWrap = styled.div`
 const SignIn = ({ toggleSignIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();
   const { theme } = useContext(ThemeContext);
   const { refreshUser } = useContext(UserContext);
 
