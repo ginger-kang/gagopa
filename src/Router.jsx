@@ -4,8 +4,8 @@ import UploadPicture from './routes/UploadPicture';
 import City from './routes/City';
 import Home from './routes/Home';
 import Detail from './routes/Detail';
-import SignIn from './routes/Auth/SignIn';
-import SignUp from './routes/Auth/SignUp';
+import SignIn from './components/Auth/SignIn';
+import SignUp from './components/Auth/SignUp';
 
 const Router = () => {
   return (

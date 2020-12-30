@@ -5,7 +5,7 @@ import { Auth } from 'aws-amplify';
 import { useHistory } from 'react-router-dom';
 import { ThemeContext } from '../../App';
 import { UserContext } from '../../App';
-import { CreateUser } from '../../components/CreateUser';
+import { CreateUser } from '../CreateUser';
 import { getUser } from '../../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
 import googleLogo from '../../static/assets/googleLogo.svg';
@@ -13,9 +13,13 @@ import googleLogo from '../../static/assets/googleLogo.svg';
 const SignInContainer = styled.div`
   width: 100vw;
   height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(0, 0, 0, 0.5);
 `;
 
 const SignInWrap = styled.div`
@@ -124,7 +128,7 @@ const GoogleLoginWrap = styled.div`
   }
 `;
 
-const SignIn = () => {
+const SignIn = ({ toggleSignIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
@@ -145,7 +149,7 @@ const SignIn = () => {
   const signIn = async () => {
     try {
       await Auth.signIn(username, password).then(() => getCurrentUserInfo());
-      history.push('/');
+      window.location.reload();
       refreshUser(true);
     } catch (error) {
       console.log('error signing in', error);
@@ -169,10 +173,15 @@ const SignIn = () => {
     }
   };
 
-  const onCloseClick = () => history.push('/');
+  const onCloseClick = () => toggleSignIn();
+  const onMaskClick = (e) => {
+    if (e.target === e.currentTarget) {
+      toggleSignIn();
+    }
+  };
 
   return (
-    <SignInContainer>
+    <SignInContainer onClick={onMaskClick}>
       <SignInWrap theme={theme}>
         <SignInHeader>
           <CloseButton theme={theme} onClick={onCloseClick}>
