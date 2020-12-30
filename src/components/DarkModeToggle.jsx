@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ThemeContext } from '../App';
-import { lightTheme } from '../theme';
 
 const ThemeModalContainer = styled.div`
   position: fixed;
@@ -93,10 +92,7 @@ const Dark = styled.div`
 `;
 
 const DarkModeToggle = ({ handleDarkTheme }) => {
-  const [checked, setChecked] = useState(false);
   const { theme, setLightTheme, setDarkTheme } = useContext(ThemeContext);
-
-  const themeRef = useRef(null);
 
   const onMaskClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -104,13 +100,9 @@ const DarkModeToggle = ({ handleDarkTheme }) => {
     }
   };
 
-  useEffect(() => {
-    theme === lightTheme ? setChecked(false) : setChecked(true);
-  }, [theme]);
-
   return (
     <ThemeModalContainer onClick={onMaskClick}>
-      <ThemeModeWrap ref={themeRef} theme={theme}>
+      <ThemeModeWrap theme={theme}>
         <ThemeModeHeader>화면 테마 설정</ThemeModeHeader>
         <Theme>
           <Light onClick={setLightTheme}>

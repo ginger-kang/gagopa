@@ -1,11 +1,10 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
 import { ThemeContext, UserContext } from '../App';
 import { FaUserCircle, FaUser } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { useDetectOutsideClick } from '../hooks/useDetectOutsideClick';
 import { Auth } from 'aws-amplify';
-import DarkModeToggle from './DarkModeToggle';
 
 const ProfileWrap = styled.div`
   position: relative;
