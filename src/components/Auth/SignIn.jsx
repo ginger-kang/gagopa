@@ -4,9 +4,7 @@ import { IoIosClose } from 'react-icons/io';
 import { Auth } from 'aws-amplify';
 import { ThemeContext } from '../../App';
 import { UserContext } from '../../App';
-import { CreateUser } from '../CreateUser';
-import { getUser } from '../../graphql/queries';
-import { API, graphqlOperation } from 'aws-amplify';
+import { getCurrentUserInfo } from '../CreateUser';
 import googleLogo from '../../static/assets/googleLogo.svg';
 
 const SignInContainer = styled.div`
@@ -154,21 +152,8 @@ const SignIn = ({ toggleSignIn }) => {
     }
   };
 
-  const getCurrentUserInfo = async () => {
-    const user = await Auth.currentAuthenticatedUser();
-    const hasUser = await API.graphql(
-      graphqlOperation(getUser, { userId: user.attributes.sub }),
-    );
-
-    if (!hasUser.data.getUser) {
-      createUser(user);
-    }
-  };
-
-  const createUser = (userObj) => {
-    if (userObj) {
-      CreateUser(userObj);
-    }
+  const googleSignIn = () => {
+    Auth.federatedSignIn({ provider: 'Google' });
   };
 
   const onCloseClick = () => toggleSignIn();
@@ -210,9 +195,7 @@ const SignIn = ({ toggleSignIn }) => {
           </InputWrap>
           <LoginButton onClick={signIn}>로그인</LoginButton>
           <GoogleLoginWrap>
-            <button
-              onClick={() => Auth.federatedSignIn({ provider: 'Google' })}
-            >
+            <button onClick={googleSignIn}>
               <img src={googleLogo} alt="google" />
               구글 계정으로 로그인
             </button>

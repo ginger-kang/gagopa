@@ -4,6 +4,7 @@ import Router from './Router';
 import { useDarkMode } from './hooks/useDarkMode';
 import { lightTheme, darkTheme } from './theme';
 import { Auth } from 'aws-amplify';
+import { getCurrentUserInfo } from './components/CreateUser';
 
 export const ThemeContext = createContext({
   theme: darkTheme,
@@ -22,6 +23,7 @@ const App = () => {
       Auth.currentUserInfo().then((user) => {
         if (user) {
           setUserObj(user);
+          getCurrentUserInfo();
         }
         setInit(true);
       });

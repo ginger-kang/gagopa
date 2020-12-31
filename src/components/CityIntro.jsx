@@ -56,7 +56,6 @@ const CityIntro = ({ cityName }) => {
         }),
       );
       const city = await data.data.listMenus.items[0];
-      console.log(city);
       setCityInfo(city);
     } catch (error) {
       console.log(error);
