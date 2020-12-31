@@ -1,6 +1,12 @@
 import { createUser } from '../graphql/mutations';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import { getUser } from '../graphql/queries';
+import config from '../aws-exports';
+
+const {
+  aws_user_files_s3_bucket_region: region,
+  aws_user_files_s3_bucket: bucket,
+} = config;
 
 export const getCurrentUserInfo = async () => {
   const user = await Auth.currentAuthenticatedUser();
@@ -20,10 +26,16 @@ const checkUser = (userObj) => {
 };
 
 export const CreateUser = async (userObj) => {
+  const url = `https://${bucket}.s3.${region}.amazonaws.com/public/defaultAvatar.png`;
+  const avatar = {
+    bucket: 'mytravel-picture13646-dev',
+    key: `public/defaultAvatar.png`,
+    uri: url,
+  };
   try {
     await API.graphql(
       graphqlOperation(createUser, {
-        input: { userId: userObj.attributes.sub },
+        input: { userId: userObj.attributes.sub, avatar: avatar },
       }),
     );
   } catch (error) {
