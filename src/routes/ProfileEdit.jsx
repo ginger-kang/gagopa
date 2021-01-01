@@ -2,8 +2,16 @@ import React, { useContext, useState, useRef } from 'react';
 import styled from 'styled-components';
 import Navigation from '../components/Navigation';
 import { UserContext, CognitoContext, ThemeContext } from '../App';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { lightTheme } from '../theme';
+import config from '../aws-exports';
+import { API, graphqlOperation, Storage } from 'aws-amplify';
+import { updateUser } from '../graphql/mutations';
+
+const {
+  aws_user_files_s3_bucket_region: region,
+  aws_user_files_s3_bucket: bucket,
+} = config;
 
 const EditContainer = styled.div`
   width: 100%;
@@ -147,29 +155,61 @@ const ProfileEdit = () => {
   const [fileName, setFileName] = useState('');
   const [attachment, setAttachment] = useState(null);
   const [filePreview, setFilePreview] = useState(null);
-  const [username, setUsername] = useState(userObj.username);
-  const [email, setEmail] = useState(userObj.attributes.email);
+  const [username, setUsername] = useState(cognitoUser.username);
+  const [email, setEmail] = useState(cognitoUser.email);
+
   const hiddenFileInput = useRef(null);
+  const history = useHistory();
 
   console.log(userObj);
 
   const onSubmit = async (e) => {
-    let key;
     e.preventDefault();
+    let key;
     if (attachment) {
       Storage.put(fileName, attachment, {
         contentType: attachment.type,
       })
         .then((result) => {
           key = result.key;
-          console.log(key);
+          updateProfile(key);
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
-      alert('파일을 업로드 해주세요.');
+      updateContentProfile();
     }
+  };
+
+  const updateContentProfile = async () => {
+    const inputData = {
+      userId: userObj.attributes.sub,
+      username: username,
+      email: email,
+    };
+    await API.graphql(graphqlOperation(updateUser, { input: inputData }))
+      .then(() => history.push('/account'))
+      .then(() => window.location.reload())
+      .catch((error) => alert(error.message));
+  };
+
+  const updateProfile = async (key) => {
+    const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
+    const inputData = {
+      userId: userObj.attributes.sub,
+      username: username,
+      email: email,
+      avatar: {
+        bucket: 'mytravel-picture13646-dev',
+        key: `public/${key}`,
+        uri: url,
+      },
+    };
+    await API.graphql(graphqlOperation(updateUser, { input: inputData }))
+      .then(() => history.push('/account'))
+      .then(() => window.location.reload())
+      .catch((error) => alert(error.message));
   };
 
   const onFileChange = (event) => {
@@ -230,7 +270,7 @@ const ProfileEdit = () => {
                   style={{ display: 'none' }}
                 />
               </AvatarWrap>
-              <UserName>{userObj.username}</UserName>
+              <UserName>{cognitoUser.username}</UserName>
             </InfoHeader>
             <InputContainer>
               <span>사용자명</span>

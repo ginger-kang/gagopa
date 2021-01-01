@@ -143,7 +143,6 @@ const UploadPicture = () => {
   const hiddenFileInput = useRef(null);
   const history = useHistory();
 
-  console.log(userObj);
   if (theme === lightTheme) {
     materialTheme = createMuiTheme({
       palette: {

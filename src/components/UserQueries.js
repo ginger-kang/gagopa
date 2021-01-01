@@ -1,6 +1,5 @@
 import { getUser } from '../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
-import { updateUser } from '../graphql/mutations';
 
 export const getUserById = async (id) => {
   let user;
@@ -11,12 +10,4 @@ export const getUserById = async (id) => {
     console.log(error);
   }
   return user;
-};
-
-export const updateUserData = async (id, inputData) => {
-  try {
-    await API.graphql(graphqlOperation(updateUser, { input: inputData }));
-  } catch (error) {
-    console.log(error);
-  }
 };

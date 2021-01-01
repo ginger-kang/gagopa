@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Navigation from '../components/Navigation';
-import { UserContext, CognitoContext, ThemeContext } from '../App';
+import { CognitoContext, ThemeContext } from '../App';
 import { FcBusinessContact, FcCancel, FcKey } from 'react-icons/fc';
 import { lightTheme } from '../theme';
 import { Link } from 'react-router-dom';
@@ -95,7 +95,6 @@ const SubHead = styled.span`
 `;
 
 const Account = () => {
-  const { userObj } = useContext(UserContext);
   const { cognitoUser } = useContext(CognitoContext);
   const { theme } = useContext(ThemeContext);
 
@@ -111,10 +110,10 @@ const Account = () => {
             </AvatarWrap>
             <ProfileContent>
               <SubHead>사용자명</SubHead>
-              <span>{userObj.username}</span>
+              <span>{cognitoUser.username}</span>
               <br />
               <SubHead>이메일</SubHead>
-              <span>{userObj.attributes.email}</span>
+              <span>{cognitoUser.email}</span>
             </ProfileContent>
           </ProfileHeader>
           <AccountMenu theme={theme}>
