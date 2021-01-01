@@ -29,6 +29,9 @@ const App = () => {
           getCurrentUserInfo();
           const data = await getUserById(user.attributes.sub);
           setCognitoUser(data);
+          if (!data) {
+            window.location.reload();
+          }
         }
         setInit(true);
       });

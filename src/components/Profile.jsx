@@ -51,8 +51,8 @@ const ProfileMenuDropDown = styled.div`
 `;
 
 const AvatarWrap = styled.div`
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
 
   & img {
@@ -85,7 +85,7 @@ const Profile = ({ handleDarkTheme, toggleSignIn, toggleSignUp }) => {
 
   return (
     <ProfileWrap onClick={onClick} ref={dropdownRef}>
-      {userObj ? (
+      {cognitoUser ? (
         <AvatarWrap>
           <img src={cognitoUser.avatar.uri} alt="avatar" />
         </AvatarWrap>

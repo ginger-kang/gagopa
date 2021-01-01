@@ -11,7 +11,7 @@ const EditContainer = styled.div`
 `;
 
 const EditWrap = styled.div`
-  width: 850px;
+  width: 750px;
   margin: 0 auto 0 auto;
   padding: 50px 0 50px 0;
 `;
@@ -130,10 +130,13 @@ const SubmitButton = styled.button`
 `;
 
 const Cancel = styled.button`
+  width: 110px;
+  height: 47px;
   color: #ca2121;
   background: none;
-  border: none;
+  border: 1px solid #ca2121;
   font-size: 14px;
+  border-radius: 5px;
 `;
 
 const ProfileEdit = () => {

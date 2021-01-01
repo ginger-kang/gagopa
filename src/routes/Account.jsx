@@ -107,7 +107,7 @@ const Account = () => {
           <MyAccountTitle>내 계정</MyAccountTitle>
           <ProfileHeader>
             <AvatarWrap>
-              <img src={cognitoUser.avatar.uri} alt="avatar" />
+              {cognitoUser && <img src={cognitoUser.avatar.uri} alt="avatar" />}
             </AvatarWrap>
             <ProfileContent>
               <SubHead>사용자명</SubHead>
