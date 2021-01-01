@@ -5,6 +5,7 @@ import { useDarkMode } from './hooks/useDarkMode';
 import { lightTheme, darkTheme } from './theme';
 import { Auth } from 'aws-amplify';
 import { getCurrentUserInfo } from './components/CreateUser';
+import { getUserById } from './components/UserQueries';
 
 export const ThemeContext = createContext({
   theme: darkTheme,
@@ -12,18 +13,22 @@ export const ThemeContext = createContext({
 });
 
 export const UserContext = createContext();
+export const CognitoContext = createContext();
 
 const App = () => {
   const [theme, setLightTheme, setDarkTheme] = useDarkMode();
   const [userObj, setUserObj] = useState(null);
   const [init, setInit] = useState(false);
+  const [cognitoUser, setCognitoUser] = useState(null);
 
   useEffect(() => {
     try {
-      Auth.currentUserInfo().then((user) => {
+      Auth.currentUserInfo().then(async (user) => {
         if (user) {
           setUserObj(user);
           getCurrentUserInfo();
+          const data = await getUserById(user.attributes.sub);
+          setCognitoUser(data);
         }
         setInit(true);
       });
@@ -44,10 +49,14 @@ const App = () => {
   return (
     <ThemeContext.Provider value={{ theme, setLightTheme, setDarkTheme }}>
       <UserContext.Provider value={{ userObj, refreshUser }}>
-        <React.Fragment>
-          <GlobalStyle theme={theme === lightTheme ? lightTheme : darkTheme} />
-          {init && <Router />}
-        </React.Fragment>
+        <CognitoContext.Provider value={{ cognitoUser }}>
+          <React.Fragment>
+            <GlobalStyle
+              theme={theme === lightTheme ? lightTheme : darkTheme}
+            />
+            {init && <Router />}
+          </React.Fragment>
+        </CognitoContext.Provider>
       </UserContext.Provider>
     </ThemeContext.Provider>
   );

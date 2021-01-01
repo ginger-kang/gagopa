@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
-import { ThemeContext, UserContext } from '../App';
-import { FaUserCircle, FaUser } from 'react-icons/fa';
+import { CognitoContext, ThemeContext, UserContext } from '../App';
+import { FaUserCircle } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { useDetectOutsideClick } from '../hooks/useDetectOutsideClick';
 import { Auth } from 'aws-amplify';
@@ -50,11 +50,18 @@ const ProfileMenuDropDown = styled.div`
   }
 `;
 
+const AvatarWrap = styled.div`
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+`;
+
 const Profile = ({ handleDarkTheme, toggleSignIn, toggleSignUp }) => {
   const { theme } = useContext(ThemeContext);
   const { userObj, refreshUser } = useContext(UserContext);
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  const { cognitoUser } = useContext(CognitoContext);
 
   const onClick = () => setIsActive(!isActive);
 
@@ -73,7 +80,13 @@ const Profile = ({ handleDarkTheme, toggleSignIn, toggleSignUp }) => {
 
   return (
     <ProfileWrap onClick={onClick} ref={dropdownRef}>
-      {userObj ? <FaUser size={25} /> : <FaUserCircle size={30} />}
+      {userObj ? (
+        <AvatarWrap>
+          <img src={cognitoUser.avatar.uri} alt="avatar" />
+        </AvatarWrap>
+      ) : (
+        <FaUserCircle size={30} />
+      )}
       {isActive && (
         <ProfileMenuDropDown theme={theme}>
           <ul>

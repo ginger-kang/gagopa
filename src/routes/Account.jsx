@@ -1,10 +1,7 @@
-import React, { useContext, useEffect, useCallback, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Navigation from '../components/Navigation';
-import { UserContext } from '../App';
-import { getUser } from '../graphql/queries';
-import { API, graphqlOperation } from 'aws-amplify';
-import defaultAvatar from '../static/assets/defaultAvatar.png';
+import { UserContext, CognitoContext } from '../App';
 
 const AccountContainer = styled.div`
   width: 100%;
@@ -56,24 +53,8 @@ const SubHead = styled.span`
 // 프로필 편집, 비밀번호 변경, 회원 탈퇴
 
 const Account = () => {
-  const { userObj, refreshUser } = useContext(UserContext);
-  const [avatar, setAvatar] = useState(null);
-
-  const fetchUsers = useCallback(async () => {
-    try {
-      const data = await API.graphql(
-        graphqlOperation(getUser, { userId: userObj.attributes.sub }),
-      );
-      const userAvatar = await data.data.getUser.avatar;
-      setAvatar(userAvatar);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [userObj]);
-
-  useEffect(() => {
-    fetchUsers();
-  }, [fetchUsers]);
+  const { userObj } = useContext(UserContext);
+  const { cognitoUser } = useContext(CognitoContext);
 
   return (
     <>
@@ -82,11 +63,7 @@ const Account = () => {
         <AccountWrap>
           <ProfileHeader>
             <AvatarWrap>
-              {avatar ? (
-                <img src={avatar} alt="avatar" />
-              ) : (
-                <img src={defaultAvatar} alt="avatar" />
-              )}
+              <img src={cognitoUser.avatar.uri} alt="avatar" />
             </AvatarWrap>
             <ProfileContent>
               <SubHead>사용자명</SubHead>
