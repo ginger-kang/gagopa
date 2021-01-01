@@ -4,10 +4,10 @@ import Navigation from '../components/Navigation';
 import { UserContext, CognitoContext, ThemeContext } from '../App';
 import { FcBusinessContact, FcCancel, FcKey } from 'react-icons/fc';
 import { lightTheme } from '../theme';
+import { Link } from 'react-router-dom';
 
 const AccountContainer = styled.div`
   width: 100%;
-  height: 100%;
   padding-top: 70px;
 `;
 
@@ -33,6 +33,9 @@ const AccountMenu = styled.div`
   & span {
     margin: 20px 0 20px 0;
   }
+  & a {
+    color: ${(props) => props.theme.text};
+  }
   & p {
     line-height: 1.5;
     font-size: 14px;
@@ -49,6 +52,7 @@ const MenuWrap = styled.div`
   align-items: flex-start;
   padding: 15px;
   cursor: pointer;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const MyAccountTitle = styled.h3`
@@ -67,6 +71,11 @@ const ProfileHeader = styled.div`
 const AvatarWrap = styled.div`
   width: 150px;
   height: 150px;
+
+  & img {
+    border-radius: 100%;
+    object-fit: cover;
+  }
 `;
 
 const ProfileContent = styled.div`
@@ -109,11 +118,13 @@ const Account = () => {
             </ProfileContent>
           </ProfileHeader>
           <AccountMenu theme={theme}>
-            <MenuWrap>
-              <FcBusinessContact size={39} />
-              <span>프로필 편집</span>
-              <p>프로필 사진, 사용자 명 등을 변경하세요.</p>
-            </MenuWrap>
+            <Link to="/profile/edit">
+              <MenuWrap>
+                <FcBusinessContact size={39} />
+                <span>프로필 편집</span>
+                <p>프로필 사진, 사용자 명 등을 변경하세요.</p>
+              </MenuWrap>
+            </Link>
             <MenuWrap>
               <FcKey size={39} />
               <span>비밀번호 변경</span>

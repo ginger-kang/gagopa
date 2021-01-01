@@ -51,9 +51,14 @@ const ProfileMenuDropDown = styled.div`
 `;
 
 const AvatarWrap = styled.div`
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   cursor: pointer;
+
+  & img {
+    border-radius: 100%;
+    object-fit: cover;
+  }
 `;
 
 const Profile = ({ handleDarkTheme, toggleSignIn, toggleSignUp }) => {

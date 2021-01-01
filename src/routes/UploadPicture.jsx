@@ -325,7 +325,6 @@ const UploadPicture = () => {
                 type="text"
                 maxLength={10}
               />
-
               <SubmitButton type="submit" value="사진 업로드"></SubmitButton>
             </UploadForm>
           </UploadFormWrap>

@@ -5,6 +5,7 @@ import City from './routes/City';
 import Home from './routes/Home';
 import Detail from './routes/Detail';
 import Account from './routes/Account';
+import ProfileEdit from './routes/ProfileEdit';
 
 const Router = () => {
   return (
@@ -16,6 +17,7 @@ const Router = () => {
           <Route path="/city/:cityName" exact component={City} />
           <Route path="/city/:cityName/:id" exact component={Detail} />
           <Route path="/account" exact component={Account} />
+          <Route path="/profile/edit" exact component={ProfileEdit} />
         </Switch>
       </BrowserRouter>
     </>
