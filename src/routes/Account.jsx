@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Navigation from '../components/Navigation';
-import { UserContext, CognitoContext } from '../App';
+import { UserContext, CognitoContext, ThemeContext } from '../App';
+import { FcBusinessContact, FcCancel, FcKey } from 'react-icons/fc';
+import { lightTheme } from '../theme';
 
 const AccountContainer = styled.div`
   width: 100%;
-  height: 100vh;
-  margin-top: 70px;
+  height: 100%;
+  padding-top: 70px;
 `;
 
 const AccountWrap = styled.div`
@@ -17,10 +19,43 @@ const AccountWrap = styled.div`
 
 const AccountMenu = styled.div`
   width: 100%;
-  height: 500px;
   display: grid;
-  background: tomato;
   margin-top: 50px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+
+  & div {
+    border: 1px solid
+      ${(props) => (props.theme === lightTheme ? '#cacaca' : '#565656')};
+    background: ${(props) => props.theme.itemBackground};
+  }
+  & span {
+    margin: 20px 0 20px 0;
+  }
+  & p {
+    line-height: 1.5;
+    font-size: 14px;
+    color: #888888;
+  }
+`;
+
+const MenuWrap = styled.div`
+  height: 180px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 15px;
+  cursor: pointer;
+`;
+
+const MyAccountTitle = styled.h3`
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding-left: 10px;
+  margin-bottom: 30px;
 `;
 
 const ProfileHeader = styled.div`
@@ -50,17 +85,17 @@ const SubHead = styled.span`
   margin-right: 5px;
 `;
 
-// 프로필 편집, 비밀번호 변경, 회원 탈퇴
-
 const Account = () => {
   const { userObj } = useContext(UserContext);
   const { cognitoUser } = useContext(CognitoContext);
+  const { theme } = useContext(ThemeContext);
 
   return (
     <>
       <Navigation show={true} />
       <AccountContainer>
         <AccountWrap>
+          <MyAccountTitle>내 계정</MyAccountTitle>
           <ProfileHeader>
             <AvatarWrap>
               <img src={cognitoUser.avatar.uri} alt="avatar" />
@@ -73,7 +108,23 @@ const Account = () => {
               <span>{userObj.attributes.email}</span>
             </ProfileContent>
           </ProfileHeader>
-          <AccountMenu></AccountMenu>
+          <AccountMenu theme={theme}>
+            <MenuWrap>
+              <FcBusinessContact size={39} />
+              <span>프로필 편집</span>
+              <p>프로필 사진, 사용자 명 등을 변경하세요.</p>
+            </MenuWrap>
+            <MenuWrap>
+              <FcKey size={39} />
+              <span>비밀번호 변경</span>
+              <p>비밀번호를 변경하세요.</p>
+            </MenuWrap>
+            <MenuWrap>
+              <FcCancel size={39} />
+              <span>회원 탈퇴</span>
+              <p>계정을 삭제하세요.</p>
+            </MenuWrap>
+          </AccountMenu>
         </AccountWrap>
       </AccountContainer>
     </>
