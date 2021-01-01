@@ -22,7 +22,7 @@ const ProfileMenuDropDown = styled.div`
   top: 45px;
   background: ${(props) => props.theme.itemBackground};
   border-radius: 15px;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   display: block;
   padding: 8px 0 8px 0;
 
@@ -81,7 +81,7 @@ const Profile = ({ handleDarkTheme, toggleSignIn, toggleSignUp }) => {
     }
   };
 
-  const alertMessage = () => alert('로그인 먼저 해주세요!');
+  const alertMessage = () => alert('먼저 로그인 해주세요.');
 
   return (
     <ProfileWrap onClick={onClick} ref={dropdownRef}>

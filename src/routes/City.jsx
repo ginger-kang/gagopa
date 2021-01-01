@@ -41,6 +41,10 @@ const CityPost = styled.div`
       background: rgba(0, 0, 0, 0.08);
     }
   }
+
+  & img {
+    object-fit: cover;
+  }
 `;
 
 const City = ({ match }) => {

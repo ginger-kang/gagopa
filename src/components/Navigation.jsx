@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { ThemeContext } from '../App';
+import { ThemeContext, CognitoContext } from '../App';
 import { Link } from 'react-router-dom';
 import DarkModeToggle from '../components/DarkModeToggle';
 import Profile from './Profile';
@@ -61,8 +61,21 @@ const NavMenuContainer = styled.div`
   align-items: center;
 `;
 
+const UploadPictureContent = styled.span`
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  ${(props) =>
+    props.show &&
+    css`
+      color: ${props.theme.text};
+    `};
+`;
+
 const Navigation = ({ show }) => {
   const { theme } = useContext(ThemeContext);
+  const { cognitoUser } = useContext(CognitoContext);
   const [darkTheme, setDarkTheme] = useState(false);
   const [signIn, setSignIn] = useState(false);
   const [signUp, setSignUp] = useState(false);
@@ -70,6 +83,8 @@ const Navigation = ({ show }) => {
   const handleDarkTheme = () => setDarkTheme(!darkTheme);
   const toggleSignIn = () => setSignIn(!signIn);
   const toggleSignUp = () => setSignUp(!signUp);
+
+  const alertMessage = () => alert('먼저 로그인 해주세요.');
 
   return (
     <>
@@ -79,6 +94,22 @@ const Navigation = ({ show }) => {
         </TitleContainer>
         <SearchContainer />
         <NavMenuContainer>
+          {cognitoUser ? (
+            <Link to="/upload">
+              <UploadPictureContent theme={theme} show={show}>
+                사진 올리기
+              </UploadPictureContent>
+            </Link>
+          ) : (
+            <UploadPictureContent
+              theme={theme}
+              show={show}
+              onClick={alertMessage}
+            >
+              사진 올리기
+            </UploadPictureContent>
+          )}
+
           <Profile
             handleDarkTheme={handleDarkTheme}
             toggleSignIn={toggleSignIn}
