@@ -35,7 +35,12 @@ export const CreateUser = async (userObj) => {
   try {
     await API.graphql(
       graphqlOperation(createUser, {
-        input: { userId: userObj.attributes.sub, avatar: avatar },
+        input: {
+          userId: userObj.attributes.sub,
+          username: userObj.username,
+          email: userObj.attributes.email,
+          avatar: avatar,
+        },
       }),
     );
   } catch (error) {

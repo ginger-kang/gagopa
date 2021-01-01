@@ -19,6 +19,8 @@ export const getPicture = /* GraphQL */ `
           key
           uri
         }
+        username
+        email
         createdAt
         updatedAt
       }
@@ -49,6 +51,8 @@ export const listPictures = /* GraphQL */ `
         location
         author {
           userId
+          username
+          email
           createdAt
           updatedAt
         }
@@ -90,6 +94,8 @@ export const getUser = /* GraphQL */ `
         key
         uri
       }
+      username
+      email
       createdAt
       updatedAt
     }
@@ -121,6 +127,8 @@ export const listUsers = /* GraphQL */ `
           key
           uri
         }
+        username
+        email
         createdAt
         updatedAt
       }

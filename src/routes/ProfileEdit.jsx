@@ -148,6 +148,8 @@ const ProfileEdit = () => {
   const [email, setEmail] = useState(userObj.attributes.email);
   const hiddenFileInput = useRef(null);
 
+  console.log(userObj);
+
   const onSubmit = async (e) => {
     let key;
     e.preventDefault();

@@ -19,6 +19,8 @@ export const onCreatePicture = /* GraphQL */ `
           key
           uri
         }
+        username
+        email
         createdAt
         updatedAt
       }
@@ -53,6 +55,8 @@ export const onUpdatePicture = /* GraphQL */ `
           key
           uri
         }
+        username
+        email
         createdAt
         updatedAt
       }
@@ -87,6 +91,8 @@ export const onDeletePicture = /* GraphQL */ `
           key
           uri
         }
+        username
+        email
         createdAt
         updatedAt
       }

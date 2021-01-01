@@ -22,6 +22,8 @@ export const createPicture = /* GraphQL */ `
           key
           uri
         }
+        username
+        email
         createdAt
         updatedAt
       }
@@ -59,6 +61,8 @@ export const updatePicture = /* GraphQL */ `
           key
           uri
         }
+        username
+        email
         createdAt
         updatedAt
       }
@@ -96,6 +100,8 @@ export const deletePicture = /* GraphQL */ `
           key
           uri
         }
+        username
+        email
         createdAt
         updatedAt
       }
@@ -138,6 +144,8 @@ export const createUser = /* GraphQL */ `
         key
         uri
       }
+      username
+      email
       createdAt
       updatedAt
     }
@@ -169,6 +177,8 @@ export const updateUser = /* GraphQL */ `
         key
         uri
       }
+      username
+      email
       createdAt
       updatedAt
     }
@@ -200,6 +210,8 @@ export const deleteUser = /* GraphQL */ `
         key
         uri
       }
+      username
+      email
       createdAt
       updatedAt
     }
