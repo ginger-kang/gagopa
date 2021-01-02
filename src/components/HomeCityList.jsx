@@ -29,8 +29,11 @@ const CityMenu = styled.div`
 const MenuThumbnail = styled.div`
   width: 80px;
   height: 80px;
-  border-radius: 10px;
-  background: ${(props) => props.bgColor};
+
+  & img {
+    border-radius: 11px;
+    object-fit: cover;
+  }
 `;
 
 const MenuContentWrap = styled.div`
@@ -68,7 +71,9 @@ const HomeCityList = () => {
         menuObj.map((menu) => (
           <Link to={`/city/${menu.city}`} key={menu.id}>
             <CityMenu theme={theme}>
-              <MenuThumbnail bgColor={menu.content} />
+              <MenuThumbnail>
+                <img src={menu.thumbnail.uri} alt="thumbnail" />
+              </MenuThumbnail>
               <MenuContentWrap>
                 <span>{cityToKo[menu.city]}</span>
               </MenuContentWrap>

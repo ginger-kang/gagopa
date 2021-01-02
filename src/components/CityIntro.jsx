@@ -20,11 +20,12 @@ const CityIntroWrap = styled.div`
 `;
 
 const IntroPictureWrap = styled.div`
-  & div {
-    width: 110px;
-    height: 110px;
+  width: 110px;
+  height: 110px;
+
+  & img {
     border-radius: 100%;
-    background: ${(props) => props.city.content};
+    object-fit: cover;
   }
 `;
 
@@ -71,8 +72,8 @@ const CityIntro = ({ cityName }) => {
       <CityIntroWrap>
         {cityInfo && (
           <>
-            <IntroPictureWrap city={cityInfo}>
-              <div />
+            <IntroPictureWrap>
+              <img src={cityInfo.thumbnail.uri} alt="thumbnail" />
             </IntroPictureWrap>
             <IntroContentWrap>
               <IntroSubhead>
