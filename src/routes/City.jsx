@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
@@ -6,6 +6,7 @@ import { listPictures } from '../graphql/queries';
 import CityIntro from '../components/CityIntro';
 import { cityToKo } from '../utils/utils';
 import Navigation from '../components/Navigation';
+import LoadingPage from '../components/LoadingPage';
 
 const CityContainer = styled.div`
   margin-top: 60px;
@@ -49,41 +50,70 @@ const CityPost = styled.div`
 
 const City = ({ match }) => {
   const [cityObjects, setCityObjects] = useState([]);
+  const [prevToken, setPrevToken] = useState(undefined);
+  const [nextToken, setNextToken] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   const cityName = match.params.cityName;
-
-  const fetchPictures = useCallback(async () => {
-    try {
-      const data = await API.graphql(
-        graphqlOperation(listPictures, {
-          filter: { city: { beginsWith: cityToKo[cityName] } },
-        }),
-      );
-      const pictures = await data.data.listPictures.items;
-      setCityObjects(pictures);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [cityName]);
+  const hasNext = !!nextToken;
 
   useEffect(() => {
+    const fetchPictures = async () => {
+      setIsLoading(true);
+      try {
+        const data = await API.graphql(
+          graphqlOperation(listPictures, {
+            filter: { city: { beginsWith: cityToKo[cityName] } },
+            limit: 2,
+            nextToken: prevToken,
+          }),
+        );
+        const pictures = await data.data.listPictures.items;
+        const token = await data.data.listPictures.nextToken;
+        setCityObjects(pictures);
+        setNextToken(token);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
     fetchPictures();
-  }, [fetchPictures]);
+
+    return () => reset();
+  }, [cityName, prevToken]);
+
+  const getNextPost = () => {
+    setPrevToken(nextToken);
+    setNextToken(null);
+  };
+
+  const reset = () => {
+    setPrevToken(undefined);
+    setNextToken(null);
+  };
 
   return (
     <>
       <Navigation show={true} />
       <CityContainer>
         <CityIntro cityName={cityName} />
-        <CityGridWrap>
-          {cityObjects.map((post) => (
-            <CityPost key={post.id}>
-              <img src={post.attachment.uri} alt="attachment" />
-              <Link to={`/city/${cityName}/${post.id}`}>
-                <div />
-              </Link>
-            </CityPost>
-          ))}
-        </CityGridWrap>
+        {isLoading ? (
+          <LoadingPage />
+        ) : (
+          <>
+            <CityGridWrap>
+              {cityObjects.map((post) => (
+                <CityPost key={post.id}>
+                  <img src={post.attachment.uri} alt="attachment" />
+                  <Link to={`/city/${cityName}/${post.id}`}>
+                    <div />
+                  </Link>
+                </CityPost>
+              ))}
+            </CityGridWrap>
+            <button onClick={getNextPost}>다음</button>
+          </>
+        )}
       </CityContainer>
     </>
   );
