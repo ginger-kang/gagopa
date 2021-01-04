@@ -35,6 +35,16 @@ export const createPicture = /* GraphQL */ `
         key
         uri
       }
+      likes {
+        items {
+          id
+          pictureId
+          userId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -74,6 +84,16 @@ export const updatePicture = /* GraphQL */ `
         key
         uri
       }
+      likes {
+        items {
+          id
+          pictureId
+          userId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -112,6 +132,16 @@ export const deletePicture = /* GraphQL */ `
         region
         key
         uri
+      }
+      likes {
+        items {
+          id
+          pictureId
+          userId
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -274,6 +304,174 @@ export const deleteMenu = /* GraphQL */ `
         region
         key
         uri
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createPictureLike = /* GraphQL */ `
+  mutation CreatePictureLike(
+    $input: CreatePictureLikeInput!
+    $condition: ModelPictureLikeConditionInput
+  ) {
+    createPictureLike(input: $input, condition: $condition) {
+      id
+      pictureId
+      userId
+      user {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updatePictureLike = /* GraphQL */ `
+  mutation UpdatePictureLike(
+    $input: UpdatePictureLikeInput!
+    $condition: ModelPictureLikeConditionInput
+  ) {
+    updatePictureLike(input: $input, condition: $condition) {
+      id
+      pictureId
+      userId
+      user {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deletePictureLike = /* GraphQL */ `
+  mutation DeletePictureLike(
+    $input: DeletePictureLikeInput!
+    $condition: ModelPictureLikeConditionInput
+  ) {
+    deletePictureLike(input: $input, condition: $condition) {
+      id
+      pictureId
+      userId
+      user {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt

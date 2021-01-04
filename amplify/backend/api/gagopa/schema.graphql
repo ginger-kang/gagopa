@@ -7,6 +7,8 @@ type Picture @model @key(name: "picturesByUserId", fields: ["authorId"]) {
   instagram: String
   description: String
   attachment: S3Object
+  likes: [PictureLike]
+    @connection(keyName: "pictureLikesByPictureId", fields: ["id"])
 }
 
 type User @model(subscriptions: null) @key(fields: ["userId"]) {
@@ -24,6 +26,22 @@ type Menu @model {
   tag: String
   content: String
   thumbnail: S3Object
+}
+
+type PictureLike
+  @model
+  @key(name: "pictureLikesByPictureId", fields: ["pictureId"])
+  @key(
+    name: "pictureLikesByUser"
+    fields: ["userId", "createdAt"]
+    queryField: "likesByUser"
+  ) {
+  id: ID!
+  pictureId: ID!
+  userId: ID!
+  user: User @connection(fields: ["userId"])
+  picture: Picture @connection(fields: ["pictureId"])
+  createdAt: String!
 }
 
 type S3Object {
