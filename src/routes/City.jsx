@@ -8,6 +8,7 @@ import { cityToKo } from '../utils/utils';
 import Navigation from '../components/Navigation';
 import LoadingPage from '../components/LoadingPage';
 import GetNextPostButton from '../components/GetNextPostButton';
+import NoPost from '../components/NoPost';
 
 const CityContainer = styled.div`
   margin-top: 60px;
@@ -19,7 +20,7 @@ const CityContainer = styled.div`
 `;
 
 const CityGridWrap = styled.div`
-  display: grid;
+  display: ${(props) => (props.hasPost ? 'grid' : 'none')};
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 8px;
   grid-row-gap: 8px;
@@ -55,7 +56,8 @@ const City = ({ match }) => {
   const [nextToken, setNextToken] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const cityName = match.params.cityName;
-  const hasNext = !!nextToken;
+  const hasNext = !!nextToken && cityObjects.length !== 0;
+  const hasPost = cityObjects.length !== 0;
 
   useEffect(() => {
     const fetchPictures = async () => {
@@ -100,7 +102,8 @@ const City = ({ match }) => {
           <LoadingPage />
         ) : (
           <>
-            <CityGridWrap>
+            <NoPost hasPost={hasPost} cityName={cityToKo[cityName]} />
+            <CityGridWrap hasPost={hasPost}>
               {cityObjects.map((post) => (
                 <CityPost key={post.id}>
                   <img src={post.attachment.uri} alt="attachment" />
