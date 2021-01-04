@@ -7,6 +7,7 @@ import CityIntro from '../components/CityIntro';
 import { cityToKo } from '../utils/utils';
 import Navigation from '../components/Navigation';
 import LoadingPage from '../components/LoadingPage';
+import GetNextPostButton from '../components/GetNextPostButton';
 
 const CityContainer = styled.div`
   margin-top: 60px;
@@ -69,7 +70,7 @@ const City = ({ match }) => {
         );
         const pictures = await data.data.listPictures.items;
         const token = await data.data.listPictures.nextToken;
-        setCityObjects(pictures);
+        setCityObjects((prev) => [...prev, ...pictures]);
         setNextToken(token);
       } catch (error) {
         console.log(error);
@@ -78,8 +79,6 @@ const City = ({ match }) => {
       }
     };
     fetchPictures();
-
-    return () => reset();
   }, [cityName, prevToken]);
 
   const getNextPost = () => {
@@ -111,7 +110,7 @@ const City = ({ match }) => {
                 </CityPost>
               ))}
             </CityGridWrap>
-            <button onClick={getNextPost}>다음</button>
+            <GetNextPostButton getNextPost={getNextPost} hasNext={hasNext} />
           </>
         )}
       </CityContainer>
