@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listMenus } from '../../graphql/queries';
-import { cityToKo } from '../../utils/utils';
+import { translateToKo } from '../../utils/utils';
 
 const CityIntroContainer = styled.div`
   width: 100%;
@@ -77,7 +77,7 @@ const CityIntro = ({ cityName }) => {
             </IntroPictureWrap>
             <IntroContentWrap>
               <IntroSubhead>
-                <span>{cityToKo[cityInfo.city]}</span>
+                <span>{translateToKo[cityInfo.city]}</span>
               </IntroSubhead>
               <IntroContent>
                 {cityInfo.tag.split(' ').map((tag, idx) => (

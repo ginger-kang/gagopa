@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listPictures } from '../graphql/queries';
 import CityIntro from '../components/City/CityIntro';
-import { cityToKo } from '../utils/utils';
+import { translateToKo } from '../utils/utils';
 import Navigation from '../components/Nav/Navigation';
 import LoadingPage from '../components/LoadingPage';
 import NoPost from '../components/City/NoPost';
@@ -47,7 +47,7 @@ const City = ({ match }) => {
     try {
       const data = await API.graphql(
         graphqlOperation(listPictures, {
-          filter: { city: { beginsWith: cityToKo[cityName] } },
+          filter: { city: { beginsWith: translateToKo[cityName] } },
         }),
       );
       const pictures = await data.data.listPictures.items;
@@ -78,7 +78,7 @@ const City = ({ match }) => {
           <LoadingPage />
         ) : (
           <>
-            <NoPost hasPost={hasPost} cityName={cityToKo[cityName]} />
+            <NoPost hasPost={hasPost} cityName={translateToKo[cityName]} />
             <CityGridWrap hasPost={hasPost}>
               {cityObjects.map((post) => (
                 <Link

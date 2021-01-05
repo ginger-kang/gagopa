@@ -7,6 +7,7 @@ import { ImFolderUpload } from 'react-icons/im';
 import { ThemeContext, UserContext } from '../App';
 import { lightTheme } from '../theme';
 import Navigation from '../components/Nav/Navigation';
+import { translateToKo } from '../utils/utils';
 
 import config from '../aws-exports';
 
@@ -217,6 +218,8 @@ const UploadPicture = () => {
   const hiddenFileInput = useRef(null);
   const history = useHistory();
 
+  const cityList = Object.values(translateToKo);
+
   const onSubmit = async (e) => {
     let key;
     e.preventDefault();
@@ -270,6 +273,7 @@ const UploadPicture = () => {
   };
 
   const onSelectOptionChange = (event) => {
+    console.log(event.target.value);
     setCityName(event.target.value);
   };
 
@@ -293,8 +297,6 @@ const UploadPicture = () => {
   const handleFileClick = (event) => {
     hiddenFileInput.current.click();
   };
-
-  const citys = ['도쿄', '오사카', '삿포로'];
 
   return (
     <>
@@ -334,8 +336,10 @@ const UploadPicture = () => {
                 <option value="" hidden>
                   도시
                 </option>
-                {citys.map((city) => (
-                  <option value={city}>{city}</option>
+                {cityList.map((city, index) => (
+                  <option key={index} value={city}>
+                    {city}
+                  </option>
                 ))}
               </Select>
             </InputContainer>

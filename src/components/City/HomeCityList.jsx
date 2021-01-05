@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listMenus } from '../../graphql/queries';
-import { cityToKo } from '../../utils/utils';
+import { translateToKo } from '../../utils/utils';
 import { ThemeContext } from '../../App';
 
 const HomeCityListWrap = styled.div`
@@ -78,7 +78,7 @@ const HomeCityList = () => {
                 <img src={menu.thumbnail.uri} alt="thumbnail" />
               </MenuThumbnail>
               <MenuContentWrap>
-                <span>{cityToKo[menu.city]}</span>
+                <span>{translateToKo[menu.city]}</span>
               </MenuContentWrap>
             </CityMenu>
           </Link>

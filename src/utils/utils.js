@@ -1,4 +1,4 @@
-export const cityToKo = {
+export const translateToKo = {
   tokyo: '도쿄',
   osaka: '오사카',
   sapporo: '삿포로',
