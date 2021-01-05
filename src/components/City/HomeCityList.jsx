@@ -2,9 +2,9 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
-import { listMenus } from '../graphql/queries';
-import { cityToKo } from '../utils/utils';
-import { ThemeContext } from '../App';
+import { listMenus } from '../../graphql/queries';
+import { cityToKo } from '../../utils/utils';
+import { ThemeContext } from '../../App';
 
 const HomeCityListWrap = styled.div`
   display: grid;

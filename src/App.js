@@ -4,8 +4,8 @@ import Router from './Router';
 import { useDarkMode } from './hooks/useDarkMode';
 import { lightTheme, darkTheme } from './theme';
 import { Auth } from 'aws-amplify';
-import { getCurrentUserInfo } from './components/CreateUser';
-import { getUserById } from './components/UserQueries';
+import { getCurrentUserInfo } from './components/User/CreateUser';
+import { getUserById } from './components/User/UserQueries';
 
 export const ThemeContext = createContext({
   theme: darkTheme,

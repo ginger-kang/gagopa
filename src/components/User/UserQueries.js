@@ -1,4 +1,4 @@
-import { getUser } from '../graphql/queries';
+import { getUser } from '../../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
 
 export const getUserById = async (id) => {

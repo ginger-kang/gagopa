@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { ThemeContext } from '../App';
+import { ThemeContext } from '../../App';
 
 const ThemeModalContainer = styled.div`
   position: fixed;

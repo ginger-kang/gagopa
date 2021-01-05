@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import Navigation from '../components/Navigation';
+import Navigation from '../components/Nav/Navigation';
 import { CognitoContext, ThemeContext } from '../App';
 import { FcBusinessContact, FcCancel, FcKey } from 'react-icons/fc';
 import { lightTheme } from '../theme';

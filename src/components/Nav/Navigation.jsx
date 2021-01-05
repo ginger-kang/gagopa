@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { ThemeContext, CognitoContext } from '../App';
+import { ThemeContext, CognitoContext } from '../../App';
 import { Link } from 'react-router-dom';
-import DarkModeToggle from '../components/DarkModeToggle';
-import Profile from './Profile';
-import SignIn from './Auth/SignIn';
-import SignUp from './Auth/SignUp';
+import DarkModeToggle from './DarkModeToggle';
+import NavMenu from './NavMenu';
+import SignIn from '../Auth/SignIn';
+import SignUp from '../Auth/SignUp';
 
 const NavBarContainer = styled.nav`
   width: 100vw;
@@ -109,8 +109,7 @@ const Navigation = ({ show }) => {
               사진 올리기
             </UploadPictureContent>
           )}
-
-          <Profile
+          <NavMenu
             handleDarkTheme={handleDarkTheme}
             toggleSignIn={toggleSignIn}
             toggleSignUp={toggleSignUp}

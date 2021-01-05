@@ -1,7 +1,7 @@
-import { createUser } from '../graphql/mutations';
+import { createUser } from '../../graphql/mutations';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import { getUser } from '../graphql/queries';
-import config from '../aws-exports';
+import { getUser } from '../../graphql/queries';
+import config from '../../aws-exports';
 
 const {
   aws_user_files_s3_bucket_region: region,

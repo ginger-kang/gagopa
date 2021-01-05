@@ -4,7 +4,7 @@ import { IoIosClose } from 'react-icons/io';
 import { Auth } from 'aws-amplify';
 import { ThemeContext } from '../../App';
 import { UserContext } from '../../App';
-import { getCurrentUserInfo } from '../CreateUser';
+import { getCurrentUserInfo } from '../User/CreateUser';
 import googleLogo from '../../static/assets/googleLogo.svg';
 
 const SignInContainer = styled.div`

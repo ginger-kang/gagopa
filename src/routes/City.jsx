@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listPictures } from '../graphql/queries';
-import CityIntro from '../components/CityIntro';
+import CityIntro from '../components/City/CityIntro';
 import { cityToKo } from '../utils/utils';
-import Navigation from '../components/Navigation';
+import Navigation from '../components/Nav/Navigation';
 import LoadingPage from '../components/LoadingPage';
-import GetNextPostButton from '../components/GetNextPostButton';
-import NoPost from '../components/NoPost';
-import CityPost from '../components/CityPost';
+import GetNextPostButton from '../components/City/GetNextPostButton';
+import NoPost from '../components/City/NoPost';
+import CityPost from '../components/City/CityPost';
 
 const CityContainer = styled.div`
   margin-top: 60px;

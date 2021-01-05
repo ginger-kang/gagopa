@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
-import { listMenus } from '../graphql/queries';
-import { cityToKo } from '../utils/utils';
+import { listMenus } from '../../graphql/queries';
+import { cityToKo } from '../../utils/utils';
 
 const CityIntroContainer = styled.div`
   width: 100%;

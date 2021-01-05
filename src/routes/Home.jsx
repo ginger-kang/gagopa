@@ -1,8 +1,8 @@
 import React, { useState, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import mainImage from '../static/assets/mainImage.jpg';
-import HomeCityList from '../components/HomeCityList';
-import Navigation from '../components/Navigation';
+import HomeCityList from '../components/City/HomeCityList';
+import Navigation from '../components/Nav/Navigation';
 
 const HomeContainer = styled.main`
   width: 100%;

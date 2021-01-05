@@ -1,9 +1,9 @@
 import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
-import { CognitoContext, ThemeContext, UserContext } from '../App';
+import { CognitoContext, ThemeContext, UserContext } from '../../App';
 import { FaUserCircle } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
-import { useDetectOutsideClick } from '../hooks/useDetectOutsideClick';
+import { useDetectOutsideClick } from '../../hooks/useDetectOutsideClick';
 import { Auth } from 'aws-amplify';
 
 const ProfileWrap = styled.div`
@@ -61,7 +61,7 @@ const AvatarWrap = styled.div`
   }
 `;
 
-const Profile = ({ handleDarkTheme, toggleSignIn, toggleSignUp }) => {
+const NavMenu = ({ handleDarkTheme, toggleSignIn, toggleSignUp }) => {
   const { theme } = useContext(ThemeContext);
   const { userObj, refreshUser } = useContext(UserContext);
   const dropdownRef = useRef(null);
@@ -137,4 +137,4 @@ const Profile = ({ handleDarkTheme, toggleSignIn, toggleSignUp }) => {
   );
 };
 
-export default Profile;
+export default NavMenu;

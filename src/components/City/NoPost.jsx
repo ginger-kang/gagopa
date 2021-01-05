@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import doodle from '../static/assets/doodle.png';
+import doodle from '../../static/assets/doodle.png';
 
 const Container = styled.div`
   width: 100%;
