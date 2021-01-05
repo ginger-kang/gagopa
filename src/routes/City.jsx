@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listPictures } from '../graphql/queries';
 import CityIntro from '../components/City/CityIntro';
