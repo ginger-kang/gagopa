@@ -62,8 +62,6 @@ const Detail = ({ match }) => {
     fetchPictures();
   }, [fetchPictures]);
 
-  console.log(location);
-
   return (
     <>
       <Navigation show={true} />

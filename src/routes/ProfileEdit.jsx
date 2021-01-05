@@ -161,8 +161,6 @@ const ProfileEdit = () => {
   const hiddenFileInput = useRef(null);
   const history = useHistory();
 
-  console.log(userObj);
-
   const onSubmit = async (e) => {
     e.preventDefault();
     let key;

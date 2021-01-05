@@ -118,7 +118,7 @@ const NavMenu = ({ handleDarkTheme, toggleSignIn, toggleSignUp }) => {
             ) : (
               <li onClick={alertMessage}>여행 사진 올리기</li>
             )}
-            <NavLink to="/city/tokyo">
+            <NavLink to={{ pathname: `/city/tokyo`, state: { next: null } }}>
               <li>사진 둘러보기</li>
             </NavLink>
             <li onClick={handleDarkTheme}>화면 테마 설정</li>
