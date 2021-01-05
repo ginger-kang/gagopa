@@ -18,11 +18,10 @@ const Dot = styled.div`
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #b9b9b9;
-  color: #b9b9b9;
+  background-color: #6f6f6f;
+  color: #6f6f6f;
   animation: dotFlashing 1s infinite linear alternate;
   animation-delay: 0.5s;
-
   &::before,
   &::after {
     content: '';
@@ -36,8 +35,8 @@ const Dot = styled.div`
     width: 10px;
     height: 10px;
     border-radius: 5px;
-    background-color: #b9b9b9;
-    color: #b9b9b9;
+    background-color: #6f6f6f;
+    color: #6f6f6f;
     animation: dotFlashing 1s infinite alternate;
     animation-delay: 0s;
   }
@@ -47,15 +46,15 @@ const Dot = styled.div`
     width: 10px;
     height: 10px;
     border-radius: 5px;
-    background-color: #b9b9b9;
-    color: #b9b9b9;
+    background-color: #6f6f6f;
+    color: #6f6f6f;
     animation: dotFlashing 1s infinite alternate;
     animation-delay: 1s;
   }
 
   @keyframes dotFlashing {
     0% {
-      background-color: #b9b9b9;
+      background-color: #6f6f6f;
     }
     50%,
     100% {

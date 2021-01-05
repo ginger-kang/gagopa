@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listPictures } from '../graphql/queries';
@@ -6,9 +6,9 @@ import CityIntro from '../components/City/CityIntro';
 import { cityToKo } from '../utils/utils';
 import Navigation from '../components/Nav/Navigation';
 import LoadingPage from '../components/LoadingPage';
-import GetNextPostButton from '../components/City/GetNextPostButton';
 import NoPost from '../components/City/NoPost';
 import CityPost from '../components/City/CityPost';
+import LoadMorePostButton from '../components/City/LoadMorePostButton';
 
 const CityContainer = styled.div`
   margin-top: 60px;
@@ -27,47 +27,41 @@ const CityGridWrap = styled.div`
   margin-bottom: 60px;
 `;
 
+const postCount = 2;
+
 const City = ({ match }) => {
-  const [cityObjects, setCityObjects] = useState([]);
-  const [prevToken, setPrevToken] = useState(undefined);
-  const [nextToken, setNextToken] = useState();
+  const [fetchPostData, setFetchPostData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [next, setNext] = useState(2);
   const cityName = match.params.cityName;
-  const hasNext = !!nextToken && cityObjects.length !== 0;
-  const hasPost = cityObjects.length !== 0;
+  const hasNext = fetchPostData.length > next;
+  const hasPost = fetchPostData.length !== 0;
+
+  const fetchPictures = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const data = await API.graphql(
+        graphqlOperation(listPictures, {
+          filter: { city: { beginsWith: cityToKo[cityName] } },
+        }),
+      );
+      const pictures = await data.data.listPictures.items;
+      setFetchPostData(pictures);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [cityName]);
 
   useEffect(() => {
-    const fetchPictures = async () => {
-      setIsLoading(true);
-      try {
-        const data = await API.graphql(
-          graphqlOperation(listPictures, {
-            filter: { city: { beginsWith: cityToKo[cityName] } },
-            limit: 2,
-            nextToken: prevToken,
-          }),
-        );
-        const pictures = await data.data.listPictures.items;
-        const token = await data.data.listPictures.nextToken;
-        setCityObjects((prev) => [...prev, ...pictures]);
-        setNextToken(token);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchPictures();
-  }, [cityName, prevToken]);
+  }, [fetchPictures]);
 
-  const getNextPost = () => {
-    setPrevToken(nextToken);
-    setNextToken(null);
-  };
+  const cityObjects = fetchPostData && fetchPostData.slice(0, next);
 
-  const reset = () => {
-    setPrevToken(undefined);
-    setNextToken(null);
+  const handleLoadMorePosts = () => {
+    setNext((next) => next + postCount);
   };
 
   return (
@@ -85,7 +79,10 @@ const City = ({ match }) => {
                 <CityPost key={post.id} post={post} cityName={cityName} />
               ))}
             </CityGridWrap>
-            <GetNextPostButton getNextPost={getNextPost} hasNext={hasNext} />
+            <LoadMorePostButton
+              loadMorePost={handleLoadMorePosts}
+              hasNext={hasNext}
+            />
           </>
         )}
       </CityContainer>

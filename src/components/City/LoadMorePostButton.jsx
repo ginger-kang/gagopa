@@ -17,11 +17,11 @@ const Button = styled.button`
   }
 `;
 
-const GetNextPostButton = ({ hasNext, getNextPost }) => {
+const LoadMorePostButton = ({ hasNext, loadMorePost }) => {
   return (
     hasNext && (
       <ButtonContainer>
-        <Button onClick={getNextPost}>
+        <Button onClick={loadMorePost}>
           <IoArrowDownCircleOutline size={38} />
         </Button>
       </ButtonContainer>
@@ -29,4 +29,4 @@ const GetNextPostButton = ({ hasNext, getNextPost }) => {
   );
 };
 
-export default GetNextPostButton;
+export default LoadMorePostButton;
