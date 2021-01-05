@@ -42,8 +42,6 @@ const City = ({ match }) => {
   const hasNext = fetchPostData.length > next;
   const hasPost = fetchPostData.length !== 0;
 
-  console.log(location, next);
-
   const fetchPictures = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -87,7 +85,7 @@ const City = ({ match }) => {
                   key={post.id}
                   to={{
                     pathname: `/city/${cityName}/${post.id}`,
-                    state: { next: next, cityName: cityName },
+                    state: { next: next, cityName: cityName, post: post },
                   }}
                 >
                   <CityPost key={post.id} post={post} cityName={cityName} />

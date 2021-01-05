@@ -3,13 +3,10 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { createPicture } from '../graphql/mutations';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
-import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { FiUpload } from 'react-icons/fi';
+import { ImFolderUpload } from 'react-icons/im';
 import { ThemeContext, UserContext } from '../App';
 import { lightTheme } from '../theme';
+import Navigation from '../components/Nav/Navigation';
 
 import config from '../aws-exports';
 
@@ -19,88 +16,94 @@ const {
 } = config;
 
 const UploadContainer = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  padding-top: 70px;
 `;
 
 const UploadFormWrap = styled.div`
-  width: 70%;
-  min-width: 1000px;
+  width: 750px;
   border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  margin-top: 120px;
-  margin-bottom: 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 30px;
-  background: ${(props) => props.themeProps.itemBackground};
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
-  @media screen and (max-width: 950px) {
-    flex-direction: column;
-    width: 55%;
-    min-width: 600px;
-  }
-`;
-
-const UploadForm = styled.form`
-  min-width: 500px;
-  width: 45%;
-  height: 450px;
+  margin: 40px auto;
+  padding: 50px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: ${(props) => props.themeProps.itemBackground};
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.05);
+`;
+
+const Title = styled.h2`
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
 `;
 
 const Preview = styled.div`
   width: 100%;
   height: 100%;
   max-height: 400px;
-  border-radius: 10px;
   & img {
     width: 100%;
     height: 100%;
-    border-radius: 10px;
   }
 `;
 
 const FileWrap = styled.div`
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background: ${(props) => props.themeProps.body};
   cursor: pointer;
-  border-radius: 8px;
-  border: 4px dashed ${(props) => props.themeProps.text};
+  border: 2px dashed #888888;
+
+  & span {
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: 600;
+  }
 `;
 
-const SubmitButton = styled.input`
-  width: 400px;
-  height: 53px;
-  border-radius: 8px;
-  border: none;
-  color: white;
-  background: #672dce;
-  font-size: 0.8rem;
+const SubmitButton = styled.div`
+  width: 130px;
+  height: 47px;
+  border-radius: 5px;
+  background: none;
+  border: 1px solid
+    ${(props) => (props.theme === lightTheme ? '#7038d4' : '#fcfcfc')};
+  color: ${(props) => (props.theme === lightTheme ? '#7038d4' : '#fcfcfc')};
+  font-size: 13px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const ContentsWrap = styled.div`
-  width: 400px;
-  height: 400px;
-  max-height: 400px;
-  border-radius: 10px;
+const CancelButton = styled.div`
+  width: 130px;
+  height: 47px;
+  border-radius: 5px;
+  background: none;
+  border: 1px solid #e22d2d;
+  color: #e22d2d;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const PreviewWrap = styled.div`
+  width: 300px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -109,8 +112,8 @@ const ContentsWrap = styled.div`
 
 const FileUploadContainer = styled.div`
   width: 45%;
-  min-width: 500px;
-  height: 450px;
+  min-width: 300px;
+  height: 300px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -118,14 +121,87 @@ const FileUploadContainer = styled.div`
   align-items: center;
 `;
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '400px',
-    },
-  },
-}));
+const TextInputContainer = styled.div`
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+`;
+
+const InputWrap = styled.div`
+  width: 55%;
+
+  & input,
+  & textarea {
+    font-size: 13px;
+    padding: 15px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+
+    &:focus {
+      outline: none;
+      border: 2px solid
+        ${(props) => (props.theme === lightTheme ? '#7038d4' : 'none')};
+    }
+  }
+`;
+
+const ButtonContainer = styled.div`
+  width: 400px;
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+const Select = styled.select`
+  width: 55%;
+  height: 47px;
+  padding: 0 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+
+  option {
+    color: black;
+    background: white;
+    display: flex;
+    white-space: pre;
+    min-height: 20px;
+    padding: 0px 2px 1px;
+  }
+`;
+
+const FileName = styled.span`
+  margin-top: 8px;
+  font-size: 13px;
+  color: #888888;
+  line-height: 1.2;
+`;
+
+const InputDescription = styled.p`
+  width: 50%;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #a0a0a0;
+  line-height: 1.2;
+  margin-bottom: 20px;
+`;
+
+const InputContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  & span {
+    width: 90px;
+    text-align: center;
+    font-size: 15px;
+  }
+`;
 
 const UploadPicture = () => {
   const [fileName, setFileName] = useState('');
@@ -135,43 +211,16 @@ const UploadPicture = () => {
   const [location, setLocation] = useState('');
   const [instagram, setInstagram] = useState('');
   const [description, setDescription] = useState('');
-  let materialTheme;
 
   const { theme } = useContext(ThemeContext);
   const { userObj } = useContext(UserContext);
-  const classes = useStyles();
   const hiddenFileInput = useRef(null);
   const history = useHistory();
-
-  if (theme === lightTheme) {
-    materialTheme = createMuiTheme({
-      palette: {
-        primary: {
-          light: '#7038d4',
-          main: '#7038d4',
-          dark: '#002884',
-          contrastText: '#fff',
-        },
-      },
-    });
-  } else {
-    materialTheme = createMuiTheme({
-      palette: {
-        primary: {
-          light: '#fcfcfc',
-          main: '#fcfcfc',
-          dark: '#002884',
-          contrastText: '#fff',
-        },
-        type: 'dark',
-      },
-    });
-  }
 
   const onSubmit = async (e) => {
     let key;
     e.preventDefault();
-    if (attachment) {
+    if (attachment && cityName && location) {
       Storage.put(fileName, attachment, {
         contentType: attachment.type,
       })
@@ -183,7 +232,7 @@ const UploadPicture = () => {
           console.log(err);
         });
     } else {
-      alert('파일을 업로드 해주세요.');
+      alert('필수 항목들을 빠짐없이 입력해주세요.');
     }
   };
 
@@ -204,7 +253,7 @@ const UploadPicture = () => {
     await API.graphql(graphqlOperation(createPicture, { input: inputData }))
       .then(() => alert('사진을 성공적으로 업로드했습니다 🙆'))
       .then(() => history.push('/'))
-      .catch((error) => alert(error.message));
+      .catch((error) => console.log(error));
   };
 
   const onChange = (event) => {
@@ -220,8 +269,8 @@ const UploadPicture = () => {
     }
   };
 
-  const onAutoCompleteChange = (event, value) => {
-    setCityName(value);
+  const onSelectOptionChange = (event) => {
+    setCityName(event.target.value);
   };
 
   const onFileChange = (event) => {
@@ -249,86 +298,122 @@ const UploadPicture = () => {
 
   return (
     <>
-      <ThemeProvider theme={materialTheme}>
-        <UploadContainer>
-          <UploadFormWrap themeProps={theme}>
-            <FileUploadContainer>
-              {filePreview ? (
-                <ContentsWrap>
+      <Navigation show={true} />
+      <UploadContainer>
+        <UploadFormWrap themeProps={theme}>
+          <Title>사진 업로드</Title>
+          <FileUploadContainer>
+            {filePreview ? (
+              <>
+                <PreviewWrap>
                   <Preview>
                     <img src={filePreview} alt="file" />
                   </Preview>
-                </ContentsWrap>
-              ) : (
-                <FileWrap onClick={handleFileClick} themeProps={theme}>
-                  <FiUpload size={35} />
-                </FileWrap>
-              )}
-              <input
-                type="file"
-                id="file-input"
-                accept="image/*"
-                ref={hiddenFileInput}
-                onChange={(e) => onFileChange(e)}
-                style={{ display: 'none' }}
-              />
-            </FileUploadContainer>
-            <UploadForm
-              className={classes.root}
-              noValidate
-              autoComplete="off"
-              onSubmit={(e) => onSubmit(e)}
-            >
-              <Autocomplete
-                options={citys}
-                getOptionLabel={(option) => option}
-                style={{ width: 400 }}
-                name="city"
-                onChange={(event, value) => onAutoCompleteChange(event, value)}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    value={cityName}
-                    label="도시"
-                    variant="outlined"
-                  />
-                )}
-              />
-              <TextField
-                name="location"
-                value={location}
-                onChange={onChange}
-                type="text"
-                label="위치"
-                variant="outlined"
-                color="primary"
-                maxLength={20}
-              />
-              <TextField
-                name="instagram"
-                value={instagram}
-                onChange={onChange}
-                type="text"
-                label="인스타그램"
-                variant="outlined"
-                color="primary"
-                maxLength={10}
-              />
-              <TextField
-                name="description"
-                value={description}
-                onChange={onChange}
-                label="추가설명"
-                variant="outlined"
-                color="primary"
-                type="text"
-                maxLength={10}
-              />
-              <SubmitButton type="submit" value="사진 업로드"></SubmitButton>
-            </UploadForm>
-          </UploadFormWrap>
-        </UploadContainer>
-      </ThemeProvider>
+                </PreviewWrap>
+                <FileName>{fileName}</FileName>
+              </>
+            ) : (
+              <FileWrap onClick={handleFileClick} themeProps={theme}>
+                <ImFolderUpload size={35} />
+                <span>*파일 선택</span>
+              </FileWrap>
+            )}
+            <input
+              type="file"
+              id="file-input"
+              accept="image/*"
+              ref={hiddenFileInput}
+              onChange={(e) => onFileChange(e)}
+              style={{ display: 'none' }}
+            />
+          </FileUploadContainer>
+          <TextInputContainer>
+            <InputContainer>
+              <span>*도시</span>
+              <Select onChange={onSelectOptionChange}>
+                <option value="" hidden>
+                  도시
+                </option>
+                {citys.map((city) => (
+                  <option value={city}>{city}</option>
+                ))}
+              </Select>
+            </InputContainer>
+            <InputContainer>
+              <span />
+              <InputDescription>
+                해당 사진의 도시 명을 골라주세요.
+              </InputDescription>
+            </InputContainer>
+            <InputContainer>
+              <span>*위치</span>
+              <InputWrap theme={theme}>
+                <input
+                  name="location"
+                  value={location}
+                  onChange={onChange}
+                  placeholder="위치"
+                />
+              </InputWrap>
+            </InputContainer>
+            <InputContainer>
+              <span />
+              <InputDescription>
+                사진의 정확한 위치를 알고 있다면 적어주세요.
+                <br />
+                알고 계신 대로만 적어주셔도 좋습니다.
+                <br />
+                예) 신주쿠, 시부야역 스크램블, 도쿄
+              </InputDescription>
+            </InputContainer>
+            <InputContainer>
+              <span>인스타</span>
+              <InputWrap theme={theme}>
+                <input
+                  name="instagram"
+                  value={instagram}
+                  onChange={onChange}
+                  placeholder="인스타그램 계정"
+                />
+              </InputWrap>
+            </InputContainer>
+            <InputContainer>
+              <span />
+              <InputDescription>
+                계정을 입력하실 경우 사진과 함께 입력하신 인스타그램 계정으로
+                링크를 달아드립니다.
+              </InputDescription>
+            </InputContainer>
+            <InputContainer>
+              <span>사진 설명</span>
+              <InputWrap theme={theme}>
+                <textarea
+                  name="description"
+                  value={description}
+                  onChange={onChange}
+                  placeholder="사진 설명"
+                />
+              </InputWrap>
+            </InputContainer>
+            <InputContainer>
+              <span />
+              <InputDescription>
+                사진에 대한 추가적인 설명이 있으시면 적어주세요.
+                <br />
+                TMI 환영합니다.
+              </InputDescription>
+            </InputContainer>
+            <ButtonContainer>
+              <SubmitButton theme={theme} onClick={onSubmit}>
+                사진 업로드
+              </SubmitButton>
+              <CancelButton theme={theme} onClick={() => history.push('/')}>
+                취소
+              </CancelButton>
+            </ButtonContainer>
+          </TextInputContainer>
+        </UploadFormWrap>
+      </UploadContainer>
     </>
   );
 };

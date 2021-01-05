@@ -20,8 +20,8 @@ const EditContainer = styled.div`
 
 const EditWrap = styled.div`
   width: 750px;
-  margin: 0 auto 0 auto;
-  padding: 50px 0 50px 0;
+  margin: 0 auto;
+  padding: 50px 0;
 `;
 
 const EditTitle = styled.h2`

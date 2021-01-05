@@ -4,6 +4,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { getPicture } from '../graphql/queries';
 import { Link, useLocation } from 'react-router-dom';
 import Navigation from '../components/Nav/Navigation';
+import LoadingPage from '../components/LoadingPage';
 
 const Container = styled.main`
   width: 100%;
@@ -11,6 +12,14 @@ const Container = styled.main`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+`;
+
+const PictureWrap = styled.div`
+  width: 50%;
+  max-width: 500px;
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const BackButton = styled.button`
@@ -28,10 +37,12 @@ const BackButton = styled.button`
 const Detail = ({ match }) => {
   let location = useLocation();
   const [pictureObj, setPictureObj] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const pictureId = match.params.id;
   const nextState = location.state.next;
 
   const fetchPictures = useCallback(async () => {
+    setIsLoading(true);
     try {
       const data = await API.graphql(
         graphqlOperation(getPicture, {
@@ -42,6 +53,8 @@ const Detail = ({ match }) => {
       setPictureObj(picture);
     } catch (error) {
       alert(error);
+    } finally {
+      setIsLoading(false);
     }
   }, [pictureId]);
 
@@ -49,10 +62,20 @@ const Detail = ({ match }) => {
     fetchPictures();
   }, [fetchPictures]);
 
+  console.log(location);
+
   return (
     <>
       <Navigation show={true} />
-      <Container></Container>
+      {isLoading ? (
+        <LoadingPage />
+      ) : (
+        <Container>
+          <PictureWrap>
+            <img src={pictureObj.attachment.uri} alt="post" />
+          </PictureWrap>
+        </Container>
+      )}
       <Link
         to={{
           pathname: `/city/tokyo/`,
