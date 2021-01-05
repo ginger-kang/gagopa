@@ -9,6 +9,7 @@ import Navigation from '../components/Navigation';
 import LoadingPage from '../components/LoadingPage';
 import GetNextPostButton from '../components/GetNextPostButton';
 import NoPost from '../components/NoPost';
+import CityPost from '../components/CityPost';
 
 const CityContainer = styled.div`
   margin-top: 60px;
@@ -25,29 +26,6 @@ const CityGridWrap = styled.div`
   grid-column-gap: 8px;
   grid-row-gap: 8px;
   margin-bottom: 60px;
-`;
-
-const CityPost = styled.div`
-  width: 21vw;
-  height: 21vw;
-  cursor: pointer;
-  position: relative;
-
-  & div {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.08);
-    }
-  }
-
-  & img {
-    object-fit: cover;
-  }
 `;
 
 const City = ({ match }) => {
@@ -105,12 +83,7 @@ const City = ({ match }) => {
             <NoPost hasPost={hasPost} cityName={cityToKo[cityName]} />
             <CityGridWrap hasPost={hasPost}>
               {cityObjects.map((post) => (
-                <CityPost key={post.id}>
-                  <img src={post.attachment.uri} alt="attachment" />
-                  <Link to={`/city/${cityName}/${post.id}`}>
-                    <div />
-                  </Link>
-                </CityPost>
+                <CityPost key={post.id} post={post} cityName={cityName} />
               ))}
             </CityGridWrap>
             <GetNextPostButton getNextPost={getNextPost} hasNext={hasNext} />
