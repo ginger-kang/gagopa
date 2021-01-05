@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listPictures } from '../graphql/queries';
@@ -9,6 +9,7 @@ import LoadingPage from '../components/LoadingPage';
 import NoPost from '../components/City/NoPost';
 import CityPost from '../components/City/CityPost';
 import LoadMorePostButton from '../components/City/LoadMorePostButton';
+import { Link, useLocation } from 'react-router-dom';
 
 const CityContainer = styled.div`
   margin-top: 60px;
@@ -30,12 +31,18 @@ const CityGridWrap = styled.div`
 const postCount = 2;
 
 const City = ({ match }) => {
+  let location = useLocation();
+
   const [fetchPostData, setFetchPostData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [next, setNext] = useState(2);
+  const [next, setNext] = useState(
+    location.state.next ? location.state.next : 2,
+  );
   const cityName = match.params.cityName;
   const hasNext = fetchPostData.length > next;
   const hasPost = fetchPostData.length !== 0;
+
+  console.log(location, next);
 
   const fetchPictures = useCallback(async () => {
     setIsLoading(true);
@@ -76,7 +83,15 @@ const City = ({ match }) => {
             <NoPost hasPost={hasPost} cityName={cityToKo[cityName]} />
             <CityGridWrap hasPost={hasPost}>
               {cityObjects.map((post) => (
-                <CityPost key={post.id} post={post} cityName={cityName} />
+                <Link
+                  key={post.id}
+                  to={{
+                    pathname: `/city/${cityName}/${post.id}`,
+                    state: { next: next, cityName: cityName },
+                  }}
+                >
+                  <CityPost key={post.id} post={post} cityName={cityName} />
+                </Link>
               ))}
             </CityGridWrap>
             <LoadMorePostButton

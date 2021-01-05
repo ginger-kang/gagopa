@@ -69,7 +69,10 @@ const HomeCityList = () => {
     <HomeCityListWrap>
       {menuObj &&
         menuObj.map((menu) => (
-          <Link to={`/city/${menu.city}`} key={menu.id}>
+          <Link
+            to={{ pathname: `/city/${menu.city}`, state: { next: null } }}
+            key={menu.id}
+          >
             <CityMenu theme={theme}>
               <MenuThumbnail>
                 <img src={menu.thumbnail.uri} alt="thumbnail" />

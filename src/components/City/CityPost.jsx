@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { IoIosHeart } from 'react-icons/io';
 import { FaComment } from 'react-icons/fa';
 
@@ -52,23 +51,21 @@ const HeartAndComment = styled.div`
   }
 `;
 
-const CityPost = ({ post, cityName }) => {
+const CityPost = ({ post }) => {
   const likesCount = post.likes.length ? post.likes.length : 0;
 
   return (
     <Post>
-      <Link to={`/city/${cityName}/${post.id}`}>
-        <img src={post.attachment.uri} alt="attachment" />
-        <Hover>
-          <HeartAndComment>
-            <IoIosHeart size={24} />
-            <span>{likesCount}</span>
-            &nbsp; &nbsp; &nbsp;
-            <FaComment size={20} />
-            <span>0</span>
-          </HeartAndComment>
-        </Hover>
-      </Link>
+      <img src={post.attachment.uri} alt="attachment" />
+      <Hover>
+        <HeartAndComment>
+          <IoIosHeart size={24} />
+          <span>{likesCount}</span>
+          &nbsp; &nbsp; &nbsp;
+          <FaComment size={20} />
+          <span>0</span>
+        </HeartAndComment>
+      </Hover>
     </Post>
   );
 };
