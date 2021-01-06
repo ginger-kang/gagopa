@@ -7,6 +7,7 @@ export const getPicture = /* GraphQL */ `
       id
       authorId
       city
+      title
       location
       author {
         userId
@@ -58,6 +59,7 @@ export const listPictures = /* GraphQL */ `
         id
         authorId
         city
+        title
         location
         author {
           userId
@@ -93,6 +95,7 @@ export const getUser = /* GraphQL */ `
           id
           authorId
           city
+          title
           location
           instagram
           description
@@ -218,6 +221,7 @@ export const getPictureLike = /* GraphQL */ `
         id
         authorId
         city
+        title
         location
         author {
           userId
@@ -267,6 +271,7 @@ export const listPictureLikes = /* GraphQL */ `
           id
           authorId
           city
+          title
           location
           instagram
           description
@@ -312,6 +317,7 @@ export const likesByUser = /* GraphQL */ `
           id
           authorId
           city
+          title
           location
           instagram
           description

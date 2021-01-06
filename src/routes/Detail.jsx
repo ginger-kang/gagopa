@@ -99,7 +99,7 @@ const InfoWrap = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   overflow: auto;
 `;
@@ -184,8 +184,6 @@ const Detail = ({ match }) => {
     fetchPictures();
   }, [fetchPictures]);
 
-  console.log(location);
-
   return (
     <>
       <Navigation show={true} />
@@ -208,6 +206,10 @@ const Detail = ({ match }) => {
                 </Content>
               </AuthorWrap>
               <InfoWrap>
+                <Info>
+                  <InfoTitle>제목</InfoTitle>
+                  <span style={{ fontWeight: 'bold' }}>{pictureObj.title}</span>
+                </Info>
                 <Info>
                   <InfoTitle>도시</InfoTitle>
                   <span>{pictureObj.city}</span>

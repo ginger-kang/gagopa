@@ -209,6 +209,7 @@ const UploadPicture = () => {
   const [attachment, setAttachment] = useState(null);
   const [filePreview, setFilePreview] = useState(null);
   const [cityName, setCityName] = useState('');
+  const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [instagram, setInstagram] = useState('');
   const [description, setDescription] = useState('');
@@ -223,7 +224,7 @@ const UploadPicture = () => {
   const onSubmit = async (e) => {
     let key;
     e.preventDefault();
-    if (attachment && cityName && location) {
+    if (attachment && cityName && location && title) {
       Storage.put(fileName, attachment, {
         contentType: attachment.type,
       })
@@ -244,6 +245,7 @@ const UploadPicture = () => {
     const inputData = {
       authorId: userObj.attributes.sub,
       city: cityName,
+      title: title,
       location: location,
       instagram: instagram,
       description: description,
@@ -269,11 +271,12 @@ const UploadPicture = () => {
       setDescription(value);
     } else if (name === 'instagram') {
       setInstagram(value);
+    } else if (name === 'title') {
+      setTitle(value);
     }
   };
 
   const onSelectOptionChange = (event) => {
-    console.log(event.target.value);
     setCityName(event.target.value);
   };
 
@@ -347,6 +350,23 @@ const UploadPicture = () => {
               <span />
               <InputDescription>
                 해당 사진의 도시 명을 골라주세요.
+              </InputDescription>
+            </InputContainer>
+            <InputContainer>
+              <span>*사진 제목</span>
+              <InputWrap theme={theme}>
+                <input
+                  name="title"
+                  value={title}
+                  onChange={onChange}
+                  placeholder="사진 제목"
+                />
+              </InputWrap>
+            </InputContainer>
+            <InputContainer>
+              <span />
+              <InputDescription>
+                사진 게시물의 제목을 적어주세요.
               </InputDescription>
             </InputContainer>
             <InputContainer>

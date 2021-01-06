@@ -10,6 +10,7 @@ export const createPicture = /* GraphQL */ `
       id
       authorId
       city
+      title
       location
       author {
         userId
@@ -59,6 +60,7 @@ export const updatePicture = /* GraphQL */ `
       id
       authorId
       city
+      title
       location
       author {
         userId
@@ -108,6 +110,7 @@ export const deletePicture = /* GraphQL */ `
       id
       authorId
       city
+      title
       location
       author {
         userId
@@ -160,6 +163,7 @@ export const createUser = /* GraphQL */ `
           id
           authorId
           city
+          title
           location
           instagram
           description
@@ -193,6 +197,7 @@ export const updateUser = /* GraphQL */ `
           id
           authorId
           city
+          title
           location
           instagram
           description
@@ -226,6 +231,7 @@ export const deleteUser = /* GraphQL */ `
           id
           authorId
           city
+          title
           location
           instagram
           description
@@ -339,6 +345,7 @@ export const createPictureLike = /* GraphQL */ `
         id
         authorId
         city
+        title
         location
         author {
           userId
@@ -395,6 +402,7 @@ export const updatePictureLike = /* GraphQL */ `
         id
         authorId
         city
+        title
         location
         author {
           userId
@@ -451,6 +459,7 @@ export const deletePictureLike = /* GraphQL */ `
         id
         authorId
         city
+        title
         location
         author {
           userId

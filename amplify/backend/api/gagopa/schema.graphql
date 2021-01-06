@@ -2,6 +2,7 @@ type Picture @model @key(name: "picturesByUserId", fields: ["authorId"]) {
   id: ID!
   authorId: ID!
   city: String!
+  title: String!
   location: String!
   author: User @connection(fields: ["authorId"])
   instagram: String

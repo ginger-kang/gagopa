@@ -7,6 +7,7 @@ export const onCreatePicture = /* GraphQL */ `
       id
       authorId
       city
+      title
       location
       author {
         userId
@@ -53,6 +54,7 @@ export const onUpdatePicture = /* GraphQL */ `
       id
       authorId
       city
+      title
       location
       author {
         userId
@@ -99,6 +101,7 @@ export const onDeletePicture = /* GraphQL */ `
       id
       authorId
       city
+      title
       location
       author {
         userId
@@ -219,6 +222,7 @@ export const onCreatePictureLike = /* GraphQL */ `
         id
         authorId
         city
+        title
         location
         author {
           userId
@@ -272,6 +276,7 @@ export const onUpdatePictureLike = /* GraphQL */ `
         id
         authorId
         city
+        title
         location
         author {
           userId
@@ -325,6 +330,7 @@ export const onDeletePictureLike = /* GraphQL */ `
         id
         authorId
         city
+        title
         location
         author {
           userId
