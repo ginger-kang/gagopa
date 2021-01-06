@@ -1,8 +1,10 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listMenus } from '../../graphql/queries';
 import { translateToKo } from '../../utils/utils';
+import { ThemeContext } from '../../App';
+import { lightTheme } from '../../theme';
 
 const CityIntroContainer = styled.div`
   width: 100%;
@@ -36,7 +38,6 @@ const IntroContentWrap = styled.div`
 const IntroSubhead = styled.h3`
   font-size: 2.5rem;
   font-weight: bold;
-  margin: 0 0 10px 0;
 `;
 
 const IntroContent = styled.div`
@@ -44,8 +45,29 @@ const IntroContent = styled.div`
   color: #888888;
 `;
 
-const CityIntro = ({ cityName }) => {
+const ChangeCityButton = styled.button`
+  padding: 8px 13px;
+  margin-left: 13px;
+  border-radius: 8px;
+  background: none;
+  font-size: 13px;
+  border: 1px solid
+    ${(props) => (props.theme === lightTheme ? '#7038d4' : '#fcfcfc')};
+  color: ${(props) => (props.theme === lightTheme ? '#7038d4' : '#fcfcfc')};
+`;
+
+const CityNavContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const CityIntro = ({ cityName, toggleList }) => {
   const [cityInfo, setCityInfo] = useState();
+  const { theme } = useContext(ThemeContext);
 
   const fetchPictures = useCallback(async () => {
     try {
@@ -76,9 +98,14 @@ const CityIntro = ({ cityName }) => {
               <img src={cityInfo.thumbnail.uri} alt="thumbnail" />
             </IntroPictureWrap>
             <IntroContentWrap>
-              <IntroSubhead>
-                <span>{translateToKo[cityInfo.city]}</span>
-              </IntroSubhead>
+              <CityNavContainer>
+                <IntroSubhead>
+                  <span>{translateToKo[cityInfo.city]}</span>
+                </IntroSubhead>
+                <ChangeCityButton theme={theme} onClick={toggleList}>
+                  도시 변경
+                </ChangeCityButton>
+              </CityNavContainer>
               <IntroContent>
                 {cityInfo.tag.split(' ').map((tag, idx) => (
                   <span key={idx}>#{tag} </span>

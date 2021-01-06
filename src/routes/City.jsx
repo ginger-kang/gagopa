@@ -10,6 +10,7 @@ import NoPost from '../components/City/NoPost';
 import CityPost from '../components/City/CityPost';
 import LoadMorePostButton from '../components/City/LoadMorePostButton';
 import { Link, useLocation } from 'react-router-dom';
+import CityListModal from '../components/City/CityListModal';
 
 const CityContainer = styled.div`
   margin-top: 60px;
@@ -38,6 +39,7 @@ const City = ({ match }) => {
   const [next, setNext] = useState(
     location.state.next ? location.state.next : 2,
   );
+  const [showList, setShowList] = useState(false);
   const cityName = match.params.cityName;
   const hasNext = fetchPostData.length > next;
   const hasPost = fetchPostData.length !== 0;
@@ -69,11 +71,13 @@ const City = ({ match }) => {
     setNext((next) => next + postCount);
   };
 
+  const toggleList = () => setShowList(!showList);
+
   return (
     <>
       <Navigation show={true} />
       <CityContainer>
-        <CityIntro cityName={cityName} />
+        <CityIntro cityName={cityName} toggleList={toggleList} />
         {isLoading ? (
           <LoadingPage />
         ) : (
@@ -99,6 +103,7 @@ const City = ({ match }) => {
           </>
         )}
       </CityContainer>
+      {showList && <CityListModal toggleList={toggleList} />}
     </>
   );
 };
