@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getPicture } from '../graphql/queries';
 import { Link, useLocation } from 'react-router-dom';
 import Navigation from '../components/Nav/Navigation';
 import LoadingPage from '../components/LoadingPage';
+import { ThemeContext } from '../App';
 
 const Container = styled.main`
   width: 100%;
@@ -29,17 +30,24 @@ const BackButton = styled.button`
   bottom: 1.5rem;
   border-radius: 30px;
   position: fixed;
-  bottom: 15px;
+  bottom: 25px;
   left: 50%;
+  font-size: 13px;
   transform: translateX(-50%);
+  background: ${(props) => props.theme.itemBackground};
+  color: ${(props) => props.theme.text};
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 `;
 
 const Detail = ({ match }) => {
   let location = useLocation();
   const [pictureObj, setPictureObj] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { theme } = useContext(ThemeContext);
   const pictureId = match.params.id;
   const nextState = location.state.next;
+  const cityName = location.state.cityName;
 
   const fetchPictures = useCallback(async () => {
     setIsLoading(true);
@@ -76,11 +84,11 @@ const Detail = ({ match }) => {
       )}
       <Link
         to={{
-          pathname: `/city/tokyo/`,
+          pathname: `/city/${cityName}/`,
           state: { next: nextState },
         }}
       >
-        <BackButton>돌아가기</BackButton>
+        <BackButton theme={theme}>돌아가기</BackButton>
       </Link>
     </>
   );
