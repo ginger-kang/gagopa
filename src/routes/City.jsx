@@ -5,7 +5,7 @@ import { listPictures } from '../graphql/queries';
 import CityIntro from '../components/City/CityIntro';
 import { translateToKo } from '../utils/utils';
 import Navigation from '../components/Nav/Navigation';
-import LoadingPage from '../components/LoadingPage';
+import LoadingPage from '../components/Utils/LoadingPage';
 import NoPost from '../components/City/NoPost';
 import CityPost from '../components/City/CityPost';
 import LoadMorePostButton from '../components/City/LoadMorePostButton';

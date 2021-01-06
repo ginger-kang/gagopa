@@ -1,7 +1,7 @@
 import React, { useState, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import mainImage from '../static/assets/mainImage.jpg';
-import HomeCityList from '../components/City/HomeCityList';
+import HomeCityList from '../components/Home/HomeCityList';
 import Navigation from '../components/Nav/Navigation';
 
 const HomeContainer = styled.main`
