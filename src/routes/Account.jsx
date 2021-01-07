@@ -124,11 +124,13 @@ const Account = () => {
                 <p>프로필 사진, 사용자 명 등을 변경하세요.</p>
               </MenuWrap>
             </Link>
-            <MenuWrap>
-              <FcKey size={39} />
-              <span>비밀번호 변경</span>
-              <p>비밀번호를 변경하세요.</p>
-            </MenuWrap>
+            <Link to="/password/edit">
+              <MenuWrap>
+                <FcKey size={39} />
+                <span>비밀번호 변경</span>
+                <p>비밀번호를 변경하세요.</p>
+              </MenuWrap>
+            </Link>
             <MenuWrap>
               <FcCancel size={39} />
               <span>회원 탈퇴</span>
