@@ -6,6 +6,7 @@ import Home from './routes/Home';
 import Detail from './routes/Detail';
 import Account from './routes/Account';
 import ProfileEdit from './routes/ProfileEdit';
+import PasswordEdit from './routes/PasswordEdit';
 
 const Router = () => {
   return (
@@ -18,6 +19,7 @@ const Router = () => {
           <Route path="/city/:cityName/:id" exact component={Detail} />
           <Route path="/account" exact component={Account} />
           <Route path="/profile/edit" exact component={ProfileEdit} />
+          <Route path="/password/edit" exact component={PasswordEdit} />
         </Switch>
       </BrowserRouter>
     </>
