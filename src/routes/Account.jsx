@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Navigation from '../components/Nav/Navigation';
-import { CognitoContext, ThemeContext } from '../App';
+import { CognitoContext, ThemeContext, UserContext } from '../App';
 import { FcBusinessContact, FcCancel, FcKey } from 'react-icons/fc';
 import { lightTheme } from '../theme';
 import { Link } from 'react-router-dom';
@@ -96,7 +96,13 @@ const SubHead = styled.span`
 
 const Account = () => {
   const { cognitoUser } = useContext(CognitoContext);
+  const { userObj } = useContext(UserContext);
   const { theme } = useContext(ThemeContext);
+  const { attributes } = userObj;
+
+  const notChange = () => {
+    alert('구글 계정은 비밀번호를 변경 할 수 없습니다.');
+  };
 
   return (
     <>
@@ -124,13 +130,21 @@ const Account = () => {
                 <p>프로필 사진, 사용자 명 등을 변경하세요.</p>
               </MenuWrap>
             </Link>
-            <Link to="/password/edit">
-              <MenuWrap>
+            {attributes.identities ? (
+              <MenuWrap onClick={notChange}>
                 <FcKey size={39} />
                 <span>비밀번호 변경</span>
                 <p>비밀번호를 변경하세요.</p>
               </MenuWrap>
-            </Link>
+            ) : (
+              <Link to="/password/edit">
+                <MenuWrap>
+                  <FcKey size={39} />
+                  <span>비밀번호 변경</span>
+                  <p>비밀번호를 변경하세요.</p>
+                </MenuWrap>
+              </Link>
+            )}
             <MenuWrap>
               <FcCancel size={39} />
               <span>회원 탈퇴</span>

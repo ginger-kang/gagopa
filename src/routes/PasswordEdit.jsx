@@ -106,7 +106,7 @@ const PasswordEdit = () => {
   const { theme } = useContext(ThemeContext);
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [newPassword1, setNewPassword1] = useState('');
+  const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
 
   const history = useHistory();
 
@@ -118,14 +118,14 @@ const PasswordEdit = () => {
       setOldPassword(value);
     } else if (name === 'newPassword') {
       setNewPassword(value);
-    } else if (name === 'newPassword1') {
-      setNewPassword1(value);
+    } else if (name === 'newPasswordConfirm') {
+      setNewPasswordConfirm(value);
     }
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (oldPassword !== newPassword && newPassword === newPassword1) {
+    if (oldPassword !== newPassword && newPassword === newPasswordConfirm) {
       await Auth.currentAuthenticatedUser()
         .then((user) => {
           return Auth.changePassword(user, oldPassword, newPassword);
@@ -175,7 +175,7 @@ const PasswordEdit = () => {
               <InputWrap>
                 <input
                   type="password"
-                  name="newPassword1"
+                  name="newPasswordConfirm"
                   placeholder="새 비밀번호 확인"
                   onChange={onChange}
                   required
