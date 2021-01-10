@@ -10,6 +10,8 @@ type Picture @model @key(name: "picturesByUserId", fields: ["authorId"]) {
   attachment: S3Object
   likes: [PictureLike]
     @connection(keyName: "pictureLikesByPictureId", fields: ["id"])
+  comments: [Comment]
+    @connection(keyName: "commentsByPictureId", fields: ["id"])
 }
 
 type User @model(subscriptions: null) @key(fields: ["userId"]) {
@@ -19,6 +21,17 @@ type User @model(subscriptions: null) @key(fields: ["userId"]) {
   avatar: S3Object
   username: String
   email: String
+}
+
+type Comment @model @key(name: "commentsByPictureId", fields: ["pictureId"]) {
+  id: ID!
+  pictureId: ID!
+  authorId: ID!
+  text: String!
+  likes: [CommentLike]
+    @connection(keyName: "commentLikesByCommentId", fields: ["id"])
+  author: User @connection(fields: ["authorId"])
+  picture: Picture @connection(fields: ["pictureId"])
 }
 
 type Menu @model {
@@ -40,6 +53,18 @@ type PictureLike
   id: ID!
   pictureId: ID!
   userId: ID!
+  user: User @connection(fields: ["userId"])
+  picture: Picture @connection(fields: ["pictureId"])
+  createdAt: String!
+}
+
+type CommentLike
+  @model
+  @key(name: "commentLikesByCommentId", fields: ["commentId"]) {
+  id: ID!
+  userId: ID!
+  pictureId: ID!
+  commentId: ID!
   user: User @connection(fields: ["userId"])
   picture: Picture @connection(fields: ["pictureId"])
   createdAt: String!

@@ -46,6 +46,17 @@ export const createPicture = /* GraphQL */ `
         }
         nextToken
       }
+      comments {
+        items {
+          id
+          pictureId
+          authorId
+          text
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -96,6 +107,17 @@ export const updatePicture = /* GraphQL */ `
         }
         nextToken
       }
+      comments {
+        items {
+          id
+          pictureId
+          authorId
+          text
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -141,6 +163,17 @@ export const deletePicture = /* GraphQL */ `
           id
           pictureId
           userId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      comments {
+        items {
+          id
+          pictureId
+          authorId
+          text
           createdAt
           updatedAt
         }
@@ -248,6 +281,222 @@ export const deleteUser = /* GraphQL */ `
       }
       username
       email
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createComment = /* GraphQL */ `
+  mutation CreateComment(
+    $input: CreateCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    createComment(input: $input, condition: $condition) {
+      id
+      pictureId
+      authorId
+      text
+      likes {
+        items {
+          id
+          userId
+          pictureId
+          commentId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      author {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        title
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateComment = /* GraphQL */ `
+  mutation UpdateComment(
+    $input: UpdateCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    updateComment(input: $input, condition: $condition) {
+      id
+      pictureId
+      authorId
+      text
+      likes {
+        items {
+          id
+          userId
+          pictureId
+          commentId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      author {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        title
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteComment = /* GraphQL */ `
+  mutation DeleteComment(
+    $input: DeleteCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    deleteComment(input: $input, condition: $condition) {
+      id
+      pictureId
+      authorId
+      text
+      likes {
+        items {
+          id
+          userId
+          pictureId
+          commentId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      author {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        title
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -365,6 +614,9 @@ export const createPictureLike = /* GraphQL */ `
         likes {
           nextToken
         }
+        comments {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -422,6 +674,9 @@ export const updatePictureLike = /* GraphQL */ `
         likes {
           nextToken
         }
+        comments {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -477,6 +732,192 @@ export const deletePictureLike = /* GraphQL */ `
           uri
         }
         likes {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createCommentLike = /* GraphQL */ `
+  mutation CreateCommentLike(
+    $input: CreateCommentLikeInput!
+    $condition: ModelCommentLikeConditionInput
+  ) {
+    createCommentLike(input: $input, condition: $condition) {
+      id
+      userId
+      pictureId
+      commentId
+      user {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        title
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCommentLike = /* GraphQL */ `
+  mutation UpdateCommentLike(
+    $input: UpdateCommentLikeInput!
+    $condition: ModelCommentLikeConditionInput
+  ) {
+    updateCommentLike(input: $input, condition: $condition) {
+      id
+      userId
+      pictureId
+      commentId
+      user {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        title
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCommentLike = /* GraphQL */ `
+  mutation DeleteCommentLike(
+    $input: DeleteCommentLikeInput!
+    $condition: ModelCommentLikeConditionInput
+  ) {
+    deleteCommentLike(input: $input, condition: $condition) {
+      id
+      userId
+      pictureId
+      commentId
+      user {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        title
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        comments {
           nextToken
         }
         createdAt

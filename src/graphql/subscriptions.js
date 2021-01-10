@@ -43,6 +43,17 @@ export const onCreatePicture = /* GraphQL */ `
         }
         nextToken
       }
+      comments {
+        items {
+          id
+          pictureId
+          authorId
+          text
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -85,6 +96,17 @@ export const onUpdatePicture = /* GraphQL */ `
           id
           pictureId
           userId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      comments {
+        items {
+          id
+          pictureId
+          authorId
+          text
           createdAt
           updatedAt
         }
@@ -136,6 +158,224 @@ export const onDeletePicture = /* GraphQL */ `
           updatedAt
         }
         nextToken
+      }
+      comments {
+        items {
+          id
+          pictureId
+          authorId
+          text
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateComment = /* GraphQL */ `
+  subscription OnCreateComment {
+    onCreateComment {
+      id
+      pictureId
+      authorId
+      text
+      likes {
+        items {
+          id
+          userId
+          pictureId
+          commentId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      author {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        title
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateComment = /* GraphQL */ `
+  subscription OnUpdateComment {
+    onUpdateComment {
+      id
+      pictureId
+      authorId
+      text
+      likes {
+        items {
+          id
+          userId
+          pictureId
+          commentId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      author {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        title
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteComment = /* GraphQL */ `
+  subscription OnDeleteComment {
+    onDeleteComment {
+      id
+      pictureId
+      authorId
+      text
+      likes {
+        items {
+          id
+          userId
+          pictureId
+          commentId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      author {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        title
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -242,6 +482,9 @@ export const onCreatePictureLike = /* GraphQL */ `
         likes {
           nextToken
         }
+        comments {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -296,6 +539,9 @@ export const onUpdatePictureLike = /* GraphQL */ `
         likes {
           nextToken
         }
+        comments {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -348,6 +594,183 @@ export const onDeletePictureLike = /* GraphQL */ `
           uri
         }
         likes {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateCommentLike = /* GraphQL */ `
+  subscription OnCreateCommentLike {
+    onCreateCommentLike {
+      id
+      userId
+      pictureId
+      commentId
+      user {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        title
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCommentLike = /* GraphQL */ `
+  subscription OnUpdateCommentLike {
+    onUpdateCommentLike {
+      id
+      userId
+      pictureId
+      commentId
+      user {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        title
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCommentLike = /* GraphQL */ `
+  subscription OnDeleteCommentLike {
+    onDeleteCommentLike {
+      id
+      userId
+      pictureId
+      commentId
+      user {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        title
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        comments {
           nextToken
         }
         createdAt

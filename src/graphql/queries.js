@@ -43,6 +43,17 @@ export const getPicture = /* GraphQL */ `
         }
         nextToken
       }
+      comments {
+        items {
+          id
+          pictureId
+          authorId
+          text
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -77,6 +88,9 @@ export const listPictures = /* GraphQL */ `
           uri
         }
         likes {
+          nextToken
+        }
+        comments {
           nextToken
         }
         createdAt
@@ -145,6 +159,115 @@ export const listUsers = /* GraphQL */ `
         }
         username
         email
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getComment = /* GraphQL */ `
+  query GetComment($id: ID!) {
+    getComment(id: $id) {
+      id
+      pictureId
+      authorId
+      text
+      likes {
+        items {
+          id
+          userId
+          pictureId
+          commentId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      author {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        title
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listComments = /* GraphQL */ `
+  query ListComments(
+    $filter: ModelCommentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        pictureId
+        authorId
+        text
+        likes {
+          nextToken
+        }
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        picture {
+          id
+          authorId
+          city
+          title
+          location
+          instagram
+          description
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
@@ -241,6 +364,9 @@ export const getPictureLike = /* GraphQL */ `
         likes {
           nextToken
         }
+        comments {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -260,6 +386,101 @@ export const listPictureLikes = /* GraphQL */ `
         id
         pictureId
         userId
+        user {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        picture {
+          id
+          authorId
+          city
+          title
+          location
+          instagram
+          description
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getCommentLike = /* GraphQL */ `
+  query GetCommentLike($id: ID!) {
+    getCommentLike(id: $id) {
+      id
+      userId
+      pictureId
+      commentId
+      user {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      picture {
+        id
+        authorId
+        city
+        title
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCommentLikes = /* GraphQL */ `
+  query ListCommentLikes(
+    $filter: ModelCommentLikeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCommentLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userId
+        pictureId
+        commentId
         user {
           userId
           username
