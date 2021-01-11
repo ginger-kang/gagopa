@@ -48,7 +48,6 @@ const App = () => {
       setUserObj(null);
     }
   };
-
   return (
     <ThemeContext.Provider value={{ theme, setLightTheme, setDarkTheme }}>
       <UserContext.Provider value={{ userObj, refreshUser }}>
