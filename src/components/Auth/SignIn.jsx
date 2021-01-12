@@ -149,6 +149,7 @@ const SignIn = ({ toggleSignIn }) => {
       window.location.reload();
       refreshUser(true);
     } catch (error) {
+      alert('사용자명 혹은 비밀번호를 확인해 주세요.');
       console.log('error signing in', error);
     }
   };
