@@ -7,7 +7,6 @@ import { lightTheme } from '../theme';
 import config from '../aws-exports';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { updateUser } from '../graphql/mutations';
-import { Auth } from 'aws-amplify';
 
 const {
   aws_user_files_s3_bucket_region: region,
@@ -228,7 +227,7 @@ const ProfileEdit = () => {
     reader.readAsDataURL(file);
   };
 
-  const onChange = async (event) => {
+  const onChange = (event) => {
     const {
       target: { name, value },
     } = event;

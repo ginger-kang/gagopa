@@ -75,7 +75,6 @@ const NavMenu = ({ handleDarkTheme, toggleSignIn, toggleSignUp }) => {
     if (ok) {
       try {
         await Auth.signOut().then(() => refreshUser(false));
-        window.location.reload();
       } catch (error) {
         console.log('error signing out: ', error);
       }

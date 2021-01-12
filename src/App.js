@@ -46,6 +46,7 @@ const App = () => {
       setUserObj(user);
     } else {
       setUserObj(null);
+      setCognitoUser(null);
     }
   };
   return (
