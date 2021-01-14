@@ -46,7 +46,7 @@ const IntroContent = styled.div`
 `;
 
 const ChangeCityButton = styled.button`
-  padding: 8px 13px;
+  padding: 8px 17px;
   margin-left: 13px;
   border-radius: 8px;
   background: none;

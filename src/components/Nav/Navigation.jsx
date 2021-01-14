@@ -6,6 +6,7 @@ import DarkModeToggle from './DarkModeToggle';
 import NavMenu from './NavMenu';
 import SignIn from '../Auth/SignIn';
 import SignUp from '../Auth/SignUp';
+import NavSearchBar from './NavSearchBar';
 
 const NavBarContainer = styled.nav`
   width: 100vw;
@@ -92,7 +93,9 @@ const Navigation = ({ show }) => {
         <TitleContainer themeProps={theme} show={show}>
           <Link to="/">gagopa</Link>
         </TitleContainer>
-        <SearchContainer />
+        <SearchContainer>
+          <NavSearchBar />
+        </SearchContainer>
         <NavMenuContainer>
           {cognitoUser ? (
             <Link to="/upload">
