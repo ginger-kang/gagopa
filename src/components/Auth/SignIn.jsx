@@ -154,6 +154,12 @@ const SignIn = ({ toggleSignIn }) => {
     }
   };
 
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      signIn();
+    }
+  };
+
   const googleSignIn = () => {
     Auth.federatedSignIn({ provider: 'Google' });
   };
@@ -182,6 +188,7 @@ const SignIn = ({ toggleSignIn }) => {
               required
               value={username}
               onChange={onChange}
+              onKeyPress={onKeyPress}
               placeholder="사용자명"
             />
           </InputWrap>
@@ -192,6 +199,7 @@ const SignIn = ({ toggleSignIn }) => {
               required
               value={password}
               onChange={onChange}
+              onKeyPress={onKeyPress}
               placeholder="비밀번호"
             />
           </InputWrap>

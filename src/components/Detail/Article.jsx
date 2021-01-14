@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { ThemeContext } from '../../App';
+import { ThemeContext, UserContext, CognitoContext } from '../../App';
 import { lightTheme } from '../../theme';
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
 import { GoComment } from 'react-icons/go';
 import { IoLogoInstagram } from 'react-icons/io';
+import { API, graphqlOperation } from 'aws-amplify';
+import { createPictureLike, deletePictureLike } from '../../graphql/mutations';
 
 const ArticleWrap = styled.article`
   width: 950px;
@@ -18,6 +20,8 @@ const ArticleWrap = styled.article`
 
 const PictureWrap = styled.div`
   width: 550px;
+  height: 100%;
+  margin-right: 20px;
 `;
 
 const ContentWrap = styled.div`
@@ -64,6 +68,7 @@ const CreatedDate = styled.span`
 `;
 
 const InfoWrap = styled.div`
+  position: relative;
   width: 100%;
   height: 350px;
   background: rgba(0, 0, 0, 0.02);
@@ -85,6 +90,10 @@ const Info = styled.div`
 
   span {
     margin-left: 15px;
+  }
+  :last-child {
+    position: absolute;
+    bottom: 0;
   }
 `;
 
@@ -114,7 +123,51 @@ const Description = styled.span`
 `;
 
 const Article = ({ pictureObj, date }) => {
+  let isLiked;
+  let likesList = pictureObj.likes.items;
+  let likes = likesList.length;
   const { theme } = useContext(ThemeContext);
+  const { userObj } = useContext(UserContext);
+  const { cognitoUser } = useContext(CognitoContext);
+  // const [isLiked, setIsLiked] = useState(true); // 즉각 반영하려고 여기에 현재값을 주면 re-render가 많다고 오류가남
+  const [likesCount, setLikesCount] = useState(likesList.length);
+  if (
+    likesList.find((element) =>
+      element.userId === userObj.username ? true : false,
+    )
+  ) {
+    isLiked = true; //이미 좋아요 되어있을때
+  } else {
+    isLiked = false;
+  }
+
+  const handleLike = async () => {
+    if (!cognitoUser) {
+      alert('먼저 로그인을 해주세요.');
+      return;
+    }
+    setLikesCount(likes);
+    if (!isLiked) {
+      const inputData = {
+        pictureId: pictureObj.id,
+        userId: userObj.username,
+      };
+      await API.graphql(
+        graphqlOperation(createPictureLike, { input: inputData }), // 좋아요  : likes.items에서 좋아요한 아이디 배열 추가
+      );
+    } else {
+      const isUser = likesList.find((element) => {
+        if (element.userId === userObj.username) return true;
+      }); //경고가 뜸
+      const deleteData = {
+        id: isUser.id,
+      };
+      await API.graphql(
+        graphqlOperation(deletePictureLike, { input: deleteData }), // 좋아요 해제 : likes.items에서 좋아요한 아이디 배열 삭제
+      );
+    }
+  };
+
   return (
     <ArticleWrap>
       <PictureWrap>
@@ -147,9 +200,17 @@ const Article = ({ pictureObj, date }) => {
             <InfoTitle>설명</InfoTitle>
             <Description>{pictureObj.description}</Description>
           </Info>
+          <Info>
+            <InfoTitle>Likes</InfoTitle>
+            <span>{likesCount}</span>
+          </Info>
         </InfoWrap>
         <IconWrap theme={theme}>
-          <IoIosHeartEmpty size={35} />
+          {!isLiked ? (
+            <IoIosHeartEmpty size={35} onClick={handleLike} />
+          ) : (
+            <IoIosHeart size={35} onClick={handleLike} />
+          )}
           <GoComment size={31} />
           <IoLogoInstagram
             size={35}
