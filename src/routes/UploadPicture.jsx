@@ -184,7 +184,7 @@ const FileName = styled.span`
 const InputDescription = styled.p`
   width: 50%;
   margin-top: 5px;
-  font-size: 12px;
+  font-size: 11px;
   color: #a0a0a0;
   line-height: 1.2;
   margin-bottom: 20px;

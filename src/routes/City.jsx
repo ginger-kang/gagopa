@@ -29,7 +29,7 @@ const CityGridWrap = styled.div`
   margin-bottom: 60px;
 `;
 
-const postCount = 2;
+const postCount = 9;
 
 const City = ({ match }) => {
   let location = useLocation();
@@ -37,7 +37,7 @@ const City = ({ match }) => {
   const [fetchPostData, setFetchPostData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [next, setNext] = useState(
-    location.state.next ? location.state.next : 2,
+    location.state.next ? location.state.next : postCount,
   );
   const [showList, setShowList] = useState(false);
   const cityName = match.params.cityName;

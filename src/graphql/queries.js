@@ -552,3 +552,89 @@ export const likesByUser = /* GraphQL */ `
     }
   }
 `;
+export const searchPictures = /* GraphQL */ `
+  query SearchPictures(
+    $filter: SearchablePictureFilterInput
+    $sort: SearchablePictureSortInput
+    $limit: Int
+    $nextToken: String
+    $from: Int
+  ) {
+    searchPictures(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+    ) {
+      items {
+        id
+        authorId
+        city
+        title
+        location
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+      total
+    }
+  }
+`;
+export const searchUsers = /* GraphQL */ `
+  query SearchUsers(
+    $filter: SearchableUserFilterInput
+    $sort: SearchableUserSortInput
+    $limit: Int
+    $nextToken: String
+    $from: Int
+  ) {
+    searchUsers(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+    ) {
+      items {
+        userId
+        pictures {
+          nextToken
+        }
+        avatar {
+          bucket
+          region
+          key
+          uri
+        }
+        username
+        email
+        createdAt
+        updatedAt
+      }
+      nextToken
+      total
+    }
+  }
+`;

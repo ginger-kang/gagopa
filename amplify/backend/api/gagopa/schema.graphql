@@ -1,4 +1,7 @@
-type Picture @model @key(name: "picturesByUserId", fields: ["authorId"]) {
+type Picture
+  @model
+  @searchable
+  @key(name: "picturesByUserId", fields: ["authorId"]) {
   id: ID!
   authorId: ID!
   city: String!
@@ -14,7 +17,7 @@ type Picture @model @key(name: "picturesByUserId", fields: ["authorId"]) {
     @connection(keyName: "commentsByPictureId", fields: ["id"])
 }
 
-type User @model(subscriptions: null) @key(fields: ["userId"]) {
+type User @model(subscriptions: null) @searchable @key(fields: ["userId"]) {
   userId: ID!
   pictures: [Picture]
     @connection(keyName: "picturesByUserId", fields: ["userId"])
