@@ -7,8 +7,8 @@ import { searchPictures } from '../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
 import { Link } from 'react-router-dom';
 
-const SearchContainer = styled.div`
-  margin-top: 60px;
+const SearchContainer = styled.main`
+  margin-top: 120px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -47,32 +47,32 @@ const Search = ({ match }) => {
     }
   };
 
+  console.log(isLoading);
   console.log(posts);
   console.log(keyword);
 
   return (
     <>
-      <Navigation show={true}>
-        <SearchContainer>
-          {isLoading ? (
-            <LoadingPage />
-          ) : (
-            <SearchGridWrap hasPost={true}>
-              {posts.map((post) => (
-                <Link
-                  key={post.id}
-                  to={{
-                    pathname: `/city/tokyo/${post.id}`,
-                    state: { next: null, cityName: 'tokyo', post: post },
-                  }}
-                >
-                  <CityPost key={post.id} post={post} cityName="tokyo" />
-                </Link>
-              ))}
-            </SearchGridWrap>
-          )}
-        </SearchContainer>
-      </Navigation>
+      <Navigation show={true} />
+      <SearchContainer>
+        {isLoading ? (
+          <LoadingPage />
+        ) : (
+          <SearchGridWrap hasPost={true}>
+            {posts.map((post) => (
+              <Link
+                key={post.id}
+                to={{
+                  pathname: `/city/${post.city}/${post.id}`,
+                  state: { next: null, cityName: post.city, post: post },
+                }}
+              >
+                <CityPost key={post.id} post={post} cityName={post.city} />
+              </Link>
+            ))}
+          </SearchGridWrap>
+        )}
+      </SearchContainer>
     </>
   );
 };

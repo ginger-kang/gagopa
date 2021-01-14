@@ -27,7 +27,7 @@ const NavSearchBar = () => {
   return (
     <SearchBarWrap>
       <SearchBar type="text" onChange={onChange} placeholder="검색" />
-      <Link to={{ pathname: `/search/${keyword}` }}>
+      <Link to={`/search/${keyword}`}>
         <button>검색</button>
       </Link>
     </SearchBarWrap>
