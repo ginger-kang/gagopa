@@ -24,10 +24,24 @@ const SearchGridWrap = styled.div`
   margin-bottom: 60px;
 `;
 
+const SearchHeader = styled.header`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+`;
+
 const SearchBar = styled.input`
   width: 200px;
   padding: 15px;
   background: rgba(200, 200, 200, 0.5);
+`;
+
+const SearchContent = styled.span`
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 40px 0;
 `;
 
 const Search = ({ match }) => {
@@ -76,6 +90,12 @@ const Search = ({ match }) => {
     setSearchInput(value);
   };
 
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      setKeyword(searchInput);
+    }
+  };
+
   return (
     <>
       <Navigation show={true} navSearch={false} />
@@ -84,7 +104,17 @@ const Search = ({ match }) => {
           <LoadingPage />
         ) : (
           <>
-            <SearchBar type="text" onChange={onChange} placeholder="검색" />
+            <SearchHeader>
+              <SearchBar
+                type="text"
+                onChange={onChange}
+                placeholder="검색"
+                onKeyPress={onKeyPress}
+              />
+              <SearchContent>
+                '{keyword}'로 검색한 결과 {posts.length}개
+              </SearchContent>
+            </SearchHeader>
             <SearchGridWrap hasPost={true}>
               {posts.map((post) => (
                 <Link

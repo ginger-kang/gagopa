@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const SearchBarWrap = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const SearchBar = styled.input`
@@ -14,6 +17,7 @@ const SearchBar = styled.input`
 
 const NavSearchBar = () => {
   const [keyword, setKeyword] = useState('');
+  const history = useHistory();
 
   const onChange = (event) => {
     const {
@@ -22,9 +26,22 @@ const NavSearchBar = () => {
     setKeyword(value);
   };
 
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      history.push({
+        pathname: `/search/${keyword}`,
+      });
+    }
+  };
+
   return (
     <SearchBarWrap>
-      <SearchBar type="text" onChange={onChange} placeholder="검색" />
+      <SearchBar
+        type="text"
+        onChange={onChange}
+        onKeyPress={onKeyPress}
+        placeholder="검색"
+      />
       <Link to={`/search/${keyword}`}>
         <button>검색</button>
       </Link>

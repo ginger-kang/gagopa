@@ -35,7 +35,7 @@ const ListHeader = styled.header`
   justify-content: center;
   align-items: center;
   padding: 0 15px 0 15px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-bottom: 1px solid #ababab80 !important;
 `;
 
 const CityList = styled.ul`
@@ -52,7 +52,7 @@ const City = styled.li`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-bottom: 1px solid #ababab80 !important;
   cursor: pointer;
   color: ${(props) => props.theme.text};
 
