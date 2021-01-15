@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { ThemeContext, UserContext, CognitoContext } from '../../App';
+import { ThemeContext, CognitoContext } from '../../App';
 import { lightTheme } from '../../theme';
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
 import { GoComment } from 'react-icons/go';
@@ -123,49 +123,51 @@ const Description = styled.span`
 `;
 
 const Article = ({ pictureObj, date }) => {
-  let isLiked;
   let likesList = pictureObj.likes.items;
-  let likes = likesList.length;
+  let likes = likesList.length; // 이것이 한번만 실행되야함 (Detail라우터에 들어왔을때 , 새로고침했을때 초기값만 넣어주는 목적)
   const { theme } = useContext(ThemeContext);
-  const { userObj } = useContext(UserContext);
   const { cognitoUser } = useContext(CognitoContext);
-  // const [isLiked, setIsLiked] = useState(true); // 즉각 반영하려고 여기에 현재값을 주면 re-render가 많다고 오류가남
-  const [likesCount, setLikesCount] = useState(likesList.length);
-  if (
-    likesList.find((element) =>
-      element.userId === userObj.username ? true : false,
-    )
-  ) {
-    isLiked = true; //이미 좋아요 되어있을때
-  } else {
-    isLiked = false;
-  }
+  const [isLiked, setIsLiked] = useState(
+    likesList.some((element) => element.userId === cognitoUser.userId),
+  );
+  const [likesCount, setLikesCount] = useState(likes);
+  console.log(pictureObj);
 
   const handleLike = async () => {
     if (!cognitoUser) {
       alert('먼저 로그인을 해주세요.');
       return;
     }
+    likes += 1; // 화면에서 보이는 좋아요 숫자
     setLikesCount(likes);
-    if (!isLiked) {
-      const inputData = {
-        pictureId: pictureObj.id,
-        userId: userObj.username,
-      };
-      await API.graphql(
-        graphqlOperation(createPictureLike, { input: inputData }), // 좋아요  : likes.items에서 좋아요한 아이디 배열 추가
-      );
-    } else {
-      const isUser = likesList.find((element) => {
-        if (element.userId === userObj.username) return true;
-      }); //경고가 뜸
-      const deleteData = {
-        id: isUser.id,
-      };
-      await API.graphql(
-        graphqlOperation(deletePictureLike, { input: deleteData }), // 좋아요 해제 : likes.items에서 좋아요한 아이디 배열 삭제
-      );
+    setIsLiked(true);
+    const inputData = {
+      pictureId: pictureObj.id,
+      userId: cognitoUser.userId,
+    };
+    await API.graphql(
+      graphqlOperation(createPictureLike, { input: inputData }), // 좋아요  : likes.items에서 좋아요한 아이디 배열 추가
+    );
+  };
+
+  const handleDeleteLike = async () => {
+    if (!cognitoUser) {
+      alert('먼저 로그인을 해주세요.');
+      return;
     }
+    likes -= 1; // 화면에서 보이는 좋아요 숫자
+    setLikesCount(likes);
+    setIsLiked(false);
+    const user = likesList.find(
+      (element) => element.userId === cognitoUser.userId,
+    );
+    console.log(user);
+    const deleteInputData = {
+      id: user.id,
+    };
+    await API.graphql(
+      graphqlOperation(deletePictureLike, { input: deleteInputData }),
+    );
   };
 
   return (
@@ -206,10 +208,10 @@ const Article = ({ pictureObj, date }) => {
           </Info>
         </InfoWrap>
         <IconWrap theme={theme}>
-          {!isLiked ? (
-            <IoIosHeartEmpty size={35} onClick={handleLike} />
+          {isLiked ? (
+            <IoIosHeart size={35} onClick={handleDeleteLike} />
           ) : (
-            <IoIosHeart size={35} onClick={handleLike} />
+            <IoIosHeartEmpty size={35} onClick={handleLike} />
           )}
           <GoComment size={31} />
           <IoLogoInstagram
@@ -226,5 +228,4 @@ const Article = ({ pictureObj, date }) => {
     </ArticleWrap>
   );
 };
-
 export default Article;
