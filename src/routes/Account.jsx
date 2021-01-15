@@ -106,7 +106,7 @@ const Account = () => {
 
   return (
     <>
-      <Navigation show={true} />
+      <Navigation show={true} navSearch={true} />
       <AccountContainer>
         <AccountWrap>
           <MyAccountTitle>내 계정</MyAccountTitle>

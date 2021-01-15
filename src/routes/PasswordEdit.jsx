@@ -141,7 +141,7 @@ const PasswordEdit = () => {
 
   return (
     <>
-      <Navigation show={true} />
+      <Navigation show={true} navSearch={true} />
       <EditContainer>
         <EditWrap>
           <EditTitle>비밀번호 변경</EditTitle>

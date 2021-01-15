@@ -48,7 +48,7 @@ const Home = () => {
 
   return (
     <React.Fragment>
-      <Navigation show={NavBar} />
+      <Navigation show={NavBar} navSearch={true} />
       <HomeContainer>
         <BackgroundContainer>
           <ImageWrap>

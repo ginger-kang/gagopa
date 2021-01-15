@@ -74,7 +74,7 @@ const UploadPictureContent = styled.span`
     `};
 `;
 
-const Navigation = ({ show }) => {
+const Navigation = ({ show, navSearch }) => {
   const { theme } = useContext(ThemeContext);
   const { cognitoUser } = useContext(CognitoContext);
   const [darkTheme, setDarkTheme] = useState(false);
@@ -93,9 +93,7 @@ const Navigation = ({ show }) => {
         <TitleContainer themeProps={theme} show={show}>
           <Link to="/">gagopa</Link>
         </TitleContainer>
-        <SearchContainer>
-          <NavSearchBar />
-        </SearchContainer>
+        <SearchContainer>{navSearch && <NavSearchBar />}</SearchContainer>
         <NavMenuContainer>
           {cognitoUser ? (
             <Link to="/upload">

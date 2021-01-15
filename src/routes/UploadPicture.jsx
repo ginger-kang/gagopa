@@ -304,7 +304,7 @@ const UploadPicture = () => {
 
   return (
     <>
-      <Navigation show={true} />
+      <Navigation show={true} navSearch={true} />
       <UploadContainer>
         <UploadFormWrap themeProps={theme}>
           <Title>사진 업로드</Title>

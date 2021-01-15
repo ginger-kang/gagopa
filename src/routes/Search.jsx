@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import Navigation from '../components/Nav/Navigation';
 import LoadingPage from '../components/Utils/LoadingPage';
@@ -24,20 +24,38 @@ const SearchGridWrap = styled.div`
   margin-bottom: 60px;
 `;
 
+const SearchBar = styled.input`
+  width: 200px;
+  padding: 15px;
+  background: rgba(200, 200, 200, 0.5);
+`;
+
 const Search = ({ match }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState(null);
+  const [keyword, setKeyword] = useState(match.params.keyword);
+  const [searchInput, setSearchInput] = useState('');
 
-  const keyword = match.params.keyword;
-
-  useEffect(() => {
-    fetchPictures();
-  }, []);
-
-  const fetchPictures = async () => {
+  const fetchPictures = useCallback(async () => {
     setIsLoading(true);
+    const filter = {
+      or: [
+        {
+          title: { wildcard: `*${keyword}*` },
+        },
+        {
+          location: { wildcard: `*${keyword}*` },
+        },
+        {
+          description: { wildcard: `*${keyword}*` },
+        },
+      ],
+    };
+
     try {
-      const data = await API.graphql(graphqlOperation(searchPictures));
+      const data = await API.graphql(
+        graphqlOperation(searchPictures, { filter: filter }),
+      );
       const posts = await data.data.searchPictures.items;
       setPosts(posts);
     } catch (error) {
@@ -45,32 +63,42 @@ const Search = ({ match }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [keyword]);
 
-  console.log(isLoading);
-  console.log(posts);
-  console.log(keyword);
+  useEffect(() => {
+    fetchPictures();
+  }, [fetchPictures]);
+
+  const onChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSearchInput(value);
+  };
 
   return (
     <>
-      <Navigation show={true} />
+      <Navigation show={true} navSearch={false} />
       <SearchContainer>
         {isLoading ? (
           <LoadingPage />
         ) : (
-          <SearchGridWrap hasPost={true}>
-            {posts.map((post) => (
-              <Link
-                key={post.id}
-                to={{
-                  pathname: `/city/${post.city}/${post.id}`,
-                  state: { next: null, cityName: post.city, post: post },
-                }}
-              >
-                <CityPost key={post.id} post={post} cityName={post.city} />
-              </Link>
-            ))}
-          </SearchGridWrap>
+          <>
+            <SearchBar type="text" onChange={onChange} placeholder="검색" />
+            <SearchGridWrap hasPost={true}>
+              {posts.map((post) => (
+                <Link
+                  key={post.id}
+                  to={{
+                    pathname: `/city/${post.city}/${post.id}`,
+                    state: { next: null, cityName: post.city, post: post },
+                  }}
+                >
+                  <CityPost key={post.id} post={post} cityName={post.city} />
+                </Link>
+              ))}
+            </SearchGridWrap>
+          </>
         )}
       </SearchContainer>
     </>

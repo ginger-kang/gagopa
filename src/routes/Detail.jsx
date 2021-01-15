@@ -86,7 +86,7 @@ const Detail = ({ match }) => {
 
   return (
     <>
-      <Navigation show={true} />
+      <Navigation show={true} navSearch={true} />
       {isLoading ? (
         <LoadingPage />
       ) : (

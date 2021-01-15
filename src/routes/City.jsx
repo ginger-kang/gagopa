@@ -75,7 +75,7 @@ const City = ({ match }) => {
 
   return (
     <>
-      <Navigation show={true} />
+      <Navigation show={true} navSearch={true} />
       <CityContainer>
         <CityIntro cityName={cityName} toggleList={toggleList} />
         {isLoading ? (

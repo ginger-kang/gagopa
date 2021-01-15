@@ -244,7 +244,7 @@ const ProfileEdit = () => {
 
   return (
     <>
-      <Navigation show={true} />
+      <Navigation show={true} navSearch={true} />
       <EditContainer>
         <EditWrap>
           <EditTitle>프로필 수정</EditTitle>

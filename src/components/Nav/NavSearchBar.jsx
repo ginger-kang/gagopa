@@ -22,8 +22,6 @@ const NavSearchBar = () => {
     setKeyword(value);
   };
 
-  console.log(keyword);
-
   return (
     <SearchBarWrap>
       <SearchBar type="text" onChange={onChange} placeholder="검색" />
