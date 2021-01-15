@@ -6,6 +6,7 @@ export const onCreatePicture = /* GraphQL */ `
     onCreatePicture {
       id
       authorId
+      country
       city
       title
       location
@@ -64,6 +65,7 @@ export const onUpdatePicture = /* GraphQL */ `
     onUpdatePicture {
       id
       authorId
+      country
       city
       title
       location
@@ -122,6 +124,7 @@ export const onDeletePicture = /* GraphQL */ `
     onDeletePicture {
       id
       authorId
+      country
       city
       title
       location
@@ -212,6 +215,7 @@ export const onCreateComment = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -281,6 +285,7 @@ export const onUpdateComment = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -350,6 +355,7 @@ export const onDeleteComment = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -461,6 +467,7 @@ export const onCreatePictureLike = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -518,6 +525,7 @@ export const onUpdatePictureLike = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -575,6 +583,7 @@ export const onDeletePictureLike = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -633,6 +642,7 @@ export const onCreateCommentLike = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -691,6 +701,7 @@ export const onUpdateCommentLike = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -749,6 +760,7 @@ export const onDeleteCommentLike = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location

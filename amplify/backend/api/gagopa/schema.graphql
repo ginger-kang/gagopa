@@ -4,6 +4,7 @@ type Picture
   @key(name: "picturesByUserId", fields: ["authorId"]) {
   id: ID!
   authorId: ID!
+  country: String!
   city: String!
   title: String!
   location: String!

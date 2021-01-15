@@ -9,6 +9,7 @@ export const createPicture = /* GraphQL */ `
     createPicture(input: $input, condition: $condition) {
       id
       authorId
+      country
       city
       title
       location
@@ -70,6 +71,7 @@ export const updatePicture = /* GraphQL */ `
     updatePicture(input: $input, condition: $condition) {
       id
       authorId
+      country
       city
       title
       location
@@ -131,6 +133,7 @@ export const deletePicture = /* GraphQL */ `
     deletePicture(input: $input, condition: $condition) {
       id
       authorId
+      country
       city
       title
       location
@@ -195,6 +198,7 @@ export const createUser = /* GraphQL */ `
         items {
           id
           authorId
+          country
           city
           title
           location
@@ -229,6 +233,7 @@ export const updateUser = /* GraphQL */ `
         items {
           id
           authorId
+          country
           city
           title
           location
@@ -263,6 +268,7 @@ export const deleteUser = /* GraphQL */ `
         items {
           id
           authorId
+          country
           city
           title
           location
@@ -326,6 +332,7 @@ export const createComment = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -398,6 +405,7 @@ export const updateComment = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -470,6 +478,7 @@ export const deleteComment = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -593,6 +602,7 @@ export const createPictureLike = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -653,6 +663,7 @@ export const updatePictureLike = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -713,6 +724,7 @@ export const deletePictureLike = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -774,6 +786,7 @@ export const createCommentLike = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -835,6 +848,7 @@ export const updateCommentLike = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -896,6 +910,7 @@ export const deleteCommentLike = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location

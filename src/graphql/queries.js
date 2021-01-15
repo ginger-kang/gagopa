@@ -6,6 +6,7 @@ export const getPicture = /* GraphQL */ `
     getPicture(id: $id) {
       id
       authorId
+      country
       city
       title
       location
@@ -69,6 +70,7 @@ export const listPictures = /* GraphQL */ `
       items {
         id
         authorId
+        country
         city
         title
         location
@@ -108,6 +110,7 @@ export const getUser = /* GraphQL */ `
         items {
           id
           authorId
+          country
           city
           title
           location
@@ -203,6 +206,7 @@ export const getComment = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -260,6 +264,7 @@ export const listComments = /* GraphQL */ `
         picture {
           id
           authorId
+          country
           city
           title
           location
@@ -343,6 +348,7 @@ export const getPictureLike = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -396,6 +402,7 @@ export const listPictureLikes = /* GraphQL */ `
         picture {
           id
           authorId
+          country
           city
           title
           location
@@ -437,6 +444,7 @@ export const getCommentLike = /* GraphQL */ `
       picture {
         id
         authorId
+        country
         city
         title
         location
@@ -491,6 +499,7 @@ export const listCommentLikes = /* GraphQL */ `
         picture {
           id
           authorId
+          country
           city
           title
           location
@@ -537,6 +546,7 @@ export const likesByUser = /* GraphQL */ `
         picture {
           id
           authorId
+          country
           city
           title
           location
@@ -570,6 +580,7 @@ export const searchPictures = /* GraphQL */ `
       items {
         id
         authorId
+        country
         city
         title
         location
