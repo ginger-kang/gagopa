@@ -244,6 +244,7 @@ const UploadPicture = () => {
     const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
     const inputData = {
       authorId: userObj.attributes.sub,
+      country: '일본',
       city: cityName,
       title: title,
       location: location,
