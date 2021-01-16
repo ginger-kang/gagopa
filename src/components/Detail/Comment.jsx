@@ -7,10 +7,11 @@ import { listComments } from '../../graphql/queries';
 import { createComment } from '../../graphql/mutations';
 import LoadingPage from '../Utils/LoadingPage';
 import { dateToString } from '../../utils/utils';
+import { AiOutlineEllipsis } from 'react-icons/ai';
 
 const CommentContainer = styled.div`
   width: 950px;
-  margin-bottom: 60px;
+  margin-bottom: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,21 +43,22 @@ const CommentWrap = styled.div`
 const CommentBox = styled.div`
   width: 50%;
   height: 200px;
-  padding: 20px;
+  padding: 5px 20px;
 `;
 
 const CommentAuthor = styled.div`
   width: 100%;
-  height: 45px;
+  height: 50px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  position: relative;
 `;
 
 const Avatar = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   object-fit: cover;
   border-radius: 100%;
 `;
@@ -73,12 +75,42 @@ const UserName = styled.span`
 
 const Text = styled.p`
   margin-top: 18px;
+  font-size: 15px;
+  padding: 0 40px 15px 0;
+  line-height: 1.5;
 `;
 
 const Date = styled.span`
   font-size: 11px;
   color: #888888;
   margin-top: 8px;
+`;
+
+const ModifyAndDelete = styled.div`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  right: 35px;
+  transform: translateY(-50%);
+  cursor: pointer;
+`;
+
+const CommentInputWrap = styled.div`
+  width: 100%;
+  padding: 20px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid
+    ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
+`;
+
+const Input = styled.textarea`
+  width: 500px;
+  height: 40px;
+  padding: 10px;
+  margin: 0 10px;
 `;
 
 const Comment = ({ pictureId }) => {
@@ -134,7 +166,7 @@ const Comment = ({ pictureId }) => {
       .catch((error) => console.log(error));
   };
 
-  console.log(comments);
+  console.log(cognitoUser);
 
   return (
     <CommentContainer theme={theme}>
@@ -156,22 +188,31 @@ const Comment = ({ pictureId }) => {
                     <UserName>{comment.author.username}</UserName>
                     <Date>{dateToString(comments[0].createdAt)}</Date>
                   </InfoWrap>
+                  {comment.author.userId === cognitoUser.userId && (
+                    <ModifyAndDelete>
+                      <AiOutlineEllipsis size={30} />
+                    </ModifyAndDelete>
+                  )}
                 </CommentAuthor>
                 <Text>{comment.text}</Text>
               </CommentBox>
             ))}
           </CommentWrap>
+          <CommentInputWrap theme={theme}>
+            <Avatar src={cognitoUser.avatar.uri} alt="avatar" />
+            <Input
+              type="text"
+              value={commentInput}
+              placeholder="댓글"
+              onChange={onChange}
+              autoComplete="off"
+              autoCorrect="off"
+              maxLength="100"
+            />
+            <button onClick={onSubmit}>등록</button>
+          </CommentInputWrap>
         </>
       )}
-      <input
-        type="text"
-        value={commentInput}
-        placeholder="댓글"
-        onChange={onChange}
-      />
-      <button onClick={onSubmit} style={{ marginBottom: '50px' }}>
-        등록
-      </button>
     </CommentContainer>
   );
 };
