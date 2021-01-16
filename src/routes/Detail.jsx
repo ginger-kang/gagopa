@@ -93,7 +93,7 @@ const Detail = ({ match }) => {
         <Container>
           <Article pictureObj={pictureObj} date={date} />
           <HorizontalLine theme={theme} />
-          <Comment pictureObj={pictureObj} />
+          <Comment pictureId={pictureId} />
         </Container>
       )}
       <Link

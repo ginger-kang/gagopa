@@ -260,6 +260,12 @@ export const listComments = /* GraphQL */ `
           email
           createdAt
           updatedAt
+          avatar {
+            bucket
+            region
+            key
+            uri
+          }
         }
         picture {
           id
