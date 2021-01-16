@@ -6,6 +6,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { listComments } from '../../graphql/queries';
 import { createComment } from '../../graphql/mutations';
 import LoadingPage from '../Utils/LoadingPage';
+import { dateToString } from '../../utils/utils';
 
 const CommentContainer = styled.div`
   width: 950px;
@@ -62,12 +63,22 @@ const Avatar = styled.img`
 
 const InfoWrap = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin-left: 10px;
+`;
+
+const UserName = styled.span`
+  font-weight: 600;
 `;
 
 const Text = styled.p`
   margin-top: 18px;
+`;
+
+const Date = styled.span`
+  font-size: 11px;
+  color: #888888;
+  margin-top: 8px;
 `;
 
 const Comment = ({ pictureId }) => {
@@ -142,7 +153,8 @@ const Comment = ({ pictureId }) => {
                 <CommentAuthor>
                   <Avatar src={comment.author.avatar.uri} alt="avatar" />
                   <InfoWrap>
-                    <span>{comment.author.username}</span>
+                    <UserName>{comment.author.username}</UserName>
+                    <Date>{dateToString(comments[0].createdAt)}</Date>
                   </InfoWrap>
                 </CommentAuthor>
                 <Text>{comment.text}</Text>

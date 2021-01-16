@@ -1,14 +1,10 @@
-export const translateToKo = {
-  tokyo: '도쿄',
-  osaka: '오사카',
-  sapporo: '삿포로',
-  kyoto: '교토',
-  enosima: '에노시마',
-  yamanashi: '야마나시',
-  yokohama: '요코하마',
-  okinawa: '오키나와',
-  nagoya: '나고야',
-  odaiba: '오다이바',
-  hukuoka: '후쿠오카',
-  kobe: '고베',
+export const dateToString = (timestamp) => {
+  const time = timestamp.split('T');
+  const date = {
+    year: time[0].split('-')[0],
+    month: time[0].split('-')[1],
+    day: time[0].split('-')[2],
+  };
+
+  return `${date.year}년 ${date.month}월 ${date.day}일`;
 };

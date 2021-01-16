@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useContext } from 'react';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listMenus } from '../../graphql/queries';
-import { translateToKo } from '../../utils/utils';
+import { translateToKo } from '../../utils/translate';
 import { ThemeContext } from '../../App';
 import { lightTheme } from '../../theme';
 

@@ -4,7 +4,7 @@ import { ThemeContext } from '../../App';
 import { listMenus } from '../../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
 import LoadingPage from '../Utils/LoadingPage';
-import { translateToKo } from '../../utils/utils';
+import { translateToKo } from '../../utils/translate';
 import { Link } from 'react-router-dom';
 
 const ModalContainer = styled.div`

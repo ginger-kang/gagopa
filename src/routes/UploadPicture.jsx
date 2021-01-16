@@ -7,7 +7,7 @@ import { ImFolderUpload } from 'react-icons/im';
 import { ThemeContext, UserContext } from '../App';
 import { lightTheme } from '../theme';
 import Navigation from '../components/Nav/Navigation';
-import { translateToKo } from '../utils/utils';
+import { translateToKo } from '../utils/translate';
 
 import config from '../aws-exports';
 

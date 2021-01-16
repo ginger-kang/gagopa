@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listPictures } from '../graphql/queries';
 import CityIntro from '../components/City/CityIntro';
-import { translateToKo } from '../utils/utils';
+import { translateToKo } from '../utils/translate';
 import Navigation from '../components/Nav/Navigation';
 import LoadingPage from '../components/Utils/LoadingPage';
 import NoPost from '../components/City/NoPost';

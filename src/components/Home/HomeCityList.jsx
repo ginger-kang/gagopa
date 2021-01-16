@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listMenus } from '../../graphql/queries';
-import { translateToKo } from '../../utils/utils';
+import { translateToKo } from '../../utils/translate';
 import { ThemeContext } from '../../App';
 
 const HomeCityListWrap = styled.div`
