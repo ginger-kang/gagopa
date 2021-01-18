@@ -127,20 +127,16 @@ const Description = styled.span`
 const Article = ({ pictureId, date }) => {
   const { theme } = useContext(ThemeContext);
   const { cognitoUser } = useContext(CognitoContext);
-  const [likesList, setLikesList] = useState([]);
   const [pictureObj, setPictureObj] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [likesCount, setLikesCount] = useState(0);
-  const [isLiked, setIsLiked] = useState(
-    likesList.some((element) => element.userId === cognitoUser.userId),
-  );
+  const [isLiked, setIsLiked] = useState(false);
 
   const handleLike = async () => {
     if (!cognitoUser) {
       alert('먼저 로그인을 해주세요.');
       return;
     }
-    setIsLiked(true);
     const inputData = {
       pictureId: pictureId,
       userId: cognitoUser.userId,
@@ -148,6 +144,7 @@ const Article = ({ pictureId, date }) => {
     await API.graphql(
       graphqlOperation(createPictureLike, { input: inputData }),
     );
+    setIsLiked(true);
   };
 
   const handleDeleteLike = async () => {
@@ -155,16 +152,19 @@ const Article = ({ pictureId, date }) => {
       alert('먼저 로그인을 해주세요.');
       return;
     }
-    setIsLiked(false);
-    const user = likesList.find(
+
+    const user = pictureObj.likes.items.find(
       (element) => element.userId === cognitoUser.userId,
     );
+
     const deleteInputData = {
       id: user.id,
     };
     await API.graphql(
       graphqlOperation(deletePictureLike, { input: deleteInputData }),
     );
+    setIsLiked(false);
+    console.log('딜리트실행');
   };
 
   const fetchPictures = useCallback(async () => {
@@ -176,9 +176,13 @@ const Article = ({ pictureId, date }) => {
         }),
       );
       const picture = data.data.getPicture;
+      const likesList = picture.likes.items;
       setPictureObj(picture);
-      setLikesList(picture.likes.items);
-      setLikesCount(picture.likes.items.length);
+      setIsLiked(
+        likesList.some((element) => element.userId === cognitoUser.userId),
+      );
+      setLikesCount(likesList.length);
+      console.log('겟실행');
     } catch (error) {
       alert(error);
     } finally {
