@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { ThemeContext, CognitoContext } from '../../App';
 import { lightTheme } from '../../theme';
@@ -7,6 +7,8 @@ import { GoComment } from 'react-icons/go';
 import { IoLogoInstagram } from 'react-icons/io';
 import { API, graphqlOperation } from 'aws-amplify';
 import { createPictureLike, deletePictureLike } from '../../graphql/mutations';
+import { getPicture } from '../../graphql/queries';
+import LoadingPage from '../Utils/LoadingPage';
 
 const ArticleWrap = styled.article`
   width: 950px;
@@ -122,31 +124,29 @@ const Description = styled.span`
   line-height: 1.3;
 `;
 
-const Article = ({ pictureObj, date }) => {
-  let likesList = pictureObj.likes.items;
-  let likes = likesList.length; // 이것이 한번만 실행되야함 (Detail라우터에 들어왔을때 , 새로고침했을때 초기값만 넣어주는 목적)
+const Article = ({ pictureId, date }) => {
   const { theme } = useContext(ThemeContext);
   const { cognitoUser } = useContext(CognitoContext);
+  const [likesList, setLikesList] = useState([]);
+  const [pictureObj, setPictureObj] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [likesCount, setLikesCount] = useState(0);
   const [isLiked, setIsLiked] = useState(
     likesList.some((element) => element.userId === cognitoUser.userId),
   );
-  const [likesCount, setLikesCount] = useState(likes);
-  console.log(pictureObj);
 
   const handleLike = async () => {
     if (!cognitoUser) {
       alert('먼저 로그인을 해주세요.');
       return;
     }
-    likes += 1; // 화면에서 보이는 좋아요 숫자
-    setLikesCount(likes);
     setIsLiked(true);
     const inputData = {
-      pictureId: pictureObj.id,
+      pictureId: pictureId,
       userId: cognitoUser.userId,
     };
     await API.graphql(
-      graphqlOperation(createPictureLike, { input: inputData }), // 좋아요  : likes.items에서 좋아요한 아이디 배열 추가
+      graphqlOperation(createPictureLike, { input: inputData }),
     );
   };
 
@@ -155,13 +155,10 @@ const Article = ({ pictureObj, date }) => {
       alert('먼저 로그인을 해주세요.');
       return;
     }
-    likes -= 1; // 화면에서 보이는 좋아요 숫자
-    setLikesCount(likes);
     setIsLiked(false);
     const user = likesList.find(
       (element) => element.userId === cognitoUser.userId,
     );
-    console.log(user);
     const deleteInputData = {
       id: user.id,
     };
@@ -170,7 +167,32 @@ const Article = ({ pictureObj, date }) => {
     );
   };
 
-  return (
+  const fetchPictures = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const data = await API.graphql(
+        graphqlOperation(getPicture, {
+          id: pictureId,
+        }),
+      );
+      const picture = data.data.getPicture;
+      setPictureObj(picture);
+      setLikesList(picture.likes.items);
+      setLikesCount(picture.likes.items.length);
+    } catch (error) {
+      alert(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [pictureId]);
+
+  useEffect(() => {
+    fetchPictures();
+  }, [fetchPictures]);
+
+  return isLoading ? (
+    <LoadingPage />
+  ) : (
     <ArticleWrap>
       <PictureWrap>
         <img src={pictureObj.attachment.uri} alt="post" />
