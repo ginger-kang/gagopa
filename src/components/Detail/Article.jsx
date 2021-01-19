@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { ThemeContext, CognitoContext } from '../../App';
 import { lightTheme } from '../../theme';
@@ -7,8 +7,8 @@ import { GoComment } from 'react-icons/go';
 import { IoLogoInstagram } from 'react-icons/io';
 import { API, graphqlOperation } from 'aws-amplify';
 import { createPictureLike, deletePictureLike } from '../../graphql/mutations';
-import { getPicture } from '../../graphql/queries';
 import LoadingPage from '../Utils/LoadingPage';
+import { v4 as uuidv4 } from 'uuid';
 
 const ArticleWrap = styled.article`
   width: 950px;
@@ -124,27 +124,35 @@ const Description = styled.span`
   line-height: 1.3;
 `;
 
-const Article = ({ pictureId, date }) => {
+const Article = ({ pictureObj, date, isLoading }) => {
   const { theme } = useContext(ThemeContext);
   const { cognitoUser } = useContext(CognitoContext);
-  const [pictureObj, setPictureObj] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [likesCount, setLikesCount] = useState(0);
-  const [isLiked, setIsLiked] = useState(false);
+  const [likesList, setLikesList] = useState(pictureObj.likes.items);
+  const [likesCount, setLikesCount] = useState(likesList.length);
+  const user = likesList.find(
+    (element) => element.userId === cognitoUser.userId,
+  );
+  const [isLiked, setIsLiked] = useState(
+    likesList.some((element) => element.userId === cognitoUser.userId),
+  );
+  const [likesId, setLikesId] = useState(user ? user.id : undefined);
 
   const handleLike = async () => {
     if (!cognitoUser) {
       alert('먼저 로그인을 해주세요.');
       return;
     }
+    const id = uuidv4();
     const inputData = {
-      pictureId: pictureId,
+      id: id,
+      pictureId: pictureObj.id,
       userId: cognitoUser.userId,
     };
-    await API.graphql(
-      graphqlOperation(createPictureLike, { input: inputData }),
-    );
-    setIsLiked(true);
+    await API.graphql(graphqlOperation(createPictureLike, { input: inputData }))
+      .then(() => setIsLiked(true))
+      .then(() => setLikesId(id));
+    setLikesList((prev) => [...prev, inputData]);
+    setLikesCount((prev) => prev + 1);
   };
 
   const handleDeleteLike = async () => {
@@ -152,47 +160,20 @@ const Article = ({ pictureId, date }) => {
       alert('먼저 로그인을 해주세요.');
       return;
     }
-
-    const user = pictureObj.likes.items.find(
-      (element) => element.userId === cognitoUser.userId,
-    );
-
     const deleteInputData = {
-      id: user.id,
+      id: likesId,
     };
     await API.graphql(
       graphqlOperation(deletePictureLike, { input: deleteInputData }),
-    );
-    setIsLiked(false);
-    console.log('딜리트실행');
+    )
+      .then(() => setIsLiked(false))
+      .then(() => setLikesId(undefined));
+    const myLike = likesList.filter((like) => like.id === likesId);
+    const idx = likesList.indexOf(myLike);
+    const nextLikesList = likesList.splice(idx, 1);
+    if (idx > -1) setLikesList(nextLikesList);
+    setLikesCount((prev) => prev - 1);
   };
-
-  const fetchPictures = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const data = await API.graphql(
-        graphqlOperation(getPicture, {
-          id: pictureId,
-        }),
-      );
-      const picture = data.data.getPicture;
-      const likesList = picture.likes.items;
-      setPictureObj(picture);
-      setIsLiked(
-        likesList.some((element) => element.userId === cognitoUser.userId),
-      );
-      setLikesCount(likesList.length);
-      console.log('겟실행');
-    } catch (error) {
-      alert(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [pictureId]);
-
-  useEffect(() => {
-    fetchPictures();
-  }, [fetchPictures]);
 
   return isLoading ? (
     <LoadingPage />

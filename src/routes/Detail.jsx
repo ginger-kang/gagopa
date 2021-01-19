@@ -90,7 +90,7 @@ const Detail = ({ match }) => {
         <LoadingPage />
       ) : (
         <Container>
-          <Article pictureId={pictureId} date={date} />
+          <Article pictureObj={pictureObj} date={date} isLoading={isLoading} />
           <HorizontalLine theme={theme} />
           <Comment pictureObj={pictureObj} />
         </Container>
