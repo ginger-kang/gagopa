@@ -17,7 +17,6 @@ const CityIntroContainer = styled.div`
 const CityIntroWrap = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content;
   align-items: center;
 `;
 

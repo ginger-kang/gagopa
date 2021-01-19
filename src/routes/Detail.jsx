@@ -46,7 +46,6 @@ const Detail = ({ match }) => {
   let location = useLocation();
   const [pictureObj, setPictureObj] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
   const { theme } = useContext(ThemeContext);
   const pictureId = match.params.id;
   const nextState = location.state.next;
@@ -91,7 +90,7 @@ const Detail = ({ match }) => {
         <LoadingPage />
       ) : (
         <Container>
-          <Article pictureObj={pictureObj} date={date} />
+          <Article pictureObj={pictureObj} date={date} isLoading={isLoading} />
           <HorizontalLine theme={theme} />
           <Comment pictureId={pictureId} />
         </Container>

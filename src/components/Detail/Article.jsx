@@ -1,10 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { ThemeContext } from '../../App';
+import { ThemeContext, CognitoContext } from '../../App';
 import { lightTheme } from '../../theme';
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
 import { GoComment } from 'react-icons/go';
 import { IoLogoInstagram } from 'react-icons/io';
+import { API, graphqlOperation } from 'aws-amplify';
+import { createPictureLike, deletePictureLike } from '../../graphql/mutations';
+import LoadingPage from '../Utils/LoadingPage';
+import { v4 as uuidv4 } from 'uuid';
 
 const ArticleWrap = styled.article`
   width: 950px;
@@ -18,6 +22,8 @@ const ArticleWrap = styled.article`
 
 const PictureWrap = styled.div`
   width: 550px;
+  height: 100%;
+  margin-right: 20px;
 `;
 
 const ContentWrap = styled.div`
@@ -64,6 +70,7 @@ const CreatedDate = styled.span`
 `;
 
 const InfoWrap = styled.div`
+  position: relative;
   width: 100%;
   height: 350px;
   background: rgba(0, 0, 0, 0.02);
@@ -85,6 +92,10 @@ const Info = styled.div`
 
   span {
     margin-left: 15px;
+  }
+  :last-child {
+    position: absolute;
+    bottom: 0;
   }
 `;
 
@@ -113,9 +124,60 @@ const Description = styled.span`
   line-height: 1.3;
 `;
 
-const Article = ({ pictureObj, date }) => {
+const Article = ({ pictureObj, date, isLoading }) => {
   const { theme } = useContext(ThemeContext);
-  return (
+  const { cognitoUser } = useContext(CognitoContext);
+  const [likesList, setLikesList] = useState(pictureObj.likes.items);
+  const [likesCount, setLikesCount] = useState(likesList.length);
+  const user = likesList.find(
+    (element) => element.userId === cognitoUser.userId,
+  );
+  const [isLiked, setIsLiked] = useState(
+    likesList.some((element) => element.userId === cognitoUser.userId),
+  );
+  const [likesId, setLikesId] = useState(user ? user.id : undefined);
+
+  const handleLike = async () => {
+    if (!cognitoUser) {
+      alert('먼저 로그인을 해주세요.');
+      return;
+    }
+    const id = uuidv4();
+    const inputData = {
+      id: id,
+      pictureId: pictureObj.id,
+      userId: cognitoUser.userId,
+    };
+    await API.graphql(graphqlOperation(createPictureLike, { input: inputData }))
+      .then(() => setIsLiked(true))
+      .then(() => setLikesId(id));
+    setLikesList((prev) => [...prev, inputData]);
+    setLikesCount((prev) => prev + 1);
+  };
+
+  const handleDeleteLike = async () => {
+    if (!cognitoUser) {
+      alert('먼저 로그인을 해주세요.');
+      return;
+    }
+    const deleteInputData = {
+      id: likesId,
+    };
+    await API.graphql(
+      graphqlOperation(deletePictureLike, { input: deleteInputData }),
+    )
+      .then(() => setIsLiked(false))
+      .then(() => setLikesId(undefined));
+    const myLike = likesList.filter((like) => like.id === likesId);
+    const idx = likesList.indexOf(myLike);
+    const nextLikesList = likesList.splice(idx, 1);
+    if (idx > -1) setLikesList(nextLikesList);
+    setLikesCount((prev) => prev - 1);
+  };
+
+  return isLoading ? (
+    <LoadingPage />
+  ) : (
     <ArticleWrap>
       <PictureWrap>
         <img src={pictureObj.attachment.uri} alt="post" />
@@ -147,9 +209,17 @@ const Article = ({ pictureObj, date }) => {
             <InfoTitle>설명</InfoTitle>
             <Description>{pictureObj.description}</Description>
           </Info>
+          <Info>
+            <InfoTitle>Likes</InfoTitle>
+            <span>{likesCount}</span>
+          </Info>
         </InfoWrap>
         <IconWrap theme={theme}>
-          <IoIosHeartEmpty size={35} />
+          {isLiked ? (
+            <IoIosHeart size={35} onClick={handleDeleteLike} />
+          ) : (
+            <IoIosHeartEmpty size={35} onClick={handleLike} />
+          )}
           <GoComment size={31} />
           <IoLogoInstagram
             size={35}
@@ -165,5 +235,4 @@ const Article = ({ pictureObj, date }) => {
     </ArticleWrap>
   );
 };
-
 export default Article;
