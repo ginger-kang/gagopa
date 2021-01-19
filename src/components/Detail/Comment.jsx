@@ -166,8 +166,6 @@ const Comment = ({ pictureId }) => {
       .catch((error) => console.log(error));
   };
 
-  console.log(cognitoUser);
-
   return (
     <CommentContainer theme={theme}>
       {isLoading ? (

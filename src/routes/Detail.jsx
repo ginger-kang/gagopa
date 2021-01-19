@@ -51,17 +51,6 @@ const Detail = ({ match }) => {
   const nextState = location.state.next;
   const cityName = location.state.cityName;
 
-  let date;
-
-  if (pictureObj) {
-    const createdAt = pictureObj.createdAt.split('T');
-    date = {
-      year: createdAt[0].split('-')[0],
-      month: createdAt[0].split('-')[1],
-      day: createdAt[0].split('-')[2],
-    };
-  }
-
   const fetchPictures = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -90,7 +79,7 @@ const Detail = ({ match }) => {
         <LoadingPage />
       ) : (
         <Container>
-          <Article pictureObj={pictureObj} date={date} isLoading={isLoading} />
+          <Article pictureObj={pictureObj} />
           <HorizontalLine theme={theme} />
           <Comment pictureId={pictureId} />
         </Container>

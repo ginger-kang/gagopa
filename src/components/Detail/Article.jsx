@@ -7,8 +7,8 @@ import { GoComment } from 'react-icons/go';
 import { IoLogoInstagram } from 'react-icons/io';
 import { API, graphqlOperation } from 'aws-amplify';
 import { createPictureLike, deletePictureLike } from '../../graphql/mutations';
-import LoadingPage from '../Utils/LoadingPage';
 import { v4 as uuidv4 } from 'uuid';
+import { dateToString } from '../../utils/utils';
 
 const ArticleWrap = styled.article`
   width: 950px;
@@ -124,7 +124,7 @@ const Description = styled.span`
   line-height: 1.3;
 `;
 
-const Article = ({ pictureObj, date, isLoading }) => {
+const Article = ({ pictureObj }) => {
   const { theme } = useContext(ThemeContext);
   const { cognitoUser } = useContext(CognitoContext);
   const [likesList, setLikesList] = useState(pictureObj.likes.items);
@@ -175,9 +175,7 @@ const Article = ({ pictureObj, date, isLoading }) => {
     setLikesCount((prev) => prev - 1);
   };
 
-  return isLoading ? (
-    <LoadingPage />
-  ) : (
+  return (
     <ArticleWrap>
       <PictureWrap>
         <img src={pictureObj.attachment.uri} alt="post" />
@@ -187,9 +185,7 @@ const Article = ({ pictureObj, date, isLoading }) => {
           <Avatar src={pictureObj.author.avatar.uri} alt="avatar" />
           <Content>
             <AuthorName>{pictureObj.author.username}</AuthorName>
-            <CreatedDate>
-              {date.year}년 {date.month}월 {date.day}일
-            </CreatedDate>
+            <CreatedDate>{dateToString(pictureObj.createdAt)}</CreatedDate>
           </Content>
         </AuthorWrap>
         <InfoWrap>
