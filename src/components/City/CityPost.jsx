@@ -53,6 +53,9 @@ const HeartAndComment = styled.div`
 
 const CityPost = ({ post }) => {
   const likesCount = post.likes.items.length ? post.likes.items.length : 0;
+  const commentsCount = post.comments.items.length
+    ? post.comments.items.length
+    : 0;
 
   return (
     <Post>
@@ -63,7 +66,7 @@ const CityPost = ({ post }) => {
           <span>{likesCount}</span>
           &nbsp; &nbsp; &nbsp;
           <FaComment size={20} />
-          <span>0</span>
+          <span>{commentsCount}</span>
         </HeartAndComment>
       </Hover>
     </Post>
