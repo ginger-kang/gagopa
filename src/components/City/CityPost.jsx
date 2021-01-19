@@ -52,7 +52,7 @@ const HeartAndComment = styled.div`
 `;
 
 const CityPost = ({ post }) => {
-  const likesCount = post.likes.length ? post.likes.length : 0;
+  const likesCount = post.likes.items.length ? post.likes.items.length : 0;
 
   return (
     <Post>

@@ -90,6 +90,13 @@ export const listPictures = /* GraphQL */ `
           uri
         }
         likes {
+          items {
+            id
+            pictureId
+            userId
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         comments {
