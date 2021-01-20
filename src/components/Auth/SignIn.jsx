@@ -6,6 +6,7 @@ import { ThemeContext } from '../../App';
 import { UserContext } from '../../App';
 import { getCurrentUserInfo } from '../User/CreateUser';
 import googleLogo from '../../static/assets/googleLogo.svg';
+import LoadingPage from '../Utils/LoadingPage';
 
 const SignInContainer = styled.div`
   width: 100vw;
@@ -16,8 +17,7 @@ const SignInContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${(props) =>
-    props.isSignIn ? 'rgba(0, 0, 0, 0)' : 'rgba(0, 0, 0, 0.5)'};
+  background: rgba(0, 0, 0, 0.5);
   z-index: 999;
 `;
 
@@ -28,7 +28,6 @@ const SignInWrap = styled.div`
   border-radius: 15px;
   box-shadow: 2px 2px 13px rgba(0, 0, 0, 0.1);
   background: ${(props) => props.theme.itemBackground};
-  opacity: ${(props) => (props.isSignIn ? 0.95 : 1)};
 `;
 
 const SignInHeader = styled.header`
@@ -104,16 +103,11 @@ const LoginButton = styled.button`
   font-size: 14px;
   margin-top: 18px;
   border-radius: 5px;
-  pointer-events: ${(props) => (props.isSignIn ? 'none' : 'auto')};
-  filter: ${(props) =>
-    props.isSignIn ? 'brightness(85%)' : 'brightness(100%)'};
 `;
 
 const GoogleLoginWrap = styled.div`
   width: 70%;
   margin-top: 18px;
-  filter: ${(props) =>
-    props.isSignIn ? 'brightness(85%)' : 'brightness(100%)'};
   & button {
     display: flex;
     justify-content: center;
@@ -126,7 +120,6 @@ const GoogleLoginWrap = styled.div`
     cursor: pointer;
     background: white;
     color: #363537;
-    pointer-events: ${(props) => (props.isSignIn ? 'none' : 'auto')};
   }
   & img {
     width: 25px;
@@ -137,7 +130,7 @@ const GoogleLoginWrap = styled.div`
 const SignIn = ({ toggleSignIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isSignIn, setIsSignIn] = useState(false);
+  const [isSignInClick, setIsSignInClick] = useState(false);
   const { theme } = useContext(ThemeContext);
   const { refreshUser } = useContext(UserContext);
 
@@ -154,24 +147,25 @@ const SignIn = ({ toggleSignIn }) => {
 
   const signIn = async () => {
     try {
-      setIsSignIn(true);
+      setIsSignInClick(true);
       await Auth.signIn(username, password).then(() => getCurrentUserInfo());
       window.location.reload();
       refreshUser(true);
     } catch (error) {
       alert('사용자명 혹은 비밀번호를 확인해 주세요.');
-      setIsSignIn(false);
+      setIsSignInClick(false);
       console.log('error signing in', error);
     }
   };
 
   const onKeyPress = (e) => {
-    if (!isSignIn && e.key === 'Enter') {
+    if (!isSignInClick && e.key === 'Enter') {
       signIn();
     }
   };
 
   const googleSignIn = () => {
+    setIsSignInClick(true);
     Auth.federatedSignIn({ provider: 'Google' });
   };
 
@@ -183,8 +177,8 @@ const SignIn = ({ toggleSignIn }) => {
   };
 
   return (
-    <SignInContainer isSignIn={isSignIn} onClick={onMaskClick}>
-      <SignInWrap isSignIn={isSignIn} theme={theme}>
+    <SignInContainer onClick={onMaskClick}>
+      <SignInWrap theme={theme}>
         <SignInHeader>
           <CloseButton theme={theme} onClick={onCloseClick}>
             <IoIosClose size={28} />
@@ -214,21 +208,19 @@ const SignIn = ({ toggleSignIn }) => {
               placeholder="비밀번호"
             />
           </InputWrap>
-          {isSignIn ? (
-            <LoginButton isSignIn={isSignIn} onClick={signIn} disabled>
-              로그인
-            </LoginButton>
+          {isSignInClick ? (
+            <LoadingPage />
           ) : (
-            <LoginButton isSignIn={isSignIn} onClick={signIn}>
-              로그인
-            </LoginButton>
+            <>
+              <LoginButton onClick={signIn}>로그인</LoginButton>
+              <GoogleLoginWrap>
+                <button onClick={googleSignIn}>
+                  <img src={googleLogo} alt="google" />
+                  구글 계정으로 로그인
+                </button>
+              </GoogleLoginWrap>
+            </>
           )}
-          <GoogleLoginWrap isSignIn={isSignIn}>
-            <button onClick={googleSignIn}>
-              <img src={googleLogo} alt="google" />
-              구글 계정으로 로그인
-            </button>
-          </GoogleLoginWrap>
         </SignInMain>
       </SignInWrap>
     </SignInContainer>

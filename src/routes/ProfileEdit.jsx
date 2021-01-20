@@ -155,17 +155,18 @@ const ProfileEdit = () => {
   const [fileName, setFileName] = useState('');
   const [attachment, setAttachment] = useState(null);
   const [filePreview, setFilePreview] = useState(null);
+
+  const [username, setUsername] = useState(
+    cognitoUser ? cognitoUser.username : '',
+  );
+  const [email, setEmail] = useState(cognitoUser ? cognitoUser.email : '');
+  const hiddenFileInput = useRef(null);
+  const history = useHistory();
+
   if (userObj === null) {
     return <Redirect to="/" />;
   }
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [username, setUsername] = useState(cognitoUser.username);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [email, setEmail] = useState(cognitoUser.email);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const hiddenFileInput = useRef(null);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const history = useHistory();
+
   const onSubmit = async (e) => {
     e.preventDefault();
     let key;

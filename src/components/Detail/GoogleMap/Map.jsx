@@ -13,7 +13,7 @@ const Container = styled.div`
 
 const Map = ({ location }) => {
   const { ref, map, google } = useGoogleMaps(process.env.REACT_APP_API_KEY, {
-    zoom: 17,
+    zoom: 15,
     center: location,
   });
 
