@@ -9,6 +9,7 @@ import { ThemeContext } from '../App';
 import { lightTheme } from '../theme';
 import Comment from '../components/Detail/Comment';
 import Article from '../components/Detail/Article';
+import Geocode from '../components/Detail/GoogleMap/Geocode';
 
 const Container = styled.main`
   width: 100%;
@@ -81,6 +82,7 @@ const Detail = ({ match }) => {
         <Container>
           <Article pictureObj={pictureObj} />
           <HorizontalLine theme={theme} />
+          <Geocode location={pictureObj.location} />
           <Comment pictureId={pictureId} />
         </Container>
       )}

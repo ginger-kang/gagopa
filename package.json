@@ -7,6 +7,8 @@
     "aws-amplify": "^3.3.9",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-geocode": "^0.2.2",
+    "react-hook-google-maps": "^0.0.3",
     "react-icons": "^4.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
