@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ThemeContext, CognitoContext } from '../../App';
 import { lightTheme } from '../../theme';
@@ -129,13 +129,20 @@ const Article = ({ pictureObj }) => {
   const { cognitoUser } = useContext(CognitoContext);
   const [likesList, setLikesList] = useState(pictureObj.likes.items);
   const [likesCount, setLikesCount] = useState(likesList.length);
-  const user = likesList.find(
-    (element) => element.userId === cognitoUser.userId,
-  );
-  const [isLiked, setIsLiked] = useState(
-    likesList.some((element) => element.userId === cognitoUser.userId),
-  );
-  const [likesId, setLikesId] = useState(user ? user.id : undefined);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likesId, setLikesId] = useState(undefined);
+
+  useEffect(() => {
+    if (cognitoUser) {
+      let user = likesList.find(
+        (element) => element.userId === cognitoUser.userId,
+      );
+      setIsLiked(
+        likesList.some((element) => element.userId === cognitoUser.userId),
+      );
+      setLikesId(user ? user.id : undefined);
+    }
+  }, [cognitoUser, likesList]);
 
   const handleLike = async () => {
     if (!cognitoUser) {

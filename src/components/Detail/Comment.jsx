@@ -154,6 +154,10 @@ const Comment = ({ pictureId }) => {
   };
 
   const onSubmit = async () => {
+    if (!cognitoUser) {
+      alert('먼저 로그인을 해주세요.');
+      return;
+    }
     const inputData = {
       authorId: cognitoUser.userId,
       pictureId: pictureId,
@@ -186,7 +190,7 @@ const Comment = ({ pictureId }) => {
                     <UserName>{comment.author.username}</UserName>
                     <Date>{dateToString(comments[0].createdAt)}</Date>
                   </InfoWrap>
-                  {comment.author.userId === cognitoUser.userId && (
+                  {cognitoUser && comment.author.userId === cognitoUser.userId && (
                     <ModifyAndDelete>
                       <AiOutlineEllipsis size={30} />
                     </ModifyAndDelete>
@@ -197,7 +201,11 @@ const Comment = ({ pictureId }) => {
             ))}
           </CommentWrap>
           <CommentInputWrap theme={theme}>
-            <Avatar src={cognitoUser.avatar.uri} alt="avatar" />
+            {cognitoUser ? (
+              <Avatar src={cognitoUser.avatar.uri} alt="avatar" />
+            ) : (
+              <span style={{ fontSize: '1.5rem' }}>👻</span>
+            )}
             <Input
               type="text"
               value={commentInput}
