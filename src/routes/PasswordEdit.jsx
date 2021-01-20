@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-import { ThemeContext } from '../App';
+import { ThemeContext, UserContext } from '../App';
 import Navigation from '../components/Nav/Navigation';
 import { lightTheme } from '../theme';
 import { Auth } from 'aws-amplify';
@@ -104,11 +104,15 @@ const Cancel = styled.button`
 
 const PasswordEdit = () => {
   const { theme } = useContext(ThemeContext);
+  const { userObj } = useContext(UserContext);
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
-
   const history = useHistory();
+
+  if (userObj === null) {
+    return <Redirect to="/" />;
+  }
 
   const onChange = (event) => {
     const {

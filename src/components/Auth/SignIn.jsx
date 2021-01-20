@@ -16,7 +16,8 @@ const SignInContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: ${(props) =>
+    props.isSignIn ? 'rgba(0, 0, 0, 0)' : 'rgba(0, 0, 0, 0.5)'};
   z-index: 999;
 `;
 
@@ -27,6 +28,7 @@ const SignInWrap = styled.div`
   border-radius: 15px;
   box-shadow: 2px 2px 13px rgba(0, 0, 0, 0.1);
   background: ${(props) => props.theme.itemBackground};
+  opacity: ${(props) => (props.isSignIn ? 0.95 : 1)};
 `;
 
 const SignInHeader = styled.header`
@@ -102,11 +104,16 @@ const LoginButton = styled.button`
   font-size: 14px;
   margin-top: 18px;
   border-radius: 5px;
+  pointer-events: ${(props) => (props.isSignIn ? 'none' : 'auto')};
+  filter: ${(props) =>
+    props.isSignIn ? 'brightness(85%)' : 'brightness(100%)'};
 `;
 
 const GoogleLoginWrap = styled.div`
   width: 70%;
   margin-top: 18px;
+  filter: ${(props) =>
+    props.isSignIn ? 'brightness(85%)' : 'brightness(100%)'};
   & button {
     display: flex;
     justify-content: center;
@@ -119,6 +126,7 @@ const GoogleLoginWrap = styled.div`
     cursor: pointer;
     background: white;
     color: #363537;
+    pointer-events: ${(props) => (props.isSignIn ? 'none' : 'auto')};
   }
   & img {
     width: 25px;
@@ -129,6 +137,7 @@ const GoogleLoginWrap = styled.div`
 const SignIn = ({ toggleSignIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isSignIn, setIsSignIn] = useState(false);
   const { theme } = useContext(ThemeContext);
   const { refreshUser } = useContext(UserContext);
 
@@ -145,17 +154,19 @@ const SignIn = ({ toggleSignIn }) => {
 
   const signIn = async () => {
     try {
+      setIsSignIn(true);
       await Auth.signIn(username, password).then(() => getCurrentUserInfo());
       window.location.reload();
       refreshUser(true);
     } catch (error) {
       alert('사용자명 혹은 비밀번호를 확인해 주세요.');
+      setIsSignIn(false);
       console.log('error signing in', error);
     }
   };
 
   const onKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (!isSignIn && e.key === 'Enter') {
       signIn();
     }
   };
@@ -172,8 +183,8 @@ const SignIn = ({ toggleSignIn }) => {
   };
 
   return (
-    <SignInContainer onClick={onMaskClick}>
-      <SignInWrap theme={theme}>
+    <SignInContainer isSignIn={isSignIn} onClick={onMaskClick}>
+      <SignInWrap isSignIn={isSignIn} theme={theme}>
         <SignInHeader>
           <CloseButton theme={theme} onClick={onCloseClick}>
             <IoIosClose size={28} />
@@ -203,8 +214,16 @@ const SignIn = ({ toggleSignIn }) => {
               placeholder="비밀번호"
             />
           </InputWrap>
-          <LoginButton onClick={signIn}>로그인</LoginButton>
-          <GoogleLoginWrap>
+          {isSignIn ? (
+            <LoginButton isSignIn={isSignIn} onClick={signIn} disabled>
+              로그인
+            </LoginButton>
+          ) : (
+            <LoginButton isSignIn={isSignIn} onClick={signIn}>
+              로그인
+            </LoginButton>
+          )}
+          <GoogleLoginWrap isSignIn={isSignIn}>
             <button onClick={googleSignIn}>
               <img src={googleLogo} alt="google" />
               구글 계정으로 로그인
