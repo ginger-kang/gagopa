@@ -2,7 +2,7 @@ import React, { useContext, useState, useRef } from 'react';
 import styled from 'styled-components';
 import Navigation from '../components/Nav/Navigation';
 import { UserContext, CognitoContext, ThemeContext } from '../App';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import { lightTheme } from '../theme';
 import config from '../aws-exports';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
@@ -155,12 +155,17 @@ const ProfileEdit = () => {
   const [fileName, setFileName] = useState('');
   const [attachment, setAttachment] = useState(null);
   const [filePreview, setFilePreview] = useState(null);
+  if (userObj === null) {
+    return <Redirect to="/" />;
+  }
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [username, setUsername] = useState(cognitoUser.username);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [email, setEmail] = useState(cognitoUser.email);
-
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const hiddenFileInput = useRef(null);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const history = useHistory();
-
   const onSubmit = async (e) => {
     e.preventDefault();
     let key;
@@ -271,7 +276,7 @@ const ProfileEdit = () => {
               <UserName>{cognitoUser.username}</UserName>
             </InfoHeader>
             <InputContainer>
-              <span>사용자명</span>
+              <span>닉네임</span>
               <InputWrap>
                 <input
                   name="username"
@@ -279,7 +284,7 @@ const ProfileEdit = () => {
                   required
                   value={username}
                   onChange={onChange}
-                  placeholder="사용자명"
+                  placeholder="닉네임"
                 />
               </InputWrap>
             </InputContainer>

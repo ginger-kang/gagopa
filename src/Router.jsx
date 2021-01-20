@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import UploadPicture from './routes/UploadPicture';
 import City from './routes/City';
 import Home from './routes/Home';
@@ -22,6 +22,7 @@ const Router = () => {
           <Route path="/profile/edit" exact component={ProfileEdit} />
           <Route path="/password/edit" exact component={PasswordEdit} />
           <Route path="/search/:keyword" exact component={Search} />
+          <Redirect path="*" to="/" /> {/* 이외의 path들은 모두 Home으로 */}
         </Switch>
       </BrowserRouter>
     </>

@@ -4,7 +4,7 @@ import Navigation from '../components/Nav/Navigation';
 import { CognitoContext, ThemeContext, UserContext } from '../App';
 import { FcBusinessContact, FcCancel, FcKey } from 'react-icons/fc';
 import { lightTheme } from '../theme';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 const AccountContainer = styled.div`
   width: 100%;
@@ -98,6 +98,9 @@ const Account = () => {
   const { cognitoUser } = useContext(CognitoContext);
   const { userObj } = useContext(UserContext);
   const { theme } = useContext(ThemeContext);
+  if (userObj === null) {
+    return <Redirect to="/" />;
+  }
   const { attributes } = userObj;
 
   const notChange = () => {
@@ -115,7 +118,7 @@ const Account = () => {
               {cognitoUser && <img src={cognitoUser.avatar.uri} alt="avatar" />}
             </AvatarWrap>
             <ProfileContent>
-              <SubHead>사용자명</SubHead>
+              <SubHead>닉네임</SubHead>
               <span>{cognitoUser.username}</span>
               <br />
               <SubHead>이메일</SubHead>
@@ -127,7 +130,7 @@ const Account = () => {
               <MenuWrap>
                 <FcBusinessContact size={39} />
                 <span>프로필 편집</span>
-                <p>프로필 사진, 사용자 명 등을 변경하세요.</p>
+                <p>프로필 사진, 닉네임 등을 변경하세요.</p>
               </MenuWrap>
             </Link>
             {attributes.identities ? (
