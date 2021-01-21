@@ -752,9 +752,24 @@ export const searchPictures = /* GraphQL */ `
           uri
         }
         likes {
+          items {
+            id
+            pictureId
+            userId
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         comments {
+          items {
+            id
+            pictureId
+            authorId
+            text
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         updatedAt

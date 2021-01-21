@@ -5,7 +5,6 @@ import LoadingPage from '../components/Utils/LoadingPage';
 import CityPost from '../components/City/CityPost';
 import { searchPictures } from '../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
-import { Link } from 'react-router-dom';
 
 const SearchContainer = styled.main`
   margin-top: 120px;
@@ -117,15 +116,12 @@ const Search = ({ match }) => {
             </SearchHeader>
             <SearchGridWrap hasPost={true}>
               {posts.map((post) => (
-                <Link
+                <CityPost
                   key={post.id}
-                  to={{
-                    pathname: `/city/${post.city}/${post.id}`,
-                    state: { next: null, cityName: post.city, post: post },
-                  }}
-                >
-                  <CityPost key={post.id} post={post} cityName={post.city} />
-                </Link>
+                  post={post}
+                  cityName={post.city}
+                  next={null}
+                />
               ))}
             </SearchGridWrap>
           </>
