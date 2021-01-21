@@ -8,6 +8,7 @@ import { ThemeContext, UserContext } from '../App';
 import { lightTheme } from '../theme';
 import Navigation from '../components/Nav/Navigation';
 import { translateToKo } from '../utils/translate';
+import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 
 import config from '../aws-exports';
 
@@ -56,7 +57,7 @@ const Preview = styled.div`
 const FileWrap = styled.div`
   width: 300px;
   height: 300px;
-  display: flex;
+  display: ${(props) => (props.isFileUpload ? 'none' : 'flex')};
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -102,6 +103,16 @@ const CancelButton = styled.div`
   align-items: center;
 `;
 
+const PreviewContainer = styled.div`
+  width: 300px;
+  height: 300px;
+  display: ${(props) => (props.isFileUpload ? 'flex' : 'none')};
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+`;
+
 const PreviewWrap = styled.div`
   width: 300px;
   height: 300px;
@@ -112,10 +123,6 @@ const PreviewWrap = styled.div`
 `;
 
 const FileUploadContainer = styled.div`
-  width: 45%;
-  min-width: 300px;
-  height: 300px;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -204,10 +211,47 @@ const InputContainer = styled.div`
   }
 `;
 
+const LeftSlideButton = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  position: absolute;
+  left: -50px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    background: rgba(0, 0, 0, 0.07);
+  }
+`;
+
+const RightSlideButton = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  position: absolute;
+  right: -50px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    background: rgba(0, 0, 0, 0.07);
+  }
+`;
+
 const UploadPicture = () => {
-  const [fileName, setFileName] = useState('');
-  const [attachment, setAttachment] = useState(null);
-  const [filePreview, setFilePreview] = useState(null);
+  const [fileNames, setFileNames] = useState(null);
+  const [isFileUpload, setIsFileUpload] = useState(false);
+  const [fileObjs, setFileObjs] = useState(null);
+  const [fileArray, setFileArray] = useState(null);
+  const [fileIndex, setFileIndex] = useState(0);
+
   const [cityName, setCityName] = useState('');
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
@@ -221,27 +265,37 @@ const UploadPicture = () => {
 
   const cityList = Object.values(translateToKo);
 
-  const onSubmit = async (e) => {
-    let key;
-    e.preventDefault();
-    if (attachment && cityName && location && title) {
-      Storage.put(fileName, attachment, {
-        contentType: attachment.type,
-      })
-        .then((result) => {
-          key = result.key;
-          addPicture(key);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      alert('필수 항목들을 빠짐없이 입력해주세요.');
-    }
+  const s3Upload = (fileName, attachment) => {
+    Storage.put(fileName, attachment, {
+      contentType: attachment.type,
+    }).catch((err) => {
+      console.log(err);
+    });
   };
 
-  const addPicture = async (key) => {
-    const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (!cityName || !fileObjs || !location || !title) {
+      alert('필수 항목들을 빠짐없이 입력해주세요.');
+      return;
+    }
+    for (let i = 0; i < fileObjs.length; i++) {
+      s3Upload(fileNames[i], fileObjs[i]);
+    }
+    addPicture(fileNames);
+  };
+
+  const addPicture = async (keys) => {
+    let attachments = [];
+    keys.forEach((key) => {
+      const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
+      const S3Object = {
+        bucket: 'mytravel-picture13646-dev',
+        key: `public/${key}`,
+        uri: url,
+      };
+      attachments.push(S3Object);
+    });
     const inputData = {
       authorId: userObj.attributes.sub,
       country: '일본',
@@ -250,11 +304,7 @@ const UploadPicture = () => {
       location: location,
       instagram: instagram,
       description: description,
-      attachment: {
-        bucket: 'mytravel-picture13646-dev',
-        key: `public/${key}`,
-        uri: url,
-      },
+      attachment: attachments,
     };
     await API.graphql(graphqlOperation(createPicture, { input: inputData }))
       .then(() => alert('사진을 성공적으로 업로드했습니다 🙆'))
@@ -285,21 +335,34 @@ const UploadPicture = () => {
     const {
       target: { files },
     } = event;
-    const file = files[0];
-    setFileName(files[0].name);
-    const reader = new FileReader();
-    reader.onloadend = (finishedEvent) => {
-      const {
-        currentTarget: { result },
-      } = finishedEvent;
-      setFilePreview(result);
-      setAttachment(file);
-    };
-    reader.readAsDataURL(file);
+    if (files.length > 8) {
+      alert('사진은 최대 8장 까지 올릴 수 있습니다.');
+      return;
+    }
+    const fileArrays = [];
+    const fileNames = [];
+    for (let i = 0; i < files.length; i++) {
+      fileArrays.push(URL.createObjectURL(files[i]));
+      fileNames.push(files[i].name);
+    }
+    setFileObjs(files);
+    setIsFileUpload(true);
+    setFileArray(fileArrays);
+    setFileNames(fileNames);
   };
 
   const handleFileClick = (event) => {
     hiddenFileInput.current.click();
+  };
+
+  const rightFileSlide = () => {
+    if (fileIndex === fileObjs.length - 1) return;
+    setFileIndex((prev) => prev + 1);
+  };
+
+  const leftFileSlide = () => {
+    if (fileIndex === 0) return;
+    setFileIndex((prev) => prev - 1);
   };
 
   return (
@@ -309,29 +372,41 @@ const UploadPicture = () => {
         <UploadFormWrap themeProps={theme}>
           <Title>사진 업로드</Title>
           <FileUploadContainer>
-            {filePreview ? (
-              <>
-                <PreviewWrap>
-                  <Preview>
-                    <img src={filePreview} alt="file" />
-                  </Preview>
-                </PreviewWrap>
-                <FileName>{fileName}</FileName>
-              </>
-            ) : (
-              <FileWrap onClick={handleFileClick} themeProps={theme}>
+            <>
+              {fileArray && (
+                <PreviewContainer isFileUpload={isFileUpload}>
+                  <PreviewWrap>
+                    <Preview>
+                      <img src={fileArray[fileIndex]} alt="..." />
+                    </Preview>
+                    <FileName>{fileNames[fileIndex]}</FileName>
+                  </PreviewWrap>
+                  <LeftSlideButton onClick={leftFileSlide}>
+                    <BiChevronLeft size={25} />
+                  </LeftSlideButton>
+                  <RightSlideButton onClick={rightFileSlide}>
+                    <BiChevronRight size={25} />
+                  </RightSlideButton>
+                </PreviewContainer>
+              )}
+              <FileWrap
+                onClick={handleFileClick}
+                themeProps={theme}
+                isFileUpload={isFileUpload}
+              >
                 <ImFolderUpload size={35} />
-                <span>*파일 선택</span>
+                <span>*파일 선택(최대 8장)</span>
               </FileWrap>
-            )}
-            <input
-              type="file"
-              id="file-input"
-              accept="image/*"
-              ref={hiddenFileInput}
-              onChange={(e) => onFileChange(e)}
-              style={{ display: 'none' }}
-            />
+              <input
+                type="file"
+                id="file-input"
+                accept="image/*"
+                ref={hiddenFileInput}
+                multiple="multiple"
+                onChange={(e) => onFileChange(e)}
+                style={{ display: 'none' }}
+              />
+            </>
           </FileUploadContainer>
           <TextInputContainer>
             <InputContainer>
