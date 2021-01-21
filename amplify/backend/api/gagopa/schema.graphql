@@ -1,17 +1,23 @@
 type Picture
   @model
   @searchable
-  @key(name: "picturesByUserId", fields: ["authorId"]) {
+  @key(name: "picturesByUserId", fields: ["authorId"])
+  @key(
+    name: "picturesByDate"
+    fields: ["city", "createdAt"]
+    queryField: "picturesByDate"
+  ) {
   id: ID!
   authorId: ID!
   country: String!
   city: String!
   title: String!
   location: String!
+  createdAt: String!
   author: User @connection(fields: ["authorId"])
   instagram: String
   description: String
-  attachment: S3Object
+  attachment: [S3Object]
   likes: [PictureLike]
     @connection(keyName: "pictureLikesByPictureId", fields: ["id"])
   comments: [Comment]
@@ -27,11 +33,19 @@ type User @model(subscriptions: null) @searchable @key(fields: ["userId"]) {
   email: String
 }
 
-type Comment @model @key(name: "commentsByPictureId", fields: ["pictureId"]) {
+type Comment
+  @model
+  @key(name: "commentsByPictureId", fields: ["pictureId"])
+  @key(
+    name: "commentsByDate"
+    fields: ["pictureId", "createdAt"]
+    queryField: "commentsByDate"
+  ) {
   id: ID!
   pictureId: ID!
   authorId: ID!
   text: String!
+  createdAt: String!
   likes: [CommentLike]
     @connection(keyName: "commentLikesByCommentId", fields: ["id"])
   author: User @connection(fields: ["authorId"])

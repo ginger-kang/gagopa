@@ -13,6 +13,7 @@ export const createPicture = /* GraphQL */ `
       city
       title
       location
+      createdAt
       author {
         userId
         pictures {
@@ -58,7 +59,6 @@ export const createPicture = /* GraphQL */ `
         }
         nextToken
       }
-      createdAt
       updatedAt
     }
   }
@@ -75,6 +75,7 @@ export const updatePicture = /* GraphQL */ `
       city
       title
       location
+      createdAt
       author {
         userId
         pictures {
@@ -120,7 +121,6 @@ export const updatePicture = /* GraphQL */ `
         }
         nextToken
       }
-      createdAt
       updatedAt
     }
   }
@@ -137,6 +137,7 @@ export const deletePicture = /* GraphQL */ `
       city
       title
       location
+      createdAt
       author {
         userId
         pictures {
@@ -182,7 +183,6 @@ export const deletePicture = /* GraphQL */ `
         }
         nextToken
       }
-      createdAt
       updatedAt
     }
   }
@@ -202,9 +202,9 @@ export const createUser = /* GraphQL */ `
           city
           title
           location
+          createdAt
           instagram
           description
-          createdAt
           updatedAt
         }
         nextToken
@@ -237,9 +237,9 @@ export const updateUser = /* GraphQL */ `
           city
           title
           location
+          createdAt
           instagram
           description
-          createdAt
           updatedAt
         }
         nextToken
@@ -272,9 +272,9 @@ export const deleteUser = /* GraphQL */ `
           city
           title
           location
+          createdAt
           instagram
           description
-          createdAt
           updatedAt
         }
         nextToken
@@ -302,6 +302,7 @@ export const createComment = /* GraphQL */ `
       pictureId
       authorId
       text
+      createdAt
       likes {
         items {
           id
@@ -336,6 +337,7 @@ export const createComment = /* GraphQL */ `
         city
         title
         location
+        createdAt
         author {
           userId
           username
@@ -357,10 +359,8 @@ export const createComment = /* GraphQL */ `
         comments {
           nextToken
         }
-        createdAt
         updatedAt
       }
-      createdAt
       updatedAt
     }
   }
@@ -375,6 +375,7 @@ export const updateComment = /* GraphQL */ `
       pictureId
       authorId
       text
+      createdAt
       likes {
         items {
           id
@@ -409,6 +410,7 @@ export const updateComment = /* GraphQL */ `
         city
         title
         location
+        createdAt
         author {
           userId
           username
@@ -430,10 +432,8 @@ export const updateComment = /* GraphQL */ `
         comments {
           nextToken
         }
-        createdAt
         updatedAt
       }
-      createdAt
       updatedAt
     }
   }
@@ -448,6 +448,7 @@ export const deleteComment = /* GraphQL */ `
       pictureId
       authorId
       text
+      createdAt
       likes {
         items {
           id
@@ -482,6 +483,7 @@ export const deleteComment = /* GraphQL */ `
         city
         title
         location
+        createdAt
         author {
           userId
           username
@@ -503,10 +505,8 @@ export const deleteComment = /* GraphQL */ `
         comments {
           nextToken
         }
-        createdAt
         updatedAt
       }
-      createdAt
       updatedAt
     }
   }
@@ -606,6 +606,7 @@ export const createPictureLike = /* GraphQL */ `
         city
         title
         location
+        createdAt
         author {
           userId
           username
@@ -627,7 +628,6 @@ export const createPictureLike = /* GraphQL */ `
         comments {
           nextToken
         }
-        createdAt
         updatedAt
       }
       createdAt
@@ -667,6 +667,7 @@ export const updatePictureLike = /* GraphQL */ `
         city
         title
         location
+        createdAt
         author {
           userId
           username
@@ -688,7 +689,6 @@ export const updatePictureLike = /* GraphQL */ `
         comments {
           nextToken
         }
-        createdAt
         updatedAt
       }
       createdAt
@@ -728,6 +728,7 @@ export const deletePictureLike = /* GraphQL */ `
         city
         title
         location
+        createdAt
         author {
           userId
           username
@@ -749,7 +750,6 @@ export const deletePictureLike = /* GraphQL */ `
         comments {
           nextToken
         }
-        createdAt
         updatedAt
       }
       createdAt
@@ -790,6 +790,7 @@ export const createCommentLike = /* GraphQL */ `
         city
         title
         location
+        createdAt
         author {
           userId
           username
@@ -811,7 +812,6 @@ export const createCommentLike = /* GraphQL */ `
         comments {
           nextToken
         }
-        createdAt
         updatedAt
       }
       createdAt
@@ -852,6 +852,7 @@ export const updateCommentLike = /* GraphQL */ `
         city
         title
         location
+        createdAt
         author {
           userId
           username
@@ -873,7 +874,6 @@ export const updateCommentLike = /* GraphQL */ `
         comments {
           nextToken
         }
-        createdAt
         updatedAt
       }
       createdAt
@@ -914,6 +914,7 @@ export const deleteCommentLike = /* GraphQL */ `
         city
         title
         location
+        createdAt
         author {
           userId
           username
@@ -935,7 +936,6 @@ export const deleteCommentLike = /* GraphQL */ `
         comments {
           nextToken
         }
-        createdAt
         updatedAt
       }
       createdAt

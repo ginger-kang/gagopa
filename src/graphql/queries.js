@@ -10,6 +10,7 @@ export const getPicture = /* GraphQL */ `
       city
       title
       location
+      createdAt
       author {
         userId
         pictures {
@@ -55,7 +56,6 @@ export const getPicture = /* GraphQL */ `
         }
         nextToken
       }
-      createdAt
       updatedAt
     }
   }
@@ -74,6 +74,7 @@ export const listPictures = /* GraphQL */ `
         city
         title
         location
+        createdAt
         author {
           userId
           username
@@ -90,27 +91,11 @@ export const listPictures = /* GraphQL */ `
           uri
         }
         likes {
-          items {
-            id
-            pictureId
-            userId
-            createdAt
-            updatedAt
-          }
           nextToken
         }
         comments {
-          items {
-            id
-            pictureId
-            authorId
-            text
-            createdAt
-            updatedAt
-          }
           nextToken
         }
-        createdAt
         updatedAt
       }
       nextToken
@@ -129,9 +114,9 @@ export const getUser = /* GraphQL */ `
           city
           title
           location
+          createdAt
           instagram
           description
-          createdAt
           updatedAt
         }
         nextToken
@@ -191,6 +176,7 @@ export const getComment = /* GraphQL */ `
       pictureId
       authorId
       text
+      createdAt
       likes {
         items {
           id
@@ -225,6 +211,7 @@ export const getComment = /* GraphQL */ `
         city
         title
         location
+        createdAt
         author {
           userId
           username
@@ -246,10 +233,8 @@ export const getComment = /* GraphQL */ `
         comments {
           nextToken
         }
-        createdAt
         updatedAt
       }
-      createdAt
       updatedAt
     }
   }
@@ -266,6 +251,7 @@ export const listComments = /* GraphQL */ `
         pictureId
         authorId
         text
+        createdAt
         likes {
           nextToken
         }
@@ -275,12 +261,6 @@ export const listComments = /* GraphQL */ `
           email
           createdAt
           updatedAt
-          avatar {
-            bucket
-            region
-            key
-            uri
-          }
         }
         picture {
           id
@@ -289,12 +269,11 @@ export const listComments = /* GraphQL */ `
           city
           title
           location
+          createdAt
           instagram
           description
-          createdAt
           updatedAt
         }
-        createdAt
         updatedAt
       }
       nextToken
@@ -373,6 +352,7 @@ export const getPictureLike = /* GraphQL */ `
         city
         title
         location
+        createdAt
         author {
           userId
           username
@@ -394,7 +374,6 @@ export const getPictureLike = /* GraphQL */ `
         comments {
           nextToken
         }
-        createdAt
         updatedAt
       }
       createdAt
@@ -427,9 +406,9 @@ export const listPictureLikes = /* GraphQL */ `
           city
           title
           location
+          createdAt
           instagram
           description
-          createdAt
           updatedAt
         }
         createdAt
@@ -469,6 +448,7 @@ export const getCommentLike = /* GraphQL */ `
         city
         title
         location
+        createdAt
         author {
           userId
           username
@@ -490,7 +470,6 @@ export const getCommentLike = /* GraphQL */ `
         comments {
           nextToken
         }
-        createdAt
         updatedAt
       }
       createdAt
@@ -524,12 +503,115 @@ export const listCommentLikes = /* GraphQL */ `
           city
           title
           location
+          createdAt
           instagram
           description
-          createdAt
           updatedAt
         }
         createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const picturesByDate = /* GraphQL */ `
+  query PicturesByDate(
+    $city: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelPictureFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    picturesByDate(
+      city: $city
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        authorId
+        country
+        city
+        title
+        location
+        createdAt
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        instagram
+        description
+        attachment {
+          bucket
+          region
+          key
+          uri
+        }
+        likes {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const commentsByDate = /* GraphQL */ `
+  query CommentsByDate(
+    $pictureId: ID
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCommentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    commentsByDate(
+      pictureId: $pictureId
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        pictureId
+        authorId
+        text
+        createdAt
+        likes {
+          nextToken
+        }
+        author {
+          userId
+          username
+          email
+          createdAt
+          updatedAt
+        }
+        picture {
+          id
+          authorId
+          country
+          city
+          title
+          location
+          createdAt
+          instagram
+          description
+          updatedAt
+        }
         updatedAt
       }
       nextToken
@@ -571,9 +653,9 @@ export const likesByUser = /* GraphQL */ `
           city
           title
           location
+          createdAt
           instagram
           description
-          createdAt
           updatedAt
         }
         createdAt
@@ -605,6 +687,7 @@ export const searchPictures = /* GraphQL */ `
         city
         title
         location
+        createdAt
         author {
           userId
           username
@@ -621,27 +704,11 @@ export const searchPictures = /* GraphQL */ `
           uri
         }
         likes {
-          items {
-            id
-            pictureId
-            userId
-            createdAt
-            updatedAt
-          }
           nextToken
         }
         comments {
-          items {
-            id
-            pictureId
-            authorId
-            text
-            createdAt
-            updatedAt
-          }
           nextToken
         }
-        createdAt
         updatedAt
       }
       nextToken
