@@ -9,7 +9,7 @@ import LoadingPage from '../components/Utils/LoadingPage';
 import NoPost from '../components/City/NoPost';
 import CityPost from '../components/City/CityPost';
 import LoadMorePostButton from '../components/City/LoadMorePostButton';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import CityListModal from '../components/City/CityListModal';
 
 const CityContainer = styled.div`

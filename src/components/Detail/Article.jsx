@@ -12,18 +12,57 @@ import { dateToString } from '../../utils/utils';
 
 const ArticleWrap = styled.article`
   width: 950px;
-  height: 550px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 100px;
 `;
 
 const PictureWrap = styled.div`
-  width: 550px;
-  height: 100%;
-  margin-right: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 60px;
+`;
+
+const MainPicture = styled.div`
+  width: 500px;
+
+  & img {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const PicturePreview = styled.div`
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  & div {
+    width: 60px;
+    height: 60px;
+    opacity: 0.4;
+    margin: 0 6px;
+    cursor: pointer;
+
+    &:nth-child(${(props) => props.index + 1}) {
+      opacity: 1;
+    }
+  }
+`;
+
+const Picture = styled.div`
+  & img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+  }
 `;
 
 const ContentWrap = styled.div`
@@ -131,6 +170,9 @@ const Article = ({ pictureObj }) => {
   const [likesCount, setLikesCount] = useState(likesList.length);
   const [isLiked, setIsLiked] = useState(false);
   const [likesId, setLikesId] = useState(undefined);
+  const [pictureIndex, setPictureIndex] = useState(0);
+
+  const pictures = pictureObj.attachment;
 
   useEffect(() => {
     if (cognitoUser) {
@@ -182,10 +224,21 @@ const Article = ({ pictureObj }) => {
     setLikesCount((prev) => prev - 1);
   };
 
+  const onPicturePreviewClick = (index) => setPictureIndex(index);
+
   return (
     <ArticleWrap>
       <PictureWrap>
-        <img src={pictureObj.attachment.uri} alt="post" />
+        <MainPicture>
+          <img src={pictures[pictureIndex].uri} alt="post" />
+        </MainPicture>
+        <PicturePreview index={pictureIndex}>
+          {pictures.map((picture, index) => (
+            <Picture key={index} onClick={() => onPicturePreviewClick(index)}>
+              <img src={picture.uri} alt="post" />
+            </Picture>
+          ))}
+        </PicturePreview>
       </PictureWrap>
       <ContentWrap theme={theme}>
         <AuthorWrap theme={theme}>

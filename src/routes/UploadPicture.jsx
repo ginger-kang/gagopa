@@ -335,8 +335,8 @@ const UploadPicture = () => {
     const {
       target: { files },
     } = event;
-    if (files.length > 8) {
-      alert('사진은 최대 8장 까지 올릴 수 있습니다.');
+    if (files.length > 6) {
+      alert('사진은 최대 6장 까지 올릴 수 있습니다.');
       return;
     }
     const fileArrays = [];
@@ -395,7 +395,7 @@ const UploadPicture = () => {
                 isFileUpload={isFileUpload}
               >
                 <ImFolderUpload size={35} />
-                <span>*파일 선택(최대 8장)</span>
+                <span>*파일 선택(최대 6장)</span>
               </FileWrap>
               <input
                 type="file"
