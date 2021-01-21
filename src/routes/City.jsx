@@ -68,8 +68,6 @@ const City = ({ match }) => {
 
   const cityObjects = fetchPostData && fetchPostData.slice(0, next);
 
-  console.log(cityObjects);
-
   const handleLoadMorePosts = () => {
     setNext((next) => next + postCount);
   };

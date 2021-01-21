@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ThemeContext, CognitoContext } from '../../App';
 import { lightTheme } from '../../theme';
 import { API, graphqlOperation } from 'aws-amplify';
-import { listComments } from '../../graphql/queries';
+import { commentsByDate } from '../../graphql/queries';
 import { createComment } from '../../graphql/mutations';
 import LoadingPage from '../Utils/LoadingPage';
 import { dateToString } from '../../utils/utils';
@@ -127,11 +127,12 @@ const Comment = ({ pictureId }) => {
     setIsLoading(true);
     try {
       const data = await API.graphql(
-        graphqlOperation(listComments, {
-          filter: { pictureId: { eq: pictureId } },
+        graphqlOperation(commentsByDate, {
+          pictureId: pictureId,
+          sortDirection: 'DESC',
         }),
       );
-      const comments = await data.data.listComments.items;
+      const comments = await data.data.commentsByDate.items;
       setComments(comments);
       setCommentCount(comments.length);
       commentCount > 6 ? setIsMany(true) : setIsMany(false);
@@ -165,7 +166,7 @@ const Comment = ({ pictureId }) => {
     };
     await API.graphql(graphqlOperation(createComment, { input: inputData }))
       .then(() => setCommentInput(''))
-      .then(() => setCommentCount(0))
+      .then(() => setCommentCount((prev) => prev + 1))
       .then(() => alert('성공'))
       .catch((error) => console.log(error));
   };
