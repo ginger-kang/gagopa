@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
-import { listPictures } from '../graphql/queries';
+import { picturesByDate } from '../graphql/queries';
 import CityIntro from '../components/City/CityIntro';
 import { translateToKo } from '../utils/translate';
 import Navigation from '../components/Nav/Navigation';
@@ -48,11 +48,12 @@ const City = ({ match }) => {
     setIsLoading(true);
     try {
       const data = await API.graphql(
-        graphqlOperation(listPictures, {
-          filter: { city: { beginsWith: translateToKo[cityName] } },
+        graphqlOperation(picturesByDate, {
+          city: translateToKo[cityName],
+          sortDirection: 'DESC',
         }),
       );
-      const pictures = await data.data.listPictures.items;
+      const pictures = await data.data.picturesByDate.items;
       setFetchPostData(pictures);
     } catch (error) {
       console.log(error);
@@ -66,6 +67,8 @@ const City = ({ match }) => {
   }, [fetchPictures]);
 
   const cityObjects = fetchPostData && fetchPostData.slice(0, next);
+
+  console.log(cityObjects);
 
   const handleLoadMorePosts = () => {
     setNext((next) => next + postCount);
@@ -85,15 +88,12 @@ const City = ({ match }) => {
             <NoPost hasPost={hasPost} cityName={translateToKo[cityName]} />
             <CityGridWrap hasPost={hasPost}>
               {cityObjects.map((post) => (
-                <Link
+                <CityPost
                   key={post.id}
-                  to={{
-                    pathname: `/city/${cityName}/${post.id}`,
-                    state: { next: next, cityName: cityName, post: post },
-                  }}
-                >
-                  <CityPost key={post.id} post={post} cityName={cityName} />
-                </Link>
+                  post={post}
+                  cityName={cityName}
+                  next={next}
+                />
               ))}
             </CityGridWrap>
             <LoadMorePostButton

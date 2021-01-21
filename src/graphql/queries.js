@@ -91,9 +91,24 @@ export const listPictures = /* GraphQL */ `
           uri
         }
         likes {
+          items {
+            id
+            pictureId
+            userId
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         comments {
+          items {
+            id
+            pictureId
+            authorId
+            text
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         updatedAt
@@ -257,6 +272,12 @@ export const listComments = /* GraphQL */ `
         }
         author {
           userId
+          avatar {
+            bucket
+            region
+            key
+            uri
+          }
           username
           email
           createdAt
@@ -542,6 +563,12 @@ export const picturesByDate = /* GraphQL */ `
         createdAt
         author {
           userId
+          avatar {
+            bucket
+            region
+            key
+            uri
+          }
           username
           email
           createdAt
@@ -556,9 +583,24 @@ export const picturesByDate = /* GraphQL */ `
           uri
         }
         likes {
+          items {
+            id
+            pictureId
+            userId
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         comments {
+          items {
+            id
+            pictureId
+            authorId
+            text
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         updatedAt
@@ -595,6 +637,12 @@ export const commentsByDate = /* GraphQL */ `
         }
         author {
           userId
+          avatar {
+            bucket
+            region
+            key
+            uri
+          }
           username
           email
           createdAt
