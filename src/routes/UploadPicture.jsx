@@ -6,7 +6,7 @@ import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { ImFolderUpload } from 'react-icons/im';
 import { ThemeContext, UserContext } from '../App';
 import { lightTheme } from '../theme';
-import Navigation from '../components/nav/Navigation';
+import Navigation from '../components/Nav/Navigation';
 import { translateToKo } from '../utils/translate';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 

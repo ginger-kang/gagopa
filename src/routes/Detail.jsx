@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getPicture } from '../graphql/queries';
 import { Link, useLocation } from 'react-router-dom';
-import Navigation from '../components/nav/Navigation';
-import LoadingPage from '../components/load/LoadingPage';
+import Navigation from '../components/Nav/Navigation';
+import LoadingPage from '../components/Load/LoadingPage';
 import { ThemeContext } from '../App';
 import { lightTheme } from '../theme';
-import Comment from '../components/detail/comment/Comment';
-import Article from '../components/detail/article/Article';
-import Geocode from '../components/detail/GoogleMap/Geocode';
+import Comment from '../components/Detail/Comment/Comment';
+import Article from '../components/Detail/Article/Article';
+import Geocode from '../components/Detail/GoogleMap/Geocode';
 
 const Container = styled.main`
   width: 100%;

@@ -5,7 +5,7 @@ import { lightTheme } from '../../../theme';
 import { API, graphqlOperation } from 'aws-amplify';
 import { commentsByDate } from '../../../graphql/queries';
 import { createComment } from '../../../graphql/mutations';
-import LoadingPage from '../../load/LoadingPage';
+import LoadingPage from '../../Load/LoadingPage';
 import { dateToString } from '../../../utils/utils';
 import { AiOutlineEllipsis } from 'react-icons/ai';
 import EditDeleteComment from './EditDeleteComment';

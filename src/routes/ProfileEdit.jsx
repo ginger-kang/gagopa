@@ -1,6 +1,6 @@
 import React, { useContext, useState, useRef } from 'react';
 import styled from 'styled-components';
-import Navigation from '../components/nav/Navigation';
+import Navigation from '../components/Nav/Navigation';
 import { UserContext, CognitoContext, ThemeContext } from '../App';
 import { Link, useHistory, Redirect } from 'react-router-dom';
 import { lightTheme } from '../theme';

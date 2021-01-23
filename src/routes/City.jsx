@@ -2,15 +2,15 @@ import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
 import { picturesByDate } from '../graphql/queries';
-import CityIntro from '../components/city/CityIntro';
+import CityIntro from '../components/City/CityIntro';
 import { translateToKo } from '../utils/translate';
-import Navigation from '../components/nav/Navigation';
-import LoadingPage from '../components/load/LoadingPage';
-import NoPost from '../components/city/NoPost';
-import CityPost from '../components/city/CityPost';
-import LoadMorePostButton from '../components/city/LoadMorePostButton';
+import Navigation from '../components/Nav/Navigation';
+import LoadingPage from '../components/Load/LoadingPage';
+import NoPost from '../components/City/NoPost';
+import CityPost from '../components/City/CityPost';
+import LoadMorePostButton from '../components/City/LoadMorePostButton';
 import { useLocation } from 'react-router-dom';
-import CityListModal from '../components/city/CityListModal';
+import CityListModal from '../components/City/CityListModal';
 
 const CityContainer = styled.div`
   margin-top: 60px;

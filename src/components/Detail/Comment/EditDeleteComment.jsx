@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ThemeContext } from '../../../App';
 import { API, graphqlOperation } from 'aws-amplify';
 import { updateComment, deleteComment } from '../../../graphql/mutations';
-import LoadingPage from '../../load/LoadingPage';
+import LoadingPage from '../../Load/LoadingPage';
 import { lightTheme } from '../../../theme';
 
 const ModalContainer = styled.div`

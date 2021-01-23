@@ -4,8 +4,8 @@ import { ThemeContext, CognitoContext } from '../../App';
 import { Link } from 'react-router-dom';
 import DarkModeToggle from './DarkModeToggle';
 import NavMenu from './NavMenu';
-import SignIn from '../auth/SignIn';
-import SignUp from '../auth/SignUp';
+import SignIn from '../Auth/SignIn';
+import SignUp from '../Auth/SignUp';
 import NavSearchBar from './NavSearchBar';
 
 const NavBarContainer = styled.nav`
