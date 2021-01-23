@@ -1,13 +1,14 @@
 import React, { useContext, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { ThemeContext, CognitoContext } from '../../App';
-import { lightTheme } from '../../theme';
+import { ThemeContext, CognitoContext } from '../../../App';
+import { lightTheme } from '../../../theme';
 import { API, graphqlOperation } from 'aws-amplify';
-import { commentsByDate } from '../../graphql/queries';
-import { createComment } from '../../graphql/mutations';
-import LoadingPage from '../Utils/LoadingPage';
-import { dateToString } from '../../utils/utils';
+import { commentsByDate } from '../../../graphql/queries';
+import { createComment } from '../../../graphql/mutations';
+import LoadingPage from '../../Utils/LoadingPage';
+import { dateToString } from '../../../utils/utils';
 import { AiOutlineEllipsis } from 'react-icons/ai';
+import EditDeleteComment from './EditDeleteComment';
 
 const CommentContainer = styled.div`
   width: 950px;
@@ -122,6 +123,9 @@ const Comment = ({ pictureId }) => {
   const [commentCount, setCommentCount] = useState(0);
   const [isMany, setIsMany] = useState(false);
   const [commentInput, setCommentInput] = useState('');
+  const [editToggle, setEditToggle] = useState(false);
+  const [editCommentId, setEditCommentId] = useState('');
+  const [editText, setEditText] = useState('');
 
   const fetchComments = useCallback(async () => {
     setIsLoading(true);
@@ -171,56 +175,78 @@ const Comment = ({ pictureId }) => {
       .catch((error) => console.log(error));
   };
 
+  const handleCommentMenu = (id, text) => {
+    setEditText(text);
+    setEditCommentId(id);
+    setEditToggle((prev) => !prev);
+  };
+
   return (
-    <CommentContainer theme={theme}>
-      {isLoading ? (
-        <LoadingPage />
-      ) : (
-        <>
-          <CommentHeader>
-            <span>댓글</span>
-            &nbsp;
-            <span>{comments.length}개</span>
-          </CommentHeader>
-          <CommentWrap isMany={isMany}>
-            {comments.map((comment) => (
-              <CommentBox key={comment.id}>
-                <CommentAuthor>
-                  <Avatar src={comment.author.avatar.uri} alt="avatar" />
-                  <InfoWrap>
-                    <UserName>{comment.author.username}</UserName>
-                    <Date>{dateToString(comments[0].createdAt)}</Date>
-                  </InfoWrap>
-                  {cognitoUser && comment.author.userId === cognitoUser.userId && (
-                    <ModifyAndDelete>
-                      <AiOutlineEllipsis size={30} />
-                    </ModifyAndDelete>
-                  )}
-                </CommentAuthor>
-                <Text>{comment.text}</Text>
-              </CommentBox>
-            ))}
-          </CommentWrap>
-          <CommentInputWrap theme={theme}>
-            {cognitoUser ? (
-              <Avatar src={cognitoUser.avatar.uri} alt="avatar" />
-            ) : (
-              <span style={{ fontSize: '1.5rem' }}>👻</span>
-            )}
-            <Input
-              type="text"
-              value={commentInput}
-              placeholder="댓글"
-              onChange={onChange}
-              autoComplete="off"
-              autoCorrect="off"
-              maxLength="100"
-            />
-            <button onClick={onSubmit}>등록</button>
-          </CommentInputWrap>
-        </>
+    <>
+      <CommentContainer theme={theme}>
+        {isLoading ? (
+          <LoadingPage />
+        ) : (
+          <>
+            <CommentHeader>
+              <span>댓글</span>
+              &nbsp;
+              <span>{comments.length}개</span>
+            </CommentHeader>
+            <CommentWrap isMany={isMany}>
+              {comments.map((comment) => (
+                <CommentBox key={comment.id}>
+                  <CommentAuthor>
+                    <Avatar src={comment.author.avatar.uri} alt="avatar" />
+                    <InfoWrap>
+                      <UserName>{comment.author.username}</UserName>
+                      <Date>{dateToString(comments[0].createdAt)}</Date>
+                    </InfoWrap>
+                    {cognitoUser &&
+                      comment.author.userId === cognitoUser.userId && (
+                        <ModifyAndDelete>
+                          <AiOutlineEllipsis
+                            size={30}
+                            onClick={() =>
+                              handleCommentMenu(comment.id, comment.text)
+                            }
+                          />
+                        </ModifyAndDelete>
+                      )}
+                  </CommentAuthor>
+                  <Text>{comment.text}</Text>
+                </CommentBox>
+              ))}
+            </CommentWrap>
+            <CommentInputWrap theme={theme}>
+              {cognitoUser ? (
+                <Avatar src={cognitoUser.avatar.uri} alt="avatar" />
+              ) : (
+                <span style={{ fontSize: '1.5rem' }}>👻</span>
+              )}
+              <Input
+                type="text"
+                value={commentInput}
+                placeholder="댓글"
+                onChange={onChange}
+                autoComplete="off"
+                autoCorrect="off"
+                maxLength="100"
+              />
+              <button onClick={onSubmit}>등록</button>
+            </CommentInputWrap>
+          </>
+        )}
+      </CommentContainer>
+      {editToggle && (
+        <EditDeleteComment
+          id={editCommentId}
+          toggle={handleCommentMenu}
+          refresh={setCommentCount}
+          text={editText}
+        />
       )}
-    </CommentContainer>
+    </>
   );
 };
 

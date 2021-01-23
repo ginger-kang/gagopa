@@ -7,7 +7,7 @@ import Navigation from '../components/Nav/Navigation';
 import LoadingPage from '../components/Utils/LoadingPage';
 import { ThemeContext } from '../App';
 import { lightTheme } from '../theme';
-import Comment from '../components/Detail/Comment';
+import Comment from '../components/Detail/Comment/Comment';
 import Article from '../components/Detail/Article';
 import Geocode from '../components/Detail/GoogleMap/Geocode';
 
