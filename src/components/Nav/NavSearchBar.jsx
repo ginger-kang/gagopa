@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState, useContext } from 'react';
+import styled, { css } from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
+import { ThemeContext } from '../../App';
+import { lightTheme } from '../../theme';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 const SearchBarWrap = styled.div`
   width: 100%;
@@ -9,13 +12,60 @@ const SearchBarWrap = styled.div`
   align-items: center;
 `;
 
-const SearchBar = styled.input`
-  width: 200px;
-  padding: 15px;
-  background: rgba(200, 200, 200, 0.5);
+const Search = styled.div`
+  width: 250px;
+  position: relative;
 `;
 
-const NavSearchBar = () => {
+const SearchBar = styled.input`
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  border: 1px solid white;
+  background: none;
+  color: white;
+
+  ${(props) =>
+    props.show &&
+    css`
+      background: ${props.theme.itemBackground};
+      color: ${props.theme.text};
+      border: 1px solid
+        ${(props) =>
+          props.theme === lightTheme ? 'rgba(0,0,0,0.1)' : '#fcfcfc'};
+      box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
+    `};
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+const SearchButton = styled.button`
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  & svg {
+    color: white;
+    ${(props) =>
+      props.show &&
+      css`
+        color: ${(props) =>
+          props.theme === lightTheme ? '#7038d4' : '#fcfcfc'};
+      `};
+  }
+`;
+
+const NavSearchBar = ({ show }) => {
+  const { theme } = useContext(ThemeContext);
   const [keyword, setKeyword] = useState('');
   const history = useHistory();
 
@@ -36,15 +86,31 @@ const NavSearchBar = () => {
 
   return (
     <SearchBarWrap>
-      <SearchBar
-        type="text"
-        onChange={onChange}
-        onKeyPress={onKeyPress}
-        placeholder="검색"
-      />
-      <Link to={`/search/${keyword}`}>
-        <button>검색</button>
-      </Link>
+      <Search>
+        {show ? (
+          <SearchBar
+            type="text"
+            onChange={onChange}
+            onKeyPress={onKeyPress}
+            placeholder="검색"
+            theme={theme}
+            show={show}
+          />
+        ) : (
+          <SearchBar
+            type="text"
+            onChange={onChange}
+            onKeyPress={onKeyPress}
+            theme={theme}
+            show={show}
+          />
+        )}
+        <Link to={`/search/${keyword}`}>
+          <SearchButton show={show} theme={theme}>
+            <AiOutlineSearch size={20} />
+          </SearchButton>
+        </Link>
+      </Search>
     </SearchBarWrap>
   );
 };

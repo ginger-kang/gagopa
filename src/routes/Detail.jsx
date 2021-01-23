@@ -38,7 +38,7 @@ const HorizontalLine = styled.div`
     props.theme === lightTheme ? '#cacaca' : '#4c4949'};
   width: 950px;
   height: 1px;
-  margin: 50px 0;
+  margin: 30px 0;
 `;
 
 const Detail = ({ match }) => {

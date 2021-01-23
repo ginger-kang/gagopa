@@ -96,7 +96,9 @@ const Navigation = ({ show, navSearch }) => {
         <TitleContainer themeProps={theme} show={show}>
           <Link to="/">gagopa</Link>
         </TitleContainer>
-        <SearchContainer>{navSearch && <NavSearchBar />}</SearchContainer>
+        <SearchContainer>
+          {navSearch && <NavSearchBar show={show} />}
+        </SearchContainer>
         <NavMenuContainer>
           {cognitoUser ? (
             <Link to="/upload">

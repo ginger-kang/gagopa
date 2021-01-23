@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ThemeContext, CognitoContext } from '../../../App';
+import { Link } from 'react-router-dom';
 import { lightTheme } from '../../../theme';
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
 import { GoComment } from 'react-icons/go';
@@ -118,6 +119,9 @@ const ContentSticky = styled.div`
       transform: scale(1.1);
     }
   }
+  & a {
+    width: 80%;
+  }
 `;
 
 const ContentWrap = styled.div`
@@ -225,7 +229,7 @@ const Description = styled.span`
 `;
 
 const UploadLinkButton = styled.button`
-  width: 80%;
+  width: 100%;
   height: 45px;
   background: linear-gradient(45deg, #9f04ff, #3a19f1);
   color: white;
@@ -294,6 +298,7 @@ const Article = ({ pictureObj }) => {
   };
 
   const onPicturePreviewClick = (index) => setPictureIndex(index);
+  const alertMessage = () => alert('먼저 로그인 해주세요.');
 
   return (
     <ArticleWrap>
@@ -375,7 +380,17 @@ const Article = ({ pictureObj }) => {
           <div>
             <FaQuestion size={28} />
           </div>
-          <UploadLinkButton>사진 올리러 가기</UploadLinkButton>
+          {cognitoUser ? (
+            <>
+              <Link to="/upload">
+                <UploadLinkButton>사진 올리러 가기</UploadLinkButton>
+              </Link>
+            </>
+          ) : (
+            <UploadLinkButton onClick={alertMessage}>
+              여행 사진 올리기
+            </UploadLinkButton>
+          )}
         </ContentSticky>
       </ContentContainer>
     </ArticleWrap>
