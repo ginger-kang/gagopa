@@ -1,14 +1,17 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { ThemeContext, CognitoContext } from '../../App';
-import { lightTheme } from '../../theme';
+import { ThemeContext, CognitoContext } from '../../../App';
+import { lightTheme } from '../../../theme';
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
 import { GoComment } from 'react-icons/go';
 import { IoLogoInstagram } from 'react-icons/io';
 import { API, graphqlOperation } from 'aws-amplify';
-import { createPictureLike, deletePictureLike } from '../../graphql/mutations';
+import {
+  createPictureLike,
+  deletePictureLike,
+} from '../../../graphql/mutations';
 import { v4 as uuidv4 } from 'uuid';
-import { dateToString } from '../../utils/utils';
+import { dateToString } from '../../../utils/utils';
 
 const ArticleWrap = styled.article`
   width: 950px;
@@ -25,11 +28,11 @@ const PictureWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 60px;
+  margin-bottom: 15px;
 `;
 
 const MainPicture = styled.div`
-  width: 500px;
+  width: 550px;
 
   & img {
     width: 100%;
@@ -38,7 +41,7 @@ const MainPicture = styled.div`
 `;
 
 const PicturePreview = styled.div`
-  margin-top: 10px;
+  margin-top: 15px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -66,7 +69,7 @@ const Picture = styled.div`
 `;
 
 const ContentWrap = styled.div`
-  width: 400px;
+  width: 950px;
   height: 550px;
   background: ${(props) => props.theme.itemBackground};
   border: 1px solid
@@ -112,7 +115,6 @@ const InfoWrap = styled.div`
   position: relative;
   width: 100%;
   height: 350px;
-  background: rgba(0, 0, 0, 0.02);
   padding: 20px;
   display: flex;
   flex-direction: column;

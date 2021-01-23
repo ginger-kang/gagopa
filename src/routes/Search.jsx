@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
-import Navigation from '../components/Nav/Navigation';
-import LoadingPage from '../components/Utils/LoadingPage';
-import CityPost from '../components/City/CityPost';
+import Navigation from '../components/nav/Navigation';
+import LoadingPage from '../components/load/LoadingPage';
+import CityPost from '../components/city/CityPost';
 import { searchPictures } from '../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
 

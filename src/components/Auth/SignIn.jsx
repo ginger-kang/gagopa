@@ -4,9 +4,9 @@ import { IoIosClose } from 'react-icons/io';
 import { Auth } from 'aws-amplify';
 import { ThemeContext } from '../../App';
 import { UserContext } from '../../App';
-import { getCurrentUserInfo } from '../User/CreateUser';
+import { getCurrentUserInfo } from '../user/CreateUser';
 import googleLogo from '../../static/assets/googleLogo.svg';
-import LoadingPage from '../Utils/LoadingPage';
+import LoadingPage from '../load/LoadingPage';
 
 const SignInContainer = styled.div`
   width: 100vw;

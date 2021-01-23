@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link, useHistory, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { ThemeContext, UserContext } from '../App';
-import Navigation from '../components/Nav/Navigation';
+import Navigation from '../components/nav/Navigation';
 import { lightTheme } from '../theme';
 import { Auth } from 'aws-amplify';
 
