@@ -12,6 +12,13 @@ import {
 } from '../../../graphql/mutations';
 import { v4 as uuidv4 } from 'uuid';
 import { dateToString } from '../../../utils/utils';
+import {
+  FaMapMarkerAlt,
+  FaBuilding,
+  FaBookOpen,
+  FaMagic,
+  FaQuestion,
+} from 'react-icons/fa';
 
 const ArticleWrap = styled.article`
   width: 950px;
@@ -68,12 +75,58 @@ const Picture = styled.div`
   }
 `;
 
-const ContentWrap = styled.div`
-  width: 950px;
-  height: 550px;
+const ContentContainer = styled.div`
+  width: 1000px;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+`;
+
+const ContentSticky = styled.div`
+  width: 300px;
+  height: 300px;
+  margin-left: 10px;
   background: ${(props) => props.theme.itemBackground};
   border: 1px solid
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
+  position: sticky;
+  top: 73px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  & span {
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.3;
+  }
+  & div {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid
+      ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
+    &:hover {
+      transition: all 0.2s ease-in;
+      transform: scale(1.1);
+    }
+  }
+`;
+
+const ContentWrap = styled.div`
+  width: 480px;
+  height: 600px;
+  background: ${(props) => props.theme.itemBackground};
+  border: 1px solid
+    ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
+  border-radius: 10px;
 `;
 
 const AuthorWrap = styled.header`
@@ -114,7 +167,7 @@ const CreatedDate = styled.span`
 const InfoWrap = styled.div`
   position: relative;
   width: 100%;
-  height: 350px;
+  height: 410px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -127,27 +180,32 @@ const Info = styled.div`
   width: 100%;
   height: 50px;
   display: flex;
+  flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   font-size: 14px;
-
-  span {
-    margin-left: 15px;
-  }
-  :last-child {
-    position: absolute;
-    bottom: 0;
-  }
+  line-height: 1.8;
+  margin-top: 20px;
 `;
 
 const InfoTitle = styled.span`
-  font-size: 14px;
+  font-size: 17px;
   font-weight: bold;
+`;
+
+const InfoContent = styled.div`
+  max-width: 90%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: 30px;
 `;
 
 const IconWrap = styled.div`
   width: 100%;
-  height: 80px;
+  height: 70px;
   border-top: 1px solid
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
   display: flex;
@@ -160,9 +218,18 @@ const IconWrap = styled.div`
 `;
 
 const Description = styled.span`
-  width: 280px;
+  width: 90%;
   height: 20px;
+  margin-top: 5px;
   line-height: 1.3;
+`;
+
+const UploadLinkButton = styled.button`
+  width: 80%;
+  height: 45px;
+  background: linear-gradient(45deg, #9f04ff, #3a19f1);
+  color: white;
+  border-radius: 8px;
 `;
 
 const Article = ({ pictureObj }) => {
@@ -242,54 +309,75 @@ const Article = ({ pictureObj }) => {
           ))}
         </PicturePreview>
       </PictureWrap>
-      <ContentWrap theme={theme}>
-        <AuthorWrap theme={theme}>
-          <Avatar src={pictureObj.author.avatar.uri} alt="avatar" />
-          <Content>
-            <AuthorName>{pictureObj.author.username}</AuthorName>
-            <CreatedDate>{dateToString(pictureObj.createdAt)}</CreatedDate>
-          </Content>
-        </AuthorWrap>
-        <InfoWrap>
-          <Info>
-            <InfoTitle>제목</InfoTitle>
-            <span style={{ fontWeight: 'bold' }}>{pictureObj.title}</span>
-          </Info>
-          <Info>
-            <InfoTitle>도시</InfoTitle>
-            <span>{pictureObj.city}</span>
-          </Info>
-          <Info>
-            <InfoTitle>위치</InfoTitle>
-            <span>{pictureObj.location}</span>
-          </Info>
-          <Info>
-            <InfoTitle>설명</InfoTitle>
-            <Description>{pictureObj.description}</Description>
-          </Info>
-          <Info>
-            <InfoTitle>Likes</InfoTitle>
-            <span>{likesCount}</span>
-          </Info>
-        </InfoWrap>
-        <IconWrap theme={theme}>
-          {isLiked ? (
-            <IoIosHeart size={35} onClick={handleDeleteLike} />
-          ) : (
-            <IoIosHeartEmpty size={35} onClick={handleLike} />
-          )}
-          <GoComment size={31} />
-          <IoLogoInstagram
-            size={35}
-            onClick={() =>
-              window.open(
-                `https://instagram.com/${pictureObj.instagram}`,
-                '_blank',
-              )
-            }
-          />
-        </IconWrap>
-      </ContentWrap>
+      <ContentContainer>
+        <ContentWrap theme={theme}>
+          <AuthorWrap theme={theme}>
+            <Avatar src={pictureObj.author.avatar.uri} alt="avatar" />
+            <Content>
+              <AuthorName>{pictureObj.author.username}</AuthorName>
+              <CreatedDate>{dateToString(pictureObj.createdAt)}</CreatedDate>
+            </Content>
+          </AuthorWrap>
+          <InfoWrap>
+            <Info>
+              <FaMagic size={30} />
+              <InfoContent>
+                <InfoTitle>제목</InfoTitle>
+                <span style={{ fontSize: '14.5px' }}>{pictureObj.title}</span>
+              </InfoContent>
+            </Info>
+            <Info>
+              <FaBuilding size={30} />
+              <InfoContent>
+                <InfoTitle>도시</InfoTitle>
+                <span>{pictureObj.city}</span>
+              </InfoContent>
+            </Info>
+            <Info>
+              <FaMapMarkerAlt size={30} />
+              <InfoContent>
+                <InfoTitle>위치</InfoTitle>
+                <span>{pictureObj.location}</span>
+              </InfoContent>
+            </Info>
+            <Info>
+              <FaBookOpen size={30} />
+              <InfoContent>
+                <InfoTitle>설명</InfoTitle>
+                <Description>{pictureObj.description}</Description>
+              </InfoContent>
+            </Info>
+          </InfoWrap>
+          <IconWrap theme={theme}>
+            {isLiked ? (
+              <IoIosHeart size={35} onClick={handleDeleteLike} />
+            ) : (
+              <IoIosHeartEmpty size={35} onClick={handleLike} />
+            )}
+            <GoComment size={31} />
+            <IoLogoInstagram
+              size={35}
+              onClick={() =>
+                window.open(
+                  `https://instagram.com/${pictureObj.instagram}`,
+                  '_blank',
+                )
+              }
+            />
+          </IconWrap>
+        </ContentWrap>
+        <ContentSticky theme={theme}>
+          <span>
+            여러분들만의
+            <br />
+            일본 여행 사진을 올려주세요.
+          </span>
+          <div>
+            <FaQuestion size={28} />
+          </div>
+          <UploadLinkButton>사진 올리러 가기</UploadLinkButton>
+        </ContentSticky>
+      </ContentContainer>
     </ArticleWrap>
   );
 };

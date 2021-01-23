@@ -20,16 +20,14 @@ const Container = styled.main`
 `;
 
 const BackButton = styled.button`
-  width: 125px;
-  height: 45px;
-  right: 5rem;
+  width: 55px;
+  height: 55px;
   bottom: 1.5rem;
   border-radius: 30px;
   position: fixed;
   bottom: 25px;
-  left: 50%;
+  left: 3rem;
   font-size: 13px;
-  transform: translateX(-50%);
   background: ${(props) => props.theme.mainColor};
   color: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
@@ -86,14 +84,14 @@ const Detail = ({ match }) => {
           <Comment pictureId={pictureId} />
         </Container>
       )}
-      <Link
+      {/* <Link
         to={{
           pathname: `/city/${cityName}/`,
           state: { next: nextState },
         }}
       >
         <BackButton theme={theme}>돌아가기</BackButton>
-      </Link>
+      </Link> */}
     </>
   );
 };
