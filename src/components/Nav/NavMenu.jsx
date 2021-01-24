@@ -122,14 +122,16 @@ const NavMenu = ({ handleDarkTheme, toggleSignIn, toggleSignUp }) => {
               <li>사진 둘러보기</li>
             </NavLink>
             <li onClick={handleDarkTheme}>화면 테마 설정</li>
-            {userObj && (
-              <li
-                onClick={signOut}
-                style={{ borderTop: '1px solid #ababab80' }}
-              >
-                로그아웃
-              </li>
-            )}
+            <NavLink to="/">
+              {userObj && (
+                <li
+                  onClick={signOut}
+                  style={{ borderTop: '1px solid #ababab80' }}
+                >
+                  로그아웃
+                </li>
+              )}
+            </NavLink>
           </ul>
         </ProfileMenuDropDown>
       )}
