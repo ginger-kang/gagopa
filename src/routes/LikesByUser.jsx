@@ -7,6 +7,7 @@ import { CognitoContext } from '../App';
 import LoadingPage from '../components/Load/LoadingPage';
 import LikesPost from '../components/Likes/LikesPost';
 import LikesHeader from '../components/Likes/LikesHeader';
+import NoLikesPost from '../components/Likes/NoLikesPost';
 
 const MyLikesContainer = styled.div`
   margin-top: 60px;
@@ -62,11 +63,14 @@ const LikesByUser = () => {
         {isLoading ? (
           <LoadingPage />
         ) : (
-          <MyLikesGridWrap hasPost={hasPost}>
-            {myLikesPost.map((post) => (
-              <LikesPost key={post.id} post={post.picture} next={null} />
-            ))}
-          </MyLikesGridWrap>
+          <>
+            <NoLikesPost hasPost={hasPost} />
+            <MyLikesGridWrap hasPost={hasPost}>
+              {myLikesPost.map((post) => (
+                <LikesPost key={post.id} post={post.picture} next={null} />
+              ))}
+            </MyLikesGridWrap>
+          </>
         )}
       </MyLikesContainer>
     </>
