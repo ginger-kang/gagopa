@@ -119,9 +119,6 @@ const ContentSticky = styled.div`
       transform: scale(1.1);
     }
   }
-  & a {
-    width: 80%;
-  }
 `;
 
 const ContentWrap = styled.div`
@@ -229,7 +226,7 @@ const Description = styled.span`
 `;
 
 const UploadLinkButton = styled.button`
-  width: 100%;
+  width: 240px;
   height: 45px;
   background: linear-gradient(45deg, #9f04ff, #3a19f1);
   color: white;

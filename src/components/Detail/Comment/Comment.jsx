@@ -163,6 +163,10 @@ const Comment = ({ pictureId }) => {
       alert('먼저 로그인을 해주세요.');
       return;
     }
+    if (!commentInput) {
+      alert('댓글을 작성해주세요.');
+      return;
+    }
     const inputData = {
       authorId: cognitoUser.userId,
       pictureId: pictureId,
