@@ -691,6 +691,12 @@ export const likesByUser = /* GraphQL */ `
           userId
           username
           email
+          avatar {
+            bucket
+            region
+            key
+            uri
+          }
           createdAt
           updatedAt
         }
@@ -702,6 +708,40 @@ export const likesByUser = /* GraphQL */ `
           title
           location
           createdAt
+          author {
+            userId
+            username
+            email
+            createdAt
+            updatedAt
+          }
+          attachment {
+            bucket
+            region
+            key
+            uri
+          }
+          likes {
+            items {
+              id
+              pictureId
+              userId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          comments {
+            items {
+              id
+              pictureId
+              authorId
+              text
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           instagram
           description
           updatedAt

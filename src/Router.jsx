@@ -8,6 +8,7 @@ import Account from './routes/Account';
 import ProfileEdit from './routes/ProfileEdit';
 import PasswordEdit from './routes/PasswordEdit';
 import Search from './routes/Search';
+import LikesByUser from './routes/LikesByUser';
 
 const Router = () => {
   return (
@@ -22,6 +23,7 @@ const Router = () => {
           <Route path="/profile/edit" exact component={ProfileEdit} />
           <Route path="/password/edit" exact component={PasswordEdit} />
           <Route path="/search/:keyword" exact component={Search} />
+          <Route path="/likes" exact component={LikesByUser} />
           <Redirect path="*" to="/" />
         </Switch>
       </BrowserRouter>

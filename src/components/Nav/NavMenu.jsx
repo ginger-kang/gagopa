@@ -111,6 +111,14 @@ const NavMenu = ({ handleDarkTheme, toggleSignIn, toggleSignUp }) => {
                 <NavLink to="/account">
                   <li>내 계정</li>
                 </NavLink>
+                <NavLink
+                  to={{
+                    pathname: '/likes',
+                    state: { user: cognitoUser },
+                  }}
+                >
+                  <li>좋아요한 사진</li>
+                </NavLink>
                 <NavLink to="/upload">
                   <li>여행 사진 올리기</li>
                 </NavLink>
