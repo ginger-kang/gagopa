@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import styled from 'styled-components';
 import Navigation from '../components/Nav/Navigation';
 import LoadingPage from '../components/Load/LoadingPage';
 import CityPost from '../components/City/CityPost';
 import { searchPictures } from '../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
+import { recommendKeyword } from '../utils/utils';
+import { ThemeContext } from '../App';
+import { lightTheme } from '../theme';
 
 const SearchContainer = styled.main`
   margin-top: 120px;
@@ -37,13 +40,48 @@ const SearchBar = styled.input`
   background: rgba(200, 200, 200, 0.5);
 `;
 
+const SearchContentWrap = styled.div`
+  width: 64vw;
+  height: 110px;
+  margin: 40px 0 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+`;
+
 const SearchContent = styled.span`
   font-size: 1.3rem;
   font-weight: 600;
-  margin: 40px 0;
+`;
+
+const RecommendWrap = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 10px 0 5px 0;
+`;
+
+const TagWrap = styled.div`
+  width: 100%;
+  margin: 25px 0 0 0;
+`;
+
+const Tag = styled.span`
+  padding: 10px 20px;
+  border: 1px solid
+    ${(props) => (props.theme === lightTheme ? '#7038d4' : '#fcfcfc')};
+  border-radius: 30px;
+  font-size: 14px;
+  margin: 0 2px;
+  cursor: pointer;
+  color: ${(props) => (props.theme === lightTheme ? '#7038d4' : '#fcfcfc')};
 `;
 
 const Search = ({ match }) => {
+  const { theme } = useContext(ThemeContext);
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState(null);
   const [keyword, setKeyword] = useState(match.params.keyword);
@@ -95,6 +133,10 @@ const Search = ({ match }) => {
     }
   };
 
+  const onTagClick = (tag) => {
+    setKeyword(tag);
+  };
+
   return (
     <>
       <Navigation show={true} navSearch={false} />
@@ -110,9 +152,20 @@ const Search = ({ match }) => {
                 placeholder="검색"
                 onKeyPress={onKeyPress}
               />
-              <SearchContent>
-                '{keyword}'로 검색한 결과 {posts.length}개
-              </SearchContent>
+              <SearchContentWrap>
+                <SearchContent>
+                  '{keyword}'로 검색한 결과 {posts.length}개
+                </SearchContent>
+                <RecommendWrap>
+                  <TagWrap>
+                    {recommendKeyword.map((tag) => (
+                      <Tag theme={theme} onClick={() => onTagClick(tag)}>
+                        {tag}
+                      </Tag>
+                    ))}
+                  </TagWrap>
+                </RecommendWrap>
+              </SearchContentWrap>
             </SearchHeader>
             <SearchGridWrap hasPost={true}>
               {posts.map((post) => (

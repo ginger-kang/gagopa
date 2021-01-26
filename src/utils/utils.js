@@ -8,3 +8,13 @@ export const dateToString = (timestamp) => {
 
   return `${date.year}년 ${date.month}월 ${date.day}일`;
 };
+
+export const recommendKeyword = [
+  '시부야',
+  '도쿄',
+  '오타루',
+  '가마쿠라',
+  '후지산',
+  '벚꽃',
+  '코엔지',
+];
