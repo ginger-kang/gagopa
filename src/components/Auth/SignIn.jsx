@@ -186,32 +186,32 @@ const SignIn = ({ toggleSignIn }) => {
           <Header>로그인</Header>
         </SignInHeader>
         <SignInMain>
-          <InputWrap>
-            <input
-              name="username"
-              type="username"
-              required
-              value={username}
-              onChange={onChange}
-              onKeyPress={onKeyPress}
-              placeholder="사용자명"
-            />
-          </InputWrap>
-          <InputWrap>
-            <input
-              name="password"
-              type="password"
-              required
-              value={password}
-              onChange={onChange}
-              onKeyPress={onKeyPress}
-              placeholder="비밀번호"
-            />
-          </InputWrap>
           {isSignInClick ? (
             <LoadingPage />
           ) : (
             <>
+              <InputWrap>
+                <input
+                  name="username"
+                  type="username"
+                  required
+                  value={username}
+                  onChange={onChange}
+                  onKeyPress={onKeyPress}
+                  placeholder="사용자명"
+                />
+              </InputWrap>
+              <InputWrap>
+                <input
+                  name="password"
+                  type="password"
+                  required
+                  value={password}
+                  onChange={onChange}
+                  onKeyPress={onKeyPress}
+                  placeholder="비밀번호"
+                />
+              </InputWrap>
               <LoginButton onClick={signIn}>로그인</LoginButton>
               <GoogleLoginWrap>
                 <button onClick={googleSignIn}>

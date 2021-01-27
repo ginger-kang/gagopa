@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Geocode from 'react-geocode';
 import Map from './Map';
+import NoMap from './NoMap';
 
 export default function Geocoding({ location }) {
   const [resultLatitude, setResultLatitue] = useState(0);
@@ -26,6 +27,8 @@ export default function Geocoding({ location }) {
   const resultLocation = { lat: resultLatitude, lng: resultLongitude };
 
   return resultLocation.lat && resultLocation.lng ? (
-    <Map location={resultLocation} />
-  ) : null;
+    <Map location={resultLocation} isError={false} />
+  ) : (
+    <NoMap />
+  );
 }

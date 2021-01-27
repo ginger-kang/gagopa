@@ -31,7 +31,7 @@ const SearchBar = styled.input`
       background: ${props.theme.itemBackground};
       color: ${props.theme.text};
       border: 1px solid
-        ${(props) => (props.theme === lightTheme ? '#bfbac5cc' : '#565656')};
+        ${(props) => (props.theme === lightTheme ? '#bfbac5cc' : '#7b7b7b')};
     `};
 
   &:focus {

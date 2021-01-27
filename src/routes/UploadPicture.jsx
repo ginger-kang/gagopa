@@ -23,7 +23,7 @@ const UploadContainer = styled.div`
 `;
 
 const UploadFormWrap = styled.div`
-  width: 750px;
+  width: 600px;
   border-radius: 10px;
   margin: 40px auto;
   padding: 50px 0;
@@ -31,9 +31,9 @@ const UploadFormWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid
+    ${(props) => (props.themeProps === lightTheme ? '#dadada' : '#565656')};
   background: ${(props) => props.themeProps.itemBackground};
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.05);
 `;
 
 const Title = styled.h2`

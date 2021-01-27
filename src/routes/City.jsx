@@ -29,7 +29,7 @@ const CityGridWrap = styled.div`
   margin-bottom: 60px;
 `;
 
-const postCount = 9;
+const postCount = 27;
 
 const City = ({ match }) => {
   let location = useLocation();

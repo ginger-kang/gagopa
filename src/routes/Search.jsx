@@ -47,7 +47,7 @@ const SearchBar = styled.input`
   background: ${(props) => props.theme.itemBackground};
   color: ${(props) => props.theme.text};
   border: 1px solid
-    ${(props) => (props.theme === lightTheme ? '#bfbac5cc' : '#565656')};
+    ${(props) => (props.theme === lightTheme ? '#bfbac5cc' : '#7b7b7b')};
   &:focus {
     outline: none;
   }
