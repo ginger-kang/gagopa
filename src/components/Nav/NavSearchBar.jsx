@@ -20,7 +20,7 @@ const Search = styled.div`
 const SearchBar = styled.input`
   width: 100%;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 15px;
   border: 1px solid white;
   background: none;
   color: white;
@@ -31,9 +31,7 @@ const SearchBar = styled.input`
       background: ${props.theme.itemBackground};
       color: ${props.theme.text};
       border: 1px solid
-        ${(props) =>
-          props.theme === lightTheme ? 'rgba(0,0,0,0.1)' : '#fcfcfc'};
-      box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
+        ${(props) => (props.theme === lightTheme ? '#bfbac5cc' : '#565656')};
     `};
 
   &:focus {
@@ -59,7 +57,7 @@ const SearchButton = styled.button`
       props.show &&
       css`
         color: ${(props) =>
-          props.theme === lightTheme ? '#949494' : '#fcfcfc'};
+          props.theme === lightTheme ? '#949494' : '#828282'};
       `};
   }
 `;
@@ -95,6 +93,7 @@ const NavSearchBar = ({ show }) => {
             placeholder="사진 검색"
             theme={theme}
             show={show}
+            maxLength="17"
           />
         ) : (
           <SearchBar
@@ -103,6 +102,7 @@ const NavSearchBar = ({ show }) => {
             onKeyPress={onKeyPress}
             theme={theme}
             show={show}
+            maxLength="17"
           />
         )}
         <Link to={`/search/${keyword}`}>

@@ -190,6 +190,7 @@ const Search = ({ match }) => {
                   placeholder="사진 검색"
                   onKeyPress={onKeyPress}
                   theme={theme}
+                  maxLength={30}
                 />
                 <SearchButton theme={theme}>
                   <AiOutlineSearch size={25} />
