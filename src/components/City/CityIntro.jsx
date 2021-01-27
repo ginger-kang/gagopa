@@ -8,7 +8,7 @@ import { lightTheme } from '../../theme';
 
 const CityIntroContainer = styled.div`
   width: 100%;
-  height: 220px;
+  margin: 50px 0 5px 0;
   display: flex;
   justify-content: center;
   align-items: center;

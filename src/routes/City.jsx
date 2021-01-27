@@ -11,6 +11,7 @@ import CityPost from '../components/City/CityPost';
 import LoadMorePostButton from '../components/City/LoadMorePostButton';
 import { useLocation } from 'react-router-dom';
 import CityListModal from '../components/City/CityListModal';
+import CitySort from '../components/City/CitySort';
 
 const CityContainer = styled.div`
   margin-top: 60px;
@@ -27,6 +28,14 @@ const CityGridWrap = styled.div`
   grid-column-gap: 8px;
   grid-row-gap: 8px;
   margin-bottom: 60px;
+`;
+
+const CityItemWrap = styled.div`
+  width: 63vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
 `;
 
 const postCount = 27;
@@ -79,6 +88,9 @@ const City = ({ match }) => {
       <Navigation show={true} navSearch={true} />
       <CityContainer>
         <CityIntro cityName={cityName} toggleList={toggleList} />
+        <CityItemWrap>
+          <CitySort />
+        </CityItemWrap>
         {isLoading ? (
           <LoadingPage />
         ) : (
