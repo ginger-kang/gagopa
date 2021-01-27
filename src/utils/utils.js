@@ -18,3 +18,11 @@ export const recommendKeyword = [
   '벚꽃',
   '코엔지',
 ];
+
+export const sortByLikes = (a, b) => {
+  return b.likes.items.length - a.likes.items.length;
+};
+
+export const sortByComments = (a, b) => {
+  return b.comments.items.length - a.comments.items.length;
+};

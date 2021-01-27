@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
 import { lightTheme } from '../../theme';
 import { ThemeContext } from '../../App';
@@ -53,7 +53,11 @@ const SortMenuWrap = styled.div`
   }
 `;
 
-const CitySort = () => {
+const CitySort = ({
+  changeSortDirection,
+  postSortByLike,
+  postSortByComment,
+}) => {
   const { theme } = useContext(ThemeContext);
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -68,9 +72,38 @@ const CitySort = () => {
       {isActive && (
         <SortMenuWrap theme={theme}>
           <ul>
-            <li>좋아요순</li>
-            <li>최신순</li>
-            <li>오래된순</li>
+            <li
+              onClick={() => {
+                postSortByLike();
+                onClick();
+              }}
+            >
+              좋아요순
+            </li>
+            <li
+              onClick={() => {
+                postSortByComment();
+                onClick();
+              }}
+            >
+              댓글순
+            </li>
+            <li
+              onClick={() => {
+                changeSortDirection('DESC');
+                onClick();
+              }}
+            >
+              최신순
+            </li>
+            <li
+              onClick={() => {
+                changeSortDirection('ASC');
+                onClick();
+              }}
+            >
+              오래된순
+            </li>
           </ul>
         </SortMenuWrap>
       )}

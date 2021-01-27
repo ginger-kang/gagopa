@@ -4,6 +4,13 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { picturesByDate } from '../graphql/queries';
 import CityIntro from '../components/City/CityIntro';
 import { translateToKo } from '../utils/translate';
+import { sortByLikes, sortByComments } from '../utils/utils';
+import {
+  setSessionLikeSort,
+  getSessionLikeSort,
+  setSessionCommentSort,
+  getSessionCommentSort,
+} from '../utils/sessionStorage';
 import Navigation from '../components/Nav/Navigation';
 import LoadingPage from '../components/Load/LoadingPage';
 import NoPost from '../components/City/NoPost';
@@ -42,6 +49,8 @@ const postCount = 27;
 
 const City = ({ match }) => {
   let location = useLocation();
+  const sessionCommentSort = parseInt(getSessionCommentSort());
+  const sessionLikeSort = parseInt(getSessionLikeSort());
 
   const [fetchPostData, setFetchPostData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -49,6 +58,13 @@ const City = ({ match }) => {
     location.state.next ? location.state.next : postCount,
   );
   const [showList, setShowList] = useState(false);
+  const [sortDirection, setSortDirection] = useState('DESC');
+  const [likeSort, setLikeSort] = useState(
+    sessionLikeSort ? sessionLikeSort : 0,
+  );
+  const [commentSort, setCommentSort] = useState(
+    sessionCommentSort ? sessionCommentSort : 0,
+  );
   const cityName = match.params.cityName;
   const hasNext = fetchPostData.length > next;
   const hasPost = fetchPostData.length !== 0;
@@ -59,29 +75,54 @@ const City = ({ match }) => {
       const data = await API.graphql(
         graphqlOperation(picturesByDate, {
           city: translateToKo[cityName],
-          sortDirection: 'DESC',
+          sortDirection: sortDirection,
         }),
       );
       const pictures = await data.data.picturesByDate.items;
-      setFetchPostData(pictures);
+      likeSort
+        ? setFetchPostData(pictures.sort((a, b) => sortByLikes(a, b)))
+        : setFetchPostData(pictures);
+      commentSort
+        ? setFetchPostData(pictures.sort((a, b) => sortByComments(a, b)))
+        : setFetchPostData(pictures);
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
     }
-  }, [cityName]);
+  }, [cityName, sortDirection, likeSort, commentSort]);
 
   useEffect(() => {
     fetchPictures();
   }, [fetchPictures]);
 
-  const cityObjects = fetchPostData && fetchPostData.slice(0, next);
-
   const handleLoadMorePosts = () => {
     setNext((next) => next + postCount);
   };
 
+  const cityObjects = fetchPostData && fetchPostData.slice(0, next);
   const toggleList = () => setShowList(!showList);
+  const changeSortDirection = (dir) => {
+    setSortDirection(dir);
+    setSessionLikeSort(0);
+    setLikeSort(0);
+    setSessionCommentSort(0);
+    setCommentSort(0);
+  };
+
+  const postSortByLike = () => {
+    setSessionLikeSort(1);
+    setLikeSort(1);
+    setSessionCommentSort(0);
+    setCommentSort(0);
+  };
+
+  const postSortByComment = () => {
+    setSessionCommentSort(1);
+    setCommentSort(1);
+    setSessionLikeSort(0);
+    setLikeSort(0);
+  };
 
   return (
     <>
@@ -89,7 +130,11 @@ const City = ({ match }) => {
       <CityContainer>
         <CityIntro cityName={cityName} toggleList={toggleList} />
         <CityItemWrap>
-          <CitySort />
+          <CitySort
+            changeSortDirection={changeSortDirection}
+            postSortByLike={postSortByLike}
+            postSortByComment={postSortByComment}
+          />
         </CityItemWrap>
         {isLoading ? (
           <LoadingPage />
