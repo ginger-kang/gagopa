@@ -20,7 +20,7 @@ const Search = styled.div`
 const SearchBar = styled.input`
   width: 100%;
   padding: 12px;
-  border-radius: 25px;
+  border-radius: 8px;
   border: 1px solid white;
   background: none;
   color: white;
@@ -59,7 +59,7 @@ const SearchButton = styled.button`
       props.show &&
       css`
         color: ${(props) =>
-          props.theme === lightTheme ? '#7038d4' : '#fcfcfc'};
+          props.theme === lightTheme ? '#949494' : '#fcfcfc'};
       `};
   }
 `;
@@ -92,7 +92,7 @@ const NavSearchBar = ({ show }) => {
             type="text"
             onChange={onChange}
             onKeyPress={onKeyPress}
-            placeholder="검색"
+            placeholder="사진 검색"
             theme={theme}
             show={show}
           />

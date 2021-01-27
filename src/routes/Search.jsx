@@ -8,6 +8,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { recommendKeyword } from '../utils/utils';
 import { ThemeContext } from '../App';
 import { lightTheme } from '../theme';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 const SearchContainer = styled.main`
   margin-top: 120px;
@@ -34,10 +35,39 @@ const SearchHeader = styled.header`
   margin: 0 auto;
 `;
 
+const SearchBarWrap = styled.div`
+  width: 400px;
+  position: relative;
+`;
+
 const SearchBar = styled.input`
-  width: 200px;
-  padding: 15px;
-  background: rgba(200, 200, 200, 0.5);
+  width: 100%;
+  padding: 13px;
+  border-radius: 15px;
+  background: ${(props) => props.theme.itemBackground};
+  color: ${(props) => props.theme.text};
+  border: 1px solid
+    ${(props) => (props.theme === lightTheme ? '#bfbac5cc' : '#565656')};
+  &:focus {
+    outline: none;
+  }
+`;
+
+const SearchButton = styled.button`
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  & svg {
+    color: ${(props) => (props.theme === lightTheme ? '#949494' : '#828282')};
+  }
 `;
 
 const SearchContentWrap = styled.div`
@@ -61,7 +91,7 @@ const RecommendWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  margin: 10px 0 5px 0;
+  margin: 5px 0 5px 0;
 `;
 
 const TagWrap = styled.div`
@@ -71,13 +101,20 @@ const TagWrap = styled.div`
 
 const Tag = styled.span`
   padding: 10px 20px;
-  border: 1px solid
-    ${(props) => (props.theme === lightTheme ? '#7038d4' : '#fcfcfc')};
+  border: 1px solid #bfbac5cc;
   border-radius: 30px;
   font-size: 14px;
   margin: 0 2px;
   cursor: pointer;
-  color: ${(props) => (props.theme === lightTheme ? '#7038d4' : '#fcfcfc')};
+  color: ${(props) => props.theme.text};
+
+  &:hover {
+    border: 1px solid
+      ${(props) => (props.theme === lightTheme ? '#fcfcfc' : '#363537')};
+    color: ${(props) => (props.theme === lightTheme ? '#fcfcfc' : '#363537')};
+    background: ${(props) =>
+      props.theme === lightTheme ? '#7038d4' : '#fcfcfc'};
+  }
 `;
 
 const Search = ({ match }) => {
@@ -146,20 +183,30 @@ const Search = ({ match }) => {
         ) : (
           <>
             <SearchHeader>
-              <SearchBar
-                type="text"
-                onChange={onChange}
-                placeholder="검색"
-                onKeyPress={onKeyPress}
-              />
+              <SearchBarWrap>
+                <SearchBar
+                  type="text"
+                  onChange={onChange}
+                  placeholder="사진 검색"
+                  onKeyPress={onKeyPress}
+                  theme={theme}
+                />
+                <SearchButton theme={theme}>
+                  <AiOutlineSearch size={25} />
+                </SearchButton>
+              </SearchBarWrap>
               <SearchContentWrap>
                 <SearchContent>
                   '{keyword}'로 검색한 결과 {posts.length}개
                 </SearchContent>
                 <RecommendWrap>
                   <TagWrap>
-                    {recommendKeyword.map((tag) => (
-                      <Tag theme={theme} onClick={() => onTagClick(tag)}>
+                    {recommendKeyword.map((tag, index) => (
+                      <Tag
+                        key={index}
+                        theme={theme}
+                        onClick={() => onTagClick(tag)}
+                      >
                         {tag}
                       </Tag>
                     ))}
