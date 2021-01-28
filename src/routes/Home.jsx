@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import mainImage from '../static/assets/mainImage.jpg';
 import HomeCityList from '../components/Home/HomeCityList';
+import PopularCityList from '../components/Home/PopularCityList';
 import Navigation from '../components/Nav/Navigation';
 
 const HomeContainer = styled.main`
@@ -27,6 +28,21 @@ const HomeCityListContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 30px 50px 30px 50px;
+`;
+
+const PopularCityContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 30px;
+  margin-bottom: 30px;
+`;
+
+const PopularCityHeader = styled.div`
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 50px;
 `;
 
 const Home = () => {
@@ -58,6 +74,10 @@ const Home = () => {
         <HomeCityListContainer>
           <HomeCityList />
         </HomeCityListContainer>
+        <PopularCityContainer>
+          <PopularCityHeader> 인기사진 </PopularCityHeader>
+          <PopularCityList></PopularCityList>
+        </PopularCityContainer>
       </HomeContainer>
     </React.Fragment>
   );

@@ -12,6 +12,7 @@ const HomeCityListWrap = styled.div`
   grid-column-gap: 8px;
   grid-row-gap: 8px;
   overflow-x: auto;
+  margin-bottom: 100px;
 `;
 
 const CityMenu = styled.div`
@@ -64,7 +65,6 @@ const HomeCityList = () => {
       console.log(error);
     }
   };
-
   return (
     <HomeCityListWrap>
       {menuObj &&

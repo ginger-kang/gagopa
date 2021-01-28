@@ -110,7 +110,7 @@ const LikesPost = ({ post, next }) => {
   const postPicture = post.attachment;
   const cityName = post.city;
   const [pictureIndex, setPictureIndex] = useState(0);
-
+  console.log(cityName);
   const rightFileSlide = () => {
     if (pictureIndex === postPicture.length - 1) {
       setPictureIndex(0);
