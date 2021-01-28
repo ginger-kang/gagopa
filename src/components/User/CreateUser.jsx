@@ -39,6 +39,7 @@ export const CreateUser = async (userObj) => {
           userId: userObj.attributes.sub,
           username: userObj.username,
           email: userObj.attributes.email,
+          introduce: '',
           avatar: avatar,
         },
       }),

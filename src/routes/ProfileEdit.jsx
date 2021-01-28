@@ -61,9 +61,13 @@ const AvatarWrap = styled.div`
 
   & span {
     font-size: 14px;
-    color: #1c41ff;
+    color: #277cff;
     margin-top: 10px;
     cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 
@@ -105,10 +109,26 @@ const InputWrap = styled.div`
   width: 40%;
 
   & input {
-    padding: 15px;
+    padding: 13px;
     width: 100%;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+
+    &:focus {
+      outline: none;
+      border: 1px solid #7038d4;
+    }
+  }
+
+  & textarea {
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    resize: vertical;
+    font-size: 16px;
+    line-height: 20px;
 
     &:focus {
       outline: none;
@@ -127,8 +147,7 @@ const ButtonWrap = styled.div`
 `;
 
 const SubmitButton = styled.button`
-  width: 110px;
-  height: 47px;
+  padding: 12px 40px;
   background: none;
   color: ${(props) => (props.theme === lightTheme ? '#7038d4' : '#fcfcfc')};
   font-size: 14px;
@@ -138,8 +157,7 @@ const SubmitButton = styled.button`
 `;
 
 const Cancel = styled.button`
-  width: 110px;
-  height: 47px;
+  padding: 12px 40px;
   color: #ca2121;
   background: none;
   border: 1px solid #ca2121;
@@ -159,7 +177,9 @@ const ProfileEdit = () => {
   const [username, setUsername] = useState(
     cognitoUser ? cognitoUser.username : '',
   );
-  const [email, setEmail] = useState(cognitoUser ? cognitoUser.email : '');
+  const [introduce, setIntroduce] = useState(
+    cognitoUser ? cognitoUser.introduce : '',
+  );
   const hiddenFileInput = useRef(null);
   const history = useHistory();
 
@@ -190,7 +210,7 @@ const ProfileEdit = () => {
     const inputData = {
       userId: userObj.attributes.sub,
       username: username,
-      email: email,
+      introduce: introduce,
     };
     await API.graphql(graphqlOperation(updateUser, { input: inputData }))
       .then(() => history.push('/account'))
@@ -203,7 +223,7 @@ const ProfileEdit = () => {
     const inputData = {
       userId: userObj.attributes.sub,
       username: username,
-      email: email,
+      introduce: introduce,
       avatar: {
         bucket: 'mytravel-picture13646-dev',
         key: `public/${key}`,
@@ -239,8 +259,8 @@ const ProfileEdit = () => {
     } = event;
     if (name === 'username') {
       setUsername(value);
-    } else if (name === 'email') {
-      setEmail(value);
+    } else if (name === 'introduce') {
+      setIntroduce(value);
     }
   };
 
@@ -290,15 +310,14 @@ const ProfileEdit = () => {
               </InputWrap>
             </InputContainer>
             <InputContainer>
-              <span>이메일</span>
+              <span>소개</span>
               <InputWrap>
-                <input
-                  name="email"
-                  type="email"
+                <textarea
+                  name="introduce"
+                  type="introduce"
                   required
-                  value={email}
+                  value={introduce}
                   onChange={onChange}
-                  placeholder="이메일"
                 />
               </InputWrap>
             </InputContainer>

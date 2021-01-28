@@ -199,7 +199,7 @@ const SignIn = ({ toggleSignIn }) => {
                   value={username}
                   onChange={onChange}
                   onKeyPress={onKeyPress}
-                  placeholder="사용자명"
+                  placeholder="아이디"
                 />
               </InputWrap>
               <InputWrap>

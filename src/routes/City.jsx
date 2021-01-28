@@ -90,8 +90,6 @@ const City = ({ match }) => {
     }
   }, [cityName, sortDirection, likeSort, commentSort]);
 
-  console.log(next);
-
   useEffect(() => {
     fetchPictures();
   }, [fetchPictures]);

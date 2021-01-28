@@ -224,11 +224,9 @@ const SignUp = ({ toggleSignUp }) => {
                     required
                     value={username}
                     onChange={onChange}
-                    placeholder="사용자명"
+                    placeholder="아이디"
                   />
-                  <span>
-                    로그인 아이디인 사용자명이 초기 닉네임으로 설정됩니다.
-                  </span>
+                  <span>로그인 아이디가 초기 닉네임으로 설정됩니다.</span>
                 </InputWrap>
                 <InputWrap>
                   <input
