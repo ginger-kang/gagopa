@@ -7,6 +7,7 @@ import NavMenu from './NavMenu';
 import SignIn from '../Auth/SignIn';
 import SignUp from '../Auth/SignUp';
 import NavSearchBar from './NavSearchBar';
+import { AUTH_ALERT_MESSAGE } from '../../utils/constant';
 
 const NavBarContainer = styled.nav`
   width: 100vw;
@@ -88,7 +89,7 @@ const Navigation = ({ show, navSearch }) => {
   const toggleSignIn = () => setSignIn(!signIn);
   const toggleSignUp = () => setSignUp(!signUp);
 
-  const alertMessage = () => alert('먼저 로그인 해주세요.');
+  const alertMessage = () => alert(AUTH_ALERT_MESSAGE.NOT_SIGN_IN);
 
   return (
     <>

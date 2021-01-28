@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import mainImage from '../static/assets/mainImage.jpg';
 import HomeCityList from '../components/Home/HomeCityList';
 import Navigation from '../components/Nav/Navigation';
+import { NAV_SCROLL_OFFSET } from '../utils/constant';
 
 const HomeContainer = styled.main`
   width: 100%;
@@ -39,7 +40,7 @@ const Home = () => {
   });
 
   const handleScroll = () => {
-    if (window.scrollY >= 70) {
+    if (window.scrollY >= NAV_SCROLL_OFFSET) {
       setNavBar(true);
     } else {
       setNavBar(false);

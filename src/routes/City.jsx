@@ -20,6 +20,7 @@ import CityPost from '../components/City/CityPost';
 import LoadMorePostButton from '../components/City/LoadMorePostButton';
 import CityListModal from '../components/City/CityListModal';
 import CitySort from '../components/City/CitySort';
+import { POST_COUNT } from '../utils/constant';
 
 const CityContainer = styled.div`
   margin-top: 60px;
@@ -46,8 +47,6 @@ const CityItemWrap = styled.div`
   align-items: center;
 `;
 
-const postCount = 3;
-
 const City = ({ match }) => {
   const sessionCommentSort = parseInt(getSessionCommentSort());
   const sessionLikeSort = parseInt(getSessionLikeSort());
@@ -55,7 +54,7 @@ const City = ({ match }) => {
 
   const [fetchPostData, setFetchPostData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [next, setNext] = useState(sessionNext ? sessionNext : postCount);
+  const [next, setNext] = useState(sessionNext ? sessionNext : POST_COUNT);
   const [showList, setShowList] = useState(false);
   const [sortDirection, setSortDirection] = useState('DESC');
   const [likeSort, setLikeSort] = useState(
@@ -98,13 +97,13 @@ const City = ({ match }) => {
   }, [fetchPictures]);
 
   const handleLoadMorePosts = () => {
-    setNext((next) => next + postCount);
-    setSessionNext(next + postCount);
+    setNext((next) => next + POST_COUNT);
+    setSessionNext(next + POST_COUNT);
   };
 
   const initializeNext = () => {
     setSessionNext(0);
-    setNext(postCount);
+    setNext(POST_COUNT);
   };
 
   const cityObjects = fetchPostData && fetchPostData.slice(0, next);

@@ -6,6 +6,7 @@ import { ThemeContext } from '../../App';
 import { IoIosClose } from 'react-icons/io';
 import googleLogo from '../../static/assets/googleLogo.svg';
 import LoadingPage from '../Load/LoadingPage';
+import { AUTH_ALERT_MESSAGE } from '../../utils/constant';
 
 const SignUpContainer = styled.div`
   width: 100vw;
@@ -163,7 +164,7 @@ const SignUp = ({ toggleSignUp }) => {
 
   const signUp = async () => {
     if (password !== passwordConfirm) {
-      alert('비밀번호를 확인해주세요.');
+      alert(AUTH_ALERT_MESSAGE.PASSWORD_INCORRECT);
       return;
     }
     try {
@@ -176,7 +177,7 @@ const SignUp = ({ toggleSignUp }) => {
       });
       setConfirm((confirm) => !confirm);
     } catch (error) {
-      console.log('error signing up:', error);
+      console.log(error.message);
     }
   };
 
@@ -191,7 +192,7 @@ const SignUp = ({ toggleSignUp }) => {
     try {
       await Auth.confirmSignUp(username, code).then(window.location.reload());
     } catch (error) {
-      console.log('error confirming sign up', error);
+      console.log(error.message);
     }
   };
   const googleSignIn = () => {

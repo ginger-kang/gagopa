@@ -5,6 +5,7 @@ import { CognitoContext, ThemeContext, UserContext } from '../App';
 import { FcBusinessContact, FcCancel, FcKey } from 'react-icons/fc';
 import { lightTheme } from '../theme';
 import { Link, Redirect } from 'react-router-dom';
+import { AUTH_ALERT_MESSAGE } from '../utils/constant';
 
 const AccountContainer = styled.div`
   width: 100%;
@@ -104,7 +105,7 @@ const Account = () => {
   const { attributes } = userObj;
 
   const notChange = () => {
-    alert('구글 계정은 비밀번호를 변경 할 수 없습니다.');
+    alert(AUTH_ALERT_MESSAGE.GOOGLE_CANNOT_EDIT_PASSWORD);
   };
 
   return (

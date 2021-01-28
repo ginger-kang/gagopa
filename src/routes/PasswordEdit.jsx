@@ -5,6 +5,7 @@ import { ThemeContext, UserContext } from '../App';
 import Navigation from '../components/Nav/Navigation';
 import { lightTheme } from '../theme';
 import { Auth } from 'aws-amplify';
+import { AUTH_ALERT_MESSAGE } from '../utils/constant';
 
 const EditContainer = styled.div`
   width: 100%;
@@ -135,11 +136,11 @@ const PasswordEdit = () => {
           return Auth.changePassword(user, oldPassword, newPassword);
         })
         .then((data) => console.log(data))
-        .then(() => alert('비밀번호 변경이 완료되었습니다.'))
+        .then(() => alert(AUTH_ALERT_MESSAGE.COMPLETE_EDIT_PASSWORD))
         .then(() => history.push('/account'))
         .catch((err) => alert(err.message));
     } else {
-      alert('비밀번호를 확인해주세요.');
+      alert(AUTH_ALERT_MESSAGE.PASSWORD_INCORRECT);
     }
   };
 

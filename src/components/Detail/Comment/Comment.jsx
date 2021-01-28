@@ -9,6 +9,7 @@ import LoadingPage from '../../Load/LoadingPage';
 import { dateToString } from '../../../utils/utils';
 import { AiOutlineEllipsis } from 'react-icons/ai';
 import EditDeleteComment from './EditDeleteComment';
+import { AUTH_ALERT_MESSAGE, EMPTY_COMMENT } from '../../../utils/constant';
 
 const CommentContainer = styled.div`
   width: 950px;
@@ -160,11 +161,11 @@ const Comment = ({ pictureId }) => {
 
   const onSubmit = async () => {
     if (!cognitoUser) {
-      alert('먼저 로그인을 해주세요.');
+      alert(AUTH_ALERT_MESSAGE.NOT_SIGN_IN);
       return;
     }
     if (!commentInput) {
-      alert('댓글을 작성해주세요.');
+      alert(EMPTY_COMMENT);
       return;
     }
     const inputData = {
@@ -175,7 +176,6 @@ const Comment = ({ pictureId }) => {
     await API.graphql(graphqlOperation(createComment, { input: inputData }))
       .then(() => setCommentInput(''))
       .then(() => setCommentCount((prev) => prev + 1))
-      .then(() => alert('성공'))
       .catch((error) => console.log(error));
   };
 

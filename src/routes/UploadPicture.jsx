@@ -11,6 +11,7 @@ import { translateToKo } from '../utils/translate';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 
 import config from '../aws-exports';
+import { PICTURE_MAX_COUNT, UPLOAD_ALERT_MESSAGE } from '../utils/constant';
 
 const {
   aws_user_files_s3_bucket_region: region,
@@ -276,7 +277,7 @@ const UploadPicture = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!cityName || !fileObjs || !location || !title) {
-      alert('필수 항목들을 빠짐없이 입력해주세요.');
+      alert(UPLOAD_ALERT_MESSAGE.LACK_REQUIRED_FIELD);
       return;
     }
     for (let i = 0; i < fileObjs.length; i++) {
@@ -307,7 +308,7 @@ const UploadPicture = () => {
       attachment: attachments,
     };
     await API.graphql(graphqlOperation(createPicture, { input: inputData }))
-      .then(() => alert('사진을 성공적으로 업로드했습니다 🙆'))
+      .then(() => alert(UPLOAD_ALERT_MESSAGE.COMPLETE_UPLOAD_PICTURE))
       .then(() => history.push('/'))
       .catch((error) => console.log(error));
   };
@@ -335,8 +336,8 @@ const UploadPicture = () => {
     const {
       target: { files },
     } = event;
-    if (files.length > 6) {
-      alert('사진은 최대 6장 까지 올릴 수 있습니다.');
+    if (files.length > PICTURE_MAX_COUNT) {
+      alert(UPLOAD_ALERT_MESSAGE.OVER_PICTURE_MAX_COUNT);
       return;
     }
     const fileArrays = [];

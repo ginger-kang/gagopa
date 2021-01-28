@@ -7,6 +7,7 @@ import { UserContext } from '../../App';
 import { getCurrentUserInfo } from '../User/CreateUser';
 import googleLogo from '../../static/assets/googleLogo.svg';
 import LoadingPage from '../Load/LoadingPage';
+import { AUTH_ALERT_MESSAGE } from '../../utils/constant';
 
 const SignInContainer = styled.div`
   width: 100vw;
@@ -152,9 +153,9 @@ const SignIn = ({ toggleSignIn }) => {
       window.location.reload();
       refreshUser(true);
     } catch (error) {
-      alert('사용자명 혹은 비밀번호를 확인해 주세요.');
+      alert(AUTH_ALERT_MESSAGE.SIGN_IN_FAILED);
       setIsSignInClick(false);
-      console.log('error signing in', error);
+      console.log(error.message);
     }
   };
 

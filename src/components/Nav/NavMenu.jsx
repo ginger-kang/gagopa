@@ -5,6 +5,7 @@ import { FaUserCircle } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { useDetectOutsideClick } from '../../hooks/useDetectOutsideClick';
 import { Auth } from 'aws-amplify';
+import { AUTH_ALERT_MESSAGE } from '../../utils/constant';
 
 const ProfileWrap = styled.div`
   position: relative;
@@ -71,17 +72,17 @@ const NavMenu = ({ handleDarkTheme, toggleSignIn, toggleSignUp }) => {
   const onClick = () => setIsActive(!isActive);
 
   const signOut = async () => {
-    const ok = window.confirm('로그아웃 하시겠습니까?');
+    const ok = window.confirm(AUTH_ALERT_MESSAGE.CONFIRM_SIGN_OUT);
     if (ok) {
       try {
         await Auth.signOut().then(() => refreshUser(false));
       } catch (error) {
-        console.log('error signing out: ', error);
+        console.log(error.message);
       }
     }
   };
 
-  const alertMessage = () => alert('먼저 로그인 해주세요.');
+  const alertMessage = () => alert(AUTH_ALERT_MESSAGE.NOT_SIGN_IN);
 
   return (
     <ProfileWrap onClick={onClick} ref={dropdownRef}>

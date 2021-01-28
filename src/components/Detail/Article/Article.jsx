@@ -20,6 +20,7 @@ import {
   FaMagic,
   FaQuestion,
 } from 'react-icons/fa';
+import { AUTH_ALERT_MESSAGE } from '../../../utils/constant';
 
 const ArticleWrap = styled.article`
   width: 950px;
@@ -258,7 +259,7 @@ const Article = ({ pictureObj }) => {
 
   const handleLike = async () => {
     if (!cognitoUser) {
-      alert('먼저 로그인을 해주세요.');
+      alert(AUTH_ALERT_MESSAGE.NOT_SIGN_IN);
       return;
     }
     const id = uuidv4();
