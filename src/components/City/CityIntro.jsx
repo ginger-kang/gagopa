@@ -21,8 +21,8 @@ const CityIntroWrap = styled.div`
 `;
 
 const IntroPictureWrap = styled.div`
-  width: 110px;
-  height: 110px;
+  width: 120px;
+  height: 120px;
 
   & img {
     border-radius: 100%;

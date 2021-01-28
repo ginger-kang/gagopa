@@ -19,8 +19,8 @@ const LikesHeaderWrap = styled.div`
 `;
 
 const HeaderPictureWrap = styled.div`
-  width: 110px;
-  height: 110px;
+  width: 130px;
+  height: 130px;
 
   & img {
     border-radius: 100%;

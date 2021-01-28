@@ -52,8 +52,8 @@ const ProfileMenuDropDown = styled.div`
 `;
 
 const AvatarWrap = styled.div`
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
 
   & img {
