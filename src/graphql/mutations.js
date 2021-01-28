@@ -27,6 +27,7 @@ export const createPicture = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -89,6 +90,7 @@ export const updatePicture = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -151,6 +153,7 @@ export const deletePicture = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -217,6 +220,7 @@ export const createUser = /* GraphQL */ `
       }
       username
       email
+      introduce
       createdAt
       updatedAt
     }
@@ -252,6 +256,7 @@ export const updateUser = /* GraphQL */ `
       }
       username
       email
+      introduce
       createdAt
       updatedAt
     }
@@ -287,6 +292,7 @@ export const deleteUser = /* GraphQL */ `
       }
       username
       email
+      introduce
       createdAt
       updatedAt
     }
@@ -327,6 +333,7 @@ export const createComment = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -342,6 +349,7 @@ export const createComment = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -400,6 +408,7 @@ export const updateComment = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -415,6 +424,7 @@ export const updateComment = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -473,6 +483,7 @@ export const deleteComment = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -488,6 +499,7 @@ export const deleteComment = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -596,6 +608,7 @@ export const createPictureLike = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -611,6 +624,7 @@ export const createPictureLike = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -657,6 +671,7 @@ export const updatePictureLike = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -672,6 +687,7 @@ export const updatePictureLike = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -718,6 +734,7 @@ export const deletePictureLike = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -733,6 +750,7 @@ export const deletePictureLike = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -780,6 +798,7 @@ export const createCommentLike = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -795,6 +814,7 @@ export const createCommentLike = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -842,6 +862,7 @@ export const updateCommentLike = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -857,6 +878,7 @@ export const updateCommentLike = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -904,6 +926,7 @@ export const deleteCommentLike = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -919,6 +942,7 @@ export const deleteCommentLike = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }

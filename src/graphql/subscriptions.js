@@ -24,6 +24,7 @@ export const onCreatePicture = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -83,6 +84,7 @@ export const onUpdatePicture = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -142,6 +144,7 @@ export const onDeletePicture = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -210,6 +213,7 @@ export const onCreateComment = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -225,6 +229,7 @@ export const onCreateComment = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -280,6 +285,7 @@ export const onUpdateComment = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -295,6 +301,7 @@ export const onUpdateComment = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -350,6 +357,7 @@ export const onDeleteComment = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -365,6 +373,7 @@ export const onDeleteComment = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -461,6 +470,7 @@ export const onCreatePictureLike = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -476,6 +486,7 @@ export const onCreatePictureLike = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -519,6 +530,7 @@ export const onUpdatePictureLike = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -534,6 +546,7 @@ export const onUpdatePictureLike = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -577,6 +590,7 @@ export const onDeletePictureLike = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -592,6 +606,7 @@ export const onDeletePictureLike = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -636,6 +651,7 @@ export const onCreateCommentLike = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -651,6 +667,7 @@ export const onCreateCommentLike = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -695,6 +712,7 @@ export const onUpdateCommentLike = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -710,6 +728,7 @@ export const onUpdateCommentLike = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -754,6 +773,7 @@ export const onDeleteCommentLike = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -769,6 +789,7 @@ export const onDeleteCommentLike = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }

@@ -24,6 +24,7 @@ export const getPicture = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -79,6 +80,7 @@ export const listPictures = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -144,6 +146,7 @@ export const getUser = /* GraphQL */ `
       }
       username
       email
+      introduce
       createdAt
       updatedAt
     }
@@ -177,6 +180,7 @@ export const listUsers = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -216,6 +220,7 @@ export const getComment = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -231,6 +236,7 @@ export const getComment = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -280,6 +286,7 @@ export const listComments = /* GraphQL */ `
           }
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -363,6 +370,7 @@ export const getPictureLike = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -378,6 +386,7 @@ export const getPictureLike = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -417,6 +426,7 @@ export const listPictureLikes = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -459,6 +469,7 @@ export const getCommentLike = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
@@ -474,6 +485,7 @@ export const getCommentLike = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -514,6 +526,7 @@ export const listCommentLikes = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -571,6 +584,7 @@ export const picturesByDate = /* GraphQL */ `
           }
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -645,6 +659,7 @@ export const commentsByDate = /* GraphQL */ `
           }
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -697,6 +712,7 @@ export const likesByUser = /* GraphQL */ `
             key
             uri
           }
+          introduce
           createdAt
           updatedAt
         }
@@ -780,6 +796,7 @@ export const searchPictures = /* GraphQL */ `
           userId
           username
           email
+          introduce
           createdAt
           updatedAt
         }
@@ -847,6 +864,7 @@ export const searchUsers = /* GraphQL */ `
         }
         username
         email
+        introduce
         createdAt
         updatedAt
       }
