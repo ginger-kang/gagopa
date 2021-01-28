@@ -10,13 +10,14 @@ import {
   getSessionLikeSort,
   setSessionCommentSort,
   getSessionCommentSort,
+  setSessionNext,
+  getSessionNext,
 } from '../utils/sessionStorage';
 import Navigation from '../components/Nav/Navigation';
 import LoadingPage from '../components/Load/LoadingPage';
 import NoPost from '../components/City/NoPost';
 import CityPost from '../components/City/CityPost';
 import LoadMorePostButton from '../components/City/LoadMorePostButton';
-import { useLocation } from 'react-router-dom';
 import CityListModal from '../components/City/CityListModal';
 import CitySort from '../components/City/CitySort';
 
@@ -45,18 +46,16 @@ const CityItemWrap = styled.div`
   align-items: center;
 `;
 
-const postCount = 27;
+const postCount = 3;
 
 const City = ({ match }) => {
-  let location = useLocation();
   const sessionCommentSort = parseInt(getSessionCommentSort());
   const sessionLikeSort = parseInt(getSessionLikeSort());
+  const sessionNext = parseInt(getSessionNext());
 
   const [fetchPostData, setFetchPostData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [next, setNext] = useState(
-    location.state.next ? location.state.next : postCount,
-  );
+  const [next, setNext] = useState(sessionNext ? sessionNext : postCount);
   const [showList, setShowList] = useState(false);
   const [sortDirection, setSortDirection] = useState('DESC');
   const [likeSort, setLikeSort] = useState(
@@ -92,12 +91,20 @@ const City = ({ match }) => {
     }
   }, [cityName, sortDirection, likeSort, commentSort]);
 
+  console.log(next);
+
   useEffect(() => {
     fetchPictures();
   }, [fetchPictures]);
 
   const handleLoadMorePosts = () => {
     setNext((next) => next + postCount);
+    setSessionNext(next + postCount);
+  };
+
+  const initializeNext = () => {
+    setSessionNext(0);
+    setNext(postCount);
   };
 
   const cityObjects = fetchPostData && fetchPostData.slice(0, next);
@@ -143,12 +150,7 @@ const City = ({ match }) => {
             <NoPost hasPost={hasPost} cityName={translateToKo[cityName]} />
             <CityGridWrap hasPost={hasPost}>
               {cityObjects.map((post) => (
-                <CityPost
-                  key={post.id}
-                  post={post}
-                  cityName={cityName}
-                  next={next}
-                />
+                <CityPost key={post.id} post={post} cityName={cityName} />
               ))}
             </CityGridWrap>
             <LoadMorePostButton
@@ -158,7 +160,12 @@ const City = ({ match }) => {
           </>
         )}
       </CityContainer>
-      {showList && <CityListModal toggleList={toggleList} />}
+      {showList && (
+        <CityListModal
+          toggleList={toggleList}
+          initializeNext={initializeNext}
+        />
+      )}
     </>
   );
 };

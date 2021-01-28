@@ -217,12 +217,7 @@ const Search = ({ match }) => {
             </SearchHeader>
             <SearchGridWrap hasPost={true}>
               {posts.map((post) => (
-                <CityPost
-                  key={post.id}
-                  post={post}
-                  cityName={post.city}
-                  next={null}
-                />
+                <CityPost key={post.id} post={post} cityName={post.city} />
               ))}
             </SearchGridWrap>
           </>

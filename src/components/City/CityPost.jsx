@@ -102,7 +102,7 @@ const RightSlideButton = styled.div`
   }
 `;
 
-const CityPost = ({ post, cityName, next }) => {
+const CityPost = ({ post, cityName }) => {
   const likesCount = post.likes.items.length ? post.likes.items.length : 0;
   const commentsCount = post.comments.items.length
     ? post.comments.items.length
@@ -133,7 +133,7 @@ const CityPost = ({ post, cityName, next }) => {
         key={post.id}
         to={{
           pathname: `/city/${cityName}/${post.id}`,
-          state: { next: next, cityName: cityName, post: post },
+          state: { cityName: cityName, post: post },
         }}
       >
         <Hover>

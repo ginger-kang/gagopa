@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback, useContext } from 'react';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getPicture } from '../graphql/queries';
-import { Link, useLocation } from 'react-router-dom';
 import Navigation from '../components/Nav/Navigation';
 import LoadingPage from '../components/Load/LoadingPage';
 import { ThemeContext } from '../App';
@@ -19,20 +18,6 @@ const Container = styled.main`
   align-items: center;
 `;
 
-const BackButton = styled.button`
-  width: 55px;
-  height: 55px;
-  bottom: 1.5rem;
-  border-radius: 30px;
-  position: fixed;
-  bottom: 25px;
-  left: 3rem;
-  font-size: 13px;
-  background: ${(props) => props.theme.mainColor};
-  color: white;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-`;
-
 const HorizontalLine = styled.div`
   background-color: ${(props) =>
     props.theme === lightTheme ? '#cacaca' : '#4c4949'};
@@ -42,13 +27,10 @@ const HorizontalLine = styled.div`
 `;
 
 const Detail = ({ match }) => {
-  let location = useLocation();
   const [pictureObj, setPictureObj] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { theme } = useContext(ThemeContext);
   const pictureId = match.params.id;
-  const nextState = location.state.next;
-  const cityName = location.state.cityName;
 
   const fetchPictures = useCallback(async () => {
     setIsLoading(true);
@@ -84,14 +66,6 @@ const Detail = ({ match }) => {
           <Comment pictureId={pictureId} />
         </Container>
       )}
-      {/* <Link
-        to={{
-          pathname: `/city/${cityName}/`,
-          state: { next: nextState },
-        }}
-      >
-        <BackButton theme={theme}>돌아가기</BackButton>
-      </Link> */}
     </>
   );
 };

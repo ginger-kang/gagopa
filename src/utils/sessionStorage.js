@@ -13,3 +13,11 @@ export const setSessionCommentSort = (value) => {
 export const getSessionCommentSort = () => {
   return window.sessionStorage.getItem('commentSort');
 };
+
+export const setSessionNext = (value) => {
+  window.sessionStorage.setItem('next', value);
+};
+
+export const getSessionNext = () => {
+  return window.sessionStorage.getItem('next');
+};

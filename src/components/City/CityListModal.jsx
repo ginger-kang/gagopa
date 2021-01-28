@@ -73,7 +73,7 @@ const Name = styled.span`
   margin-left: 15px;
 `;
 
-const CityListModal = ({ toggleList }) => {
+const CityListModal = ({ toggleList, initializeNext }) => {
   const [cityList, setCityList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { theme } = useContext(ThemeContext);
@@ -110,11 +110,14 @@ const CityListModal = ({ toggleList }) => {
         ) : (
           <CityList>
             {cityList.map((city, index) => (
-              <Link
-                to={{ pathname: `/city/${city.city}`, state: { next: null } }}
-                key={index}
-              >
-                <City theme={theme} onClick={() => toggleList()}>
+              <Link to={{ pathname: `/city/${city.city}` }} key={index}>
+                <City
+                  theme={theme}
+                  onClick={() => {
+                    toggleList();
+                    initializeNext();
+                  }}
+                >
                   <Thumbnail src={city.thumbnail.uri} alt="thumbnail" />
                   <Name>{translateToKo[city.city]}</Name>
                 </City>
