@@ -7,8 +7,9 @@ import { lightTheme } from '../theme';
 import { Link, Redirect } from 'react-router-dom';
 import { AUTH_ALERT_MESSAGE } from '../utils/constant';
 
-const AccountContainer = styled.div`
+const AccountContainer = styled.main`
   width: 100%;
+  max-width: 1450px;
   padding-top: 70px;
 `;
 
@@ -63,7 +64,7 @@ const MyAccountTitle = styled.h3`
   margin-bottom: 30px;
 `;
 
-const ProfileHeader = styled.div`
+const ProfileHeader = styled.header`
   width: 100%;
   display: flex;
   flex-direction: row;

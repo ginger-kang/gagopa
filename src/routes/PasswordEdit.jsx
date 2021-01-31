@@ -7,8 +7,9 @@ import { lightTheme } from '../theme';
 import { Auth } from 'aws-amplify';
 import { AUTH_ALERT_MESSAGE } from '../utils/constant';
 
-const EditContainer = styled.div`
+const EditContainer = styled.main`
   width: 100%;
+  max-width: 1450px;
   padding-top: 70px;
 `;
 

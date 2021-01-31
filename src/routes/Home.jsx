@@ -9,6 +9,7 @@ import { CognitoContext } from '../App';
 
 const HomeContainer = styled.main`
   width: 100%;
+  max-width: 1450px;
 `;
 
 const BackgroundContainer = styled.div`
@@ -24,7 +25,7 @@ const ImageWrap = styled.div`
   }
 `;
 
-const HomeCityListContainer = styled.div`
+const HomeCityListContainer = styled.ul`
   width: 100%;
   display: flex;
   justify-content: center;

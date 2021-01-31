@@ -18,8 +18,9 @@ const {
   aws_user_files_s3_bucket: bucket,
 } = config;
 
-const UploadContainer = styled.div`
+const UploadContainer = styled.main`
   width: 100%;
+  max-width: 1450px;
   padding-top: 70px;
 `;
 

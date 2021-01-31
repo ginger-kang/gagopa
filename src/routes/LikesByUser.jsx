@@ -9,9 +9,10 @@ import LikesPost from '../components/Likes/LikesPost';
 import LikesHeader from '../components/Likes/LikesHeader';
 import NoLikesPost from '../components/Likes/NoLikesPost';
 
-const MyLikesContainer = styled.div`
+const MyLikesContainer = styled.main`
   margin-top: 60px;
   width: 100%;
+  max-width: 1450px;
   display: flex;
   flex-direction: column;
   justify-content: center;

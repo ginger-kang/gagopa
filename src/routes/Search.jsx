@@ -13,6 +13,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 const SearchContainer = styled.main`
   margin-top: 120px;
   width: 100%;
+  max-width: 1450px;
   display: flex;
   flex-direction: column;
   justify-content: center;

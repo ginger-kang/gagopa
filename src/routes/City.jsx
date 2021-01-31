@@ -22,9 +22,10 @@ import CityListModal from '../components/City/CityListModal';
 import CitySort from '../components/City/CitySort';
 import { POST_COUNT } from '../utils/constant';
 
-const CityContainer = styled.div`
+const CityContainer = styled.main`
   margin-top: 60px;
   width: 100%;
+  max-width: 1450px;
   display: flex;
   flex-direction: column;
   justify-content: center;

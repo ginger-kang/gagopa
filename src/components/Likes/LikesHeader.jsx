@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { CognitoContext } from '../../App';
 
-const LikesHeaderContainer = styled.div`
+const LikesHeaderContainer = styled.header`
   width: 100%;
   height: 220px;
   display: flex;
@@ -18,7 +18,7 @@ const LikesHeaderWrap = styled.div`
   align-items: center;
 `;
 
-const HeaderPictureWrap = styled.div`
+const HeaderAvatarWrap = styled.div`
   width: 130px;
   height: 130px;
 
@@ -49,9 +49,9 @@ const LikesHeader = () => {
   return (
     <LikesHeaderContainer>
       <LikesHeaderWrap>
-        <HeaderPictureWrap>
+        <HeaderAvatarWrap>
           <img src={cognitoUser.avatar.uri} alt="avatar" />
-        </HeaderPictureWrap>
+        </HeaderAvatarWrap>
         <HeaderContentWrap>
           <HeaderSubhead>{cognitoUser.username}</HeaderSubhead>
         </HeaderContentWrap>

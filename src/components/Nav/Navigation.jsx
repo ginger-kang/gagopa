@@ -11,6 +11,7 @@ import { AUTH_ALERT_MESSAGE } from '../../utils/constant';
 
 const NavBarContainer = styled.nav`
   width: 100vw;
+  max-width: 1450px;
   height: 70px;
   position: fixed;
   top: 0;
