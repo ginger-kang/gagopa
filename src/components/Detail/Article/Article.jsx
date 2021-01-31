@@ -153,11 +153,19 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 20px;
+
+  & a {
+    color: ${(props) => props.theme.text};
+  }
 `;
 
 const AuthorName = styled.span`
   font-size: 1.3rem;
   font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const CreatedDate = styled.span`
@@ -277,7 +285,7 @@ const Article = ({ pictureObj }) => {
 
   const handleDeleteLike = async () => {
     if (!cognitoUser) {
-      alert('먼저 로그인을 해주세요.');
+      alert(AUTH_ALERT_MESSAGE.NOT_SIGN_IN);
       return;
     }
     const deleteInputData = {
@@ -296,7 +304,9 @@ const Article = ({ pictureObj }) => {
   };
 
   const onPicturePreviewClick = (index) => setPictureIndex(index);
-  const alertMessage = () => alert('먼저 로그인 해주세요.');
+  const alertMessage = () => alert(AUTH_ALERT_MESSAGE.NOT_SIGN_IN);
+
+  console.log(pictureObj);
 
   return (
     <ArticleWrap>
@@ -316,8 +326,10 @@ const Article = ({ pictureObj }) => {
         <ContentWrap theme={theme}>
           <AuthorWrap theme={theme}>
             <Avatar src={pictureObj.author.avatar.uri} alt="avatar" />
-            <Content>
-              <AuthorName>{pictureObj.author.username}</AuthorName>
+            <Content theme={theme}>
+              <Link to={{ pathname: `/user/${pictureObj.authorId}` }}>
+                <AuthorName>{pictureObj.author.username}</AuthorName>
+              </Link>
               <CreatedDate>{dateToString(pictureObj.createdAt)}</CreatedDate>
             </Content>
           </AuthorWrap>

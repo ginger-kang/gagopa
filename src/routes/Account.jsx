@@ -114,7 +114,7 @@ const Account = () => {
       <Navigation show={true} navSearch={true} />
       <AccountContainer>
         <AccountWrap>
-          <MyAccountTitle>내 계정</MyAccountTitle>
+          <MyAccountTitle>계정</MyAccountTitle>
           <ProfileHeader>
             <AvatarWrap>
               {cognitoUser && <img src={cognitoUser.avatar.uri} alt="avatar" />}

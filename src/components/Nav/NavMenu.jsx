@@ -110,7 +110,10 @@ const NavMenu = ({ handleDarkTheme, toggleSignIn, toggleSignUp }) => {
             {userObj ? (
               <>
                 <NavLink to="/account">
-                  <li>내 계정</li>
+                  <li>계정</li>
+                </NavLink>
+                <NavLink to={{ pathname: `/user/${cognitoUser.userId}` }}>
+                  <li>프로필</li>
                 </NavLink>
                 <NavLink
                   to={{
