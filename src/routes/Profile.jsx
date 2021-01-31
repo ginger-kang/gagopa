@@ -24,13 +24,14 @@ const ProfileWrap = styled.article`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const UserInfoWrap = styled.div`
   width: 300px;
   border: 1px solid
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#565656')};
+  //background: ${(props) => props.theme.itemBackground};
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -99,13 +100,31 @@ const EditButton = styled.button`
   }
 `;
 
-const PostWrap = styled.div`
-  width: 750px;
+const PostContainer = styled.div`
+  width: 600px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  margin-left: 30px;
+  border: 1px solid
+    ${(props) => (props.theme === lightTheme ? '#cacaca' : '#565656')};
+  border-radius: 8px;
+`;
+
+const PostHeader = styled.h4`
+  width: 100%;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: 600;
+  border-bottom: 1px solid
+    ${(props) => (props.theme === lightTheme ? '#cacaca' : '#565656')};
+`;
+
+const PostWrap = styled.div`
+  width: 100%;
+  padding: 15px;
 `;
 
 const Profile = ({ match }) => {
@@ -166,7 +185,10 @@ const Profile = ({ match }) => {
                   )}
                 </InfoWrap>
               </UserInfoWrap>
-              <PostWrap></PostWrap>
+              <PostContainer theme={theme}>
+                <PostHeader>{user.username}의 사진</PostHeader>
+                <PostWrap></PostWrap>
+              </PostContainer>
             </>
           )}
         </ProfileWrap>
