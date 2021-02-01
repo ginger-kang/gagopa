@@ -7,8 +7,8 @@ import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import { lightTheme } from '../../theme';
 import { ThemeContext } from '../../App';
 import { dateToString } from '../../utils/utils';
-import { IoIosHeart } from 'react-icons/io';
-import { FaComment } from 'react-icons/fa';
+import { IoIosHeartEmpty } from 'react-icons/io';
+import { GoComment } from 'react-icons/go';
 
 const Post = styled.div`
   width: 100%;
@@ -187,11 +187,11 @@ const ProfilePost = ({ post }) => {
           <p>{description}</p>
         </Content>
         <Item>
-          <IoIosHeart size={20} />
+          <IoIosHeartEmpty size={20} />
           &nbsp;
           <span>{likesCount}</span>
           &nbsp; &nbsp; &nbsp;
-          <FaComment size={20} />
+          <GoComment size={20} />
           &nbsp;
           <span>{commentsCount}</span>
         </Item>
