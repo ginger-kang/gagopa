@@ -13,17 +13,11 @@ import {
 } from '../../../graphql/mutations';
 import { v4 as uuidv4 } from 'uuid';
 import { dateToString } from '../../../utils/utils';
-import {
-  FaMapMarkerAlt,
-  FaBuilding,
-  FaBookOpen,
-  FaMagic,
-  FaQuestion,
-} from 'react-icons/fa';
+import { FaQuestion } from 'react-icons/fa';
 import { AUTH_ALERT_MESSAGE } from '../../../utils/constant';
 
 const ArticleWrap = styled.article`
-  width: 950px;
+  width: 1000px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,15 +27,21 @@ const ArticleWrap = styled.article`
 
 const PictureWrap = styled.div`
   width: 100%;
+  padding: 15px;
+  background: ${(props) => props.theme.itemBackground};
+  border: 1px solid
+    ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-bottom: 15px;
+  border-radius: 10px;
 `;
 
 const MainPicture = styled.div`
   width: 550px;
+  height: 550px;
 
   & img {
     width: 100%;
@@ -79,9 +79,8 @@ const Picture = styled.div`
 
 const ContentContainer = styled.div`
   width: 1000px;
-  height: 600px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
 `;
 
@@ -95,7 +94,7 @@ const ContentSticky = styled.div`
   position: sticky;
   top: 73px;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -123,28 +122,24 @@ const ContentSticky = styled.div`
 `;
 
 const ContentWrap = styled.div`
-  width: 480px;
-  height: 600px;
+  width: 690px;
   background: ${(props) => props.theme.itemBackground};
   border: 1px solid
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
   border-radius: 10px;
 `;
 
-const AuthorWrap = styled.header`
-  width: 100%;
-  height: 120px;
-  border-bottom: 1px solid
-    ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
+const AuthorWrap = styled.div`
   padding: 10px 18px;
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 `;
 
 const Avatar = styled.img`
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   border-radius: 100%;
   object-fit: cover;
 `;
@@ -152,7 +147,7 @@ const Avatar = styled.img`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
+  margin-top: 15px;
 
   & a {
     color: ${(props) => props.theme.text};
@@ -177,45 +172,54 @@ const CreatedDate = styled.span`
 const InfoWrap = styled.div`
   position: relative;
   width: 100%;
-  height: 410px;
-  padding: 20px;
+  padding: 10px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
-  overflow: auto;
+  align-items: flex-start;
 `;
 
 const Info = styled.div`
   width: 100%;
-  height: 50px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   font-size: 14px;
-  line-height: 1.8;
-  margin-top: 20px;
+  line-height: 2;
 `;
 
-const InfoTitle = styled.span`
-  font-size: 17px;
-  font-weight: bold;
+const InfoHeader = styled.h3`
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-bottom: 1px solid
+    ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
+`;
+
+const InfoTitle = styled.h5`
+  font-size: 13px;
+  color: #848484;
+  width: 35px;
 `;
 
 const InfoContent = styled.div`
-  max-width: 90%;
-  width: 90%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: flex-start;
-  margin-left: 30px;
+  margin-left: 10px;
+  font-size: 14px;
+
+  & span {
+    width: 380px;
+  }
 `;
 
 const IconWrap = styled.div`
   width: 100%;
-  height: 70px;
+  padding: 15px;
   border-top: 1px solid
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
   display: flex;
@@ -229,9 +233,6 @@ const IconWrap = styled.div`
 
 const Description = styled.span`
   width: 90%;
-  height: 20px;
-  margin-top: 5px;
-  line-height: 1.3;
 `;
 
 const UploadLinkButton = styled.button`
@@ -242,6 +243,16 @@ const UploadLinkButton = styled.button`
   border-radius: 8px;
 `;
 
+const MoreDescription = styled.span`
+  font-size: 14px;
+  color: #277cff;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const Article = ({ pictureObj }) => {
   const { theme } = useContext(ThemeContext);
   const { cognitoUser } = useContext(CognitoContext);
@@ -249,6 +260,14 @@ const Article = ({ pictureObj }) => {
   const [likesCount, setLikesCount] = useState(likesList.length);
   const [isLiked, setIsLiked] = useState(false);
   const [likesId, setLikesId] = useState(undefined);
+  const [description, setDescription] = useState(
+    pictureObj.description.length > 47
+      ? pictureObj.description.slice(0, 47)
+      : pictureObj.description,
+  );
+  const [descriptionFlag, setDescriptionFlag] = useState(
+    pictureObj.description.length > 48,
+  );
   const [pictureIndex, setPictureIndex] = useState(0);
 
   const pictures = pictureObj.attachment;
@@ -306,9 +325,14 @@ const Article = ({ pictureObj }) => {
   const onPicturePreviewClick = (index) => setPictureIndex(index);
   const alertMessage = () => alert(AUTH_ALERT_MESSAGE.NOT_SIGN_IN);
 
+  const moreDescriptionClick = () => {
+    setDescription(pictureObj.description);
+    setDescriptionFlag(false);
+  };
+
   return (
     <ArticleWrap>
-      <PictureWrap>
+      <PictureWrap theme={theme}>
         <MainPicture>
           <img src={pictures[pictureIndex].uri} alt="post" />
         </MainPicture>
@@ -322,54 +346,64 @@ const Article = ({ pictureObj }) => {
       </PictureWrap>
       <ContentContainer>
         <ContentWrap theme={theme}>
-          <AuthorWrap theme={theme}>
-            <Avatar src={pictureObj.author.avatar.uri} alt="avatar" />
-            <Content theme={theme}>
-              <Link to={{ pathname: `/user/${pictureObj.authorId}` }}>
-                <AuthorName>{pictureObj.author.username}</AuthorName>
-              </Link>
-              <CreatedDate>{dateToString(pictureObj.createdAt)}</CreatedDate>
-            </Content>
-          </AuthorWrap>
+          <InfoHeader theme={theme}>사진</InfoHeader>
           <InfoWrap>
-            <Info>
-              <FaMagic size={30} />
-              <InfoContent>
-                <InfoTitle>제목</InfoTitle>
-                <span style={{ fontSize: '14.5px' }}>{pictureObj.title}</span>
-              </InfoContent>
-            </Info>
-            <Info>
-              <FaBuilding size={30} />
-              <InfoContent>
-                <InfoTitle>도시</InfoTitle>
-                <span>{pictureObj.city}</span>
-              </InfoContent>
-            </Info>
-            <Info>
-              <FaMapMarkerAlt size={30} />
-              <InfoContent>
-                <InfoTitle>위치</InfoTitle>
-                <span>{pictureObj.location}</span>
-              </InfoContent>
-            </Info>
-            <Info>
-              <FaBookOpen size={30} />
-              <InfoContent>
-                <InfoTitle>설명</InfoTitle>
-                <Description>{pictureObj.description}</Description>
-              </InfoContent>
-            </Info>
+            <AuthorWrap theme={theme}>
+              <Avatar src={pictureObj.author.avatar.uri} alt="avatar" />
+              <Content theme={theme}>
+                <Link to={{ pathname: `/user/${pictureObj.authorId}` }}>
+                  <AuthorName>{pictureObj.author.username}</AuthorName>
+                </Link>
+                <CreatedDate>{dateToString(pictureObj.createdAt)}</CreatedDate>
+              </Content>
+            </AuthorWrap>
+            <div style={{ width: '450px', padding: '15px 3px' }}>
+              <Info>
+                <InfoContent>
+                  <InfoTitle>제목</InfoTitle>
+                  <span>{pictureObj.title}</span>
+                </InfoContent>
+              </Info>
+              <Info>
+                <InfoContent>
+                  <InfoTitle>도시</InfoTitle>
+                  <span>{pictureObj.city}</span>
+                </InfoContent>
+              </Info>
+              <Info>
+                <InfoContent>
+                  <InfoTitle>위치</InfoTitle>
+                  <span>{pictureObj.location}</span>
+                </InfoContent>
+              </Info>
+              <Info>
+                <InfoContent>
+                  <InfoTitle>설명</InfoTitle>
+                  <Description>
+                    {descriptionFlag ? (
+                      <>
+                        <span>{description}</span>
+                        <MoreDescription onClick={moreDescriptionClick}>
+                          더보기
+                        </MoreDescription>
+                      </>
+                    ) : (
+                      <span>{description}</span>
+                    )}
+                  </Description>
+                </InfoContent>
+              </Info>
+            </div>
           </InfoWrap>
           <IconWrap theme={theme}>
             {isLiked ? (
-              <IoIosHeart size={35} onClick={handleDeleteLike} />
+              <IoIosHeart size={28} onClick={handleDeleteLike} />
             ) : (
-              <IoIosHeartEmpty size={35} onClick={handleLike} />
+              <IoIosHeartEmpty size={28} onClick={handleLike} />
             )}
-            <GoComment size={31} />
+            <GoComment size={24} />
             <IoLogoInstagram
-              size={35}
+              size={28}
               onClick={() =>
                 window.open(
                   `https://instagram.com/${pictureObj.instagram}`,

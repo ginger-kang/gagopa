@@ -17,12 +17,14 @@ const Container = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: ${(props) =>
+    props.theme === lightTheme ? '#f5f5f5' : '#252424'};
 `;
 
 const HorizontalLine = styled.div`
   background-color: ${(props) =>
     props.theme === lightTheme ? '#cacaca' : '#4c4949'};
-  width: 950px;
+  width: 1000px;
   height: 1px;
   margin: 30px 0;
 `;
@@ -60,7 +62,7 @@ const Detail = ({ match }) => {
       {isLoading ? (
         <LoadingPage />
       ) : (
-        <Container>
+        <Container theme={theme}>
           <Article pictureObj={pictureObj} />
           <HorizontalLine theme={theme} />
           <Geocode location={pictureObj.location} />
