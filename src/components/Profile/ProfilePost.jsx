@@ -61,6 +61,7 @@ const Item = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  font-size: 13px;
 `;
 
 const LeftSlideButton = styled.div`
@@ -112,12 +113,8 @@ const RightSlideButton = styled.div`
   }
 `;
 
-const City = styled.span`
-  font-size: 16px;
-`;
-
 const Title = styled.h3`
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
   margin: 13px 0 5px 0;
 `;
@@ -125,6 +122,7 @@ const Title = styled.h3`
 const Date = styled.span`
   font-size: 11px;
   color: #969696;
+  margin-top: 5px;
 `;
 
 const ProfilePost = ({ post }) => {
@@ -134,10 +132,6 @@ const ProfilePost = ({ post }) => {
     : 0;
   const postPicture = post.attachment;
   const cityName = getKeyByValue(translateToKo, post.city);
-  const description =
-    post.description.length > 21
-      ? post.description.slice(0, 21) + '...'
-      : post.description;
   const [pictureIndex, setPictureIndex] = useState(0);
   const { theme } = useContext(ThemeContext);
 
@@ -181,10 +175,8 @@ const ProfilePost = ({ post }) => {
       </Picture>
       <ContentWrap>
         <Content>
-          <City>{post.city}</City>
           <Title>{post.title}</Title>
           <Date>{dateToString(post.createdAt)}</Date>
-          <p>{description}</p>
         </Content>
         <Item>
           <IoIosHeartEmpty size={20} />
