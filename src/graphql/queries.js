@@ -134,6 +134,33 @@ export const getUser = /* GraphQL */ `
           createdAt
           instagram
           description
+          attachment {
+            bucket
+            region
+            key
+            uri
+          }
+          likes {
+            items {
+              id
+              pictureId
+              userId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          comments {
+            items {
+              id
+              pictureId
+              authorId
+              text
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           updatedAt
         }
         nextToken

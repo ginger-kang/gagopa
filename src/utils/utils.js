@@ -19,6 +19,10 @@ export const recommendKeyword = [
   '코엔지',
 ];
 
+export function getKeyByValue(object, value) {
+  return Object.keys(object).find((key) => object[key] === value);
+}
+
 export const sortByLikes = (a, b) => {
   return b.likes.items.length - a.likes.items.length;
 };

@@ -306,8 +306,6 @@ const Article = ({ pictureObj }) => {
   const onPicturePreviewClick = (index) => setPictureIndex(index);
   const alertMessage = () => alert(AUTH_ALERT_MESSAGE.NOT_SIGN_IN);
 
-  console.log(pictureObj);
-
   return (
     <ArticleWrap>
       <PictureWrap>

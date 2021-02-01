@@ -153,7 +153,7 @@ const CityPost = ({ post, cityName }) => {
           </LeftSlideButton>
           <RightSlideButton onClick={rightFileSlide}>
             <BiChevronRight size={30} />
-          </RightSlideButton>{' '}
+          </RightSlideButton>
         </>
       )}
     </Post>

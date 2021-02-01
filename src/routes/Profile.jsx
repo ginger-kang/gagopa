@@ -8,6 +8,7 @@ import { getUser } from '../graphql/queries';
 import LoadingPage from '../components/Load/LoadingPage';
 import { AiOutlineMail } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import ProfilePost from '../components/Profile/ProfilePost';
 
 const ProfileContainer = styled.main`
   width: 100vw;
@@ -101,7 +102,7 @@ const EditButton = styled.button`
 `;
 
 const PostContainer = styled.div`
-  width: 600px;
+  width: 650px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -111,6 +112,7 @@ const PostContainer = styled.div`
   border: 1px solid
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#565656')};
   border-radius: 8px;
+  margin-bottom: 60px;
 `;
 
 const PostHeader = styled.h4`
@@ -124,7 +126,10 @@ const PostHeader = styled.h4`
 
 const PostWrap = styled.div`
   width: 100%;
-  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Profile = ({ match }) => {
@@ -156,8 +161,6 @@ const Profile = ({ match }) => {
     fetchUsers();
   }, [fetchUsers]);
 
-  console.log(user);
-
   return (
     <>
       <Navigation show={true} navSearch={true} />
@@ -186,8 +189,12 @@ const Profile = ({ match }) => {
                 </InfoWrap>
               </UserInfoWrap>
               <PostContainer theme={theme}>
-                <PostHeader>{user.username}의 사진</PostHeader>
-                <PostWrap></PostWrap>
+                <PostHeader theme={theme}>{user.username}의 사진</PostHeader>
+                <PostWrap>
+                  {user.pictures.items.map((post) => (
+                    <ProfilePost key={post.id} post={post} />
+                  ))}
+                </PostWrap>
               </PostContainer>
             </>
           )}
