@@ -36,7 +36,7 @@ const PictureWrap = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 15px;
-  border-radius: 10px;
+  border-radius: 8px;
 `;
 
 const MainPicture = styled.div`
@@ -93,7 +93,7 @@ const ContentSticky = styled.div`
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
   position: sticky;
   top: 73px;
-  border-radius: 10px;
+  border-radius: 8px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
@@ -126,7 +126,7 @@ const ContentWrap = styled.div`
   background: ${(props) => props.theme.itemBackground};
   border: 1px solid
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
-  border-radius: 10px;
+  border-radius: 8px;
 `;
 
 const AuthorWrap = styled.div`

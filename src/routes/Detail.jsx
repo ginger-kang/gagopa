@@ -66,6 +66,7 @@ const Detail = ({ match }) => {
           <Article pictureObj={pictureObj} />
           <HorizontalLine theme={theme} />
           <Geocode location={pictureObj.location} />
+          <HorizontalLine theme={theme} />
           <Comment pictureId={pictureId} />
         </Container>
       )}
