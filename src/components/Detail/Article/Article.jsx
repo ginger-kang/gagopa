@@ -246,16 +246,18 @@ const InfoContent = styled.div`
   align-items: flex-start;
   margin-left: 10px;
   font-size: 14px;
+  word-break: break-word;
 
   & span {
     width: 380px;
-    @media screen and (max-width: 590px) {
-      width: 200px;
-      word-break: break-word;
+    @media screen and (max-width: 610px) {
+      width: 260px;
+    }
+    @media screen and (max-width: 510px) {
+      width: 190px;
     }
     @media screen and (max-width: 400px) {
-      width: 170px;
-      word-break: break-word;
+      width: 160px;
     }
   }
 `;
