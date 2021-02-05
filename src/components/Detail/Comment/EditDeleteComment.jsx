@@ -27,6 +27,9 @@ const MenuWrap = styled.div`
   display: ${(props) => (props.isEdit ? 'none' : 'flex')};
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 500px) {
+    width: 300px;
+  }
 `;
 
 const Menu = styled.ul`

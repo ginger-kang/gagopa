@@ -18,11 +18,15 @@ import { AUTH_ALERT_MESSAGE } from '../../../utils/constant';
 
 const ArticleWrap = styled.article`
   width: 1000px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 100px;
+  @media screen and (max-width: 1000px) {
+    width: 95vw;
+  }
 `;
 
 const PictureWrap = styled.div`
@@ -47,6 +51,18 @@ const MainPicture = styled.div`
     width: 100%;
     height: 100%;
   }
+  @media screen and (max-width: 1000px) {
+    width: 55vw;
+    height: 55vw;
+    min-width: 400px;
+    min-height: 400px;
+  }
+  @media screen and (max-width: 450px) {
+    width: 90vw;
+    height: 90vw;
+    min-width: 300px;
+    min-height: 300px;
+  }
 `;
 
 const PicturePreview = styled.div`
@@ -66,6 +82,12 @@ const PicturePreview = styled.div`
     &:nth-child(${(props) => props.index + 1}) {
       opacity: 1;
     }
+    @media screen and (max-width: 1000px) {
+      width: 6vw;
+      height: 6vw;
+      min-width: 41px;
+      min-height: 41px;
+    }
   }
 `;
 
@@ -79,9 +101,13 @@ const Picture = styled.div`
 
 const ContentContainer = styled.div`
   width: 1000px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  @media screen and (max-width: 1000px) {
+    width: 95vw;
+  }
 `;
 
 const ContentSticky = styled.div`
@@ -119,6 +145,9 @@ const ContentSticky = styled.div`
       transform: scale(1.1);
     }
   }
+  @media screen and (max-width: 1000px) {
+    display: none;
+  }
 `;
 
 const ContentWrap = styled.div`
@@ -127,6 +156,9 @@ const ContentWrap = styled.div`
   border: 1px solid
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
   border-radius: 8px;
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+  }
 `;
 
 const AuthorWrap = styled.div`
@@ -135,6 +167,9 @@ const AuthorWrap = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  @media screen and (max-width: 450px) {
+    padding: 10px 5px;
+  }
 `;
 
 const Avatar = styled.img`
@@ -214,6 +249,14 @@ const InfoContent = styled.div`
 
   & span {
     width: 380px;
+    @media screen and (max-width: 590px) {
+      width: 200px;
+      word-break: break-word;
+    }
+    @media screen and (max-width: 400px) {
+      width: 170px;
+      word-break: break-word;
+    }
   }
 `;
 
@@ -383,6 +426,7 @@ const Article = ({ pictureObj }) => {
                     {descriptionFlag ? (
                       <>
                         <span>{description}</span>
+                        &nbsp;
                         <MoreDescription onClick={moreDescriptionClick}>
                           더보기
                         </MoreDescription>

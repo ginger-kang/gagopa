@@ -12,7 +12,8 @@ import EditDeleteComment from './EditDeleteComment';
 import { AUTH_ALERT_MESSAGE, EMPTY_COMMENT } from '../../../utils/constant';
 
 const CommentContainer = styled.div`
-  width: 950px;
+  width: 1000px;
+  margin: 0 auto;
   margin-bottom: 100px;
   display: flex;
   flex-direction: column;
@@ -20,6 +21,9 @@ const CommentContainer = styled.div`
   align-items: center;
   border: 1px solid
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
+  @media screen and (max-width: 1000px) {
+    width: 95vw;
+  }
 `;
 
 const CommentHeader = styled.header`
@@ -40,12 +44,19 @@ const CommentWrap = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
+    flex-wrap: none;
+  }
 `;
 
 const CommentBox = styled.div`
   width: 50%;
   height: 200px;
   padding: 5px 20px;
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+  }
 `;
 
 const CommentAuthor = styled.div`
@@ -96,6 +107,9 @@ const ModifyAndDelete = styled.div`
   right: 35px;
   transform: translateY(-50%);
   cursor: pointer;
+  @media screen and (max-width: 1000px) {
+    right: 15px;
+  }
 `;
 
 const CommentInputWrap = styled.div`

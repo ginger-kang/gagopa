@@ -6,9 +6,13 @@ import { lightTheme } from '../../../theme';
 
 const LocationContainer = styled.article`
   width: 1000px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  @media screen and (max-width: 1000px) {
+    width: 95vw;
+  }
 `;
 
 const MapContainer = styled.div`
@@ -17,6 +21,9 @@ const MapContainer = styled.div`
   border: 1px solid
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
   border-radius: 8px;
+  @media screen and (max-width: 1000px) {
+    width: 95vw;
+  }
 `;
 
 const Container = styled.div`
@@ -25,6 +32,9 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+  }
 `;
 
 const MapTitle = styled.h3`
@@ -70,6 +80,9 @@ const MapSticky = styled.div`
       transition: all 0.2s ease-in;
       transform: scale(1.1);
     }
+  }
+  @media screen and (max-width: 1000px) {
+    display: none;
   }
 `;
 

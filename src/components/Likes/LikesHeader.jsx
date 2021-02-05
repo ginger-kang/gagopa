@@ -4,7 +4,6 @@ import { CognitoContext } from '../../App';
 
 const LikesHeaderContainer = styled.header`
   width: 100%;
-  height: 220px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,7 +11,7 @@ const LikesHeaderContainer = styled.header`
 `;
 
 const LikesHeaderWrap = styled.div`
-  margin-top: 40px;
+  margin-top: 100px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -25,6 +24,14 @@ const HeaderAvatarWrap = styled.div`
   & img {
     border-radius: 100%;
     object-fit: cover;
+  }
+  @media screen and (max-width: 400px) {
+    width: 100px;
+    height: 100px;
+  }
+  @media screen and (max-width: 338px) {
+    width: 80px;
+    height: 80px;
   }
 `;
 
@@ -39,9 +46,14 @@ const HeaderSubhead = styled.h3`
 
 const HeaderContent = styled.div`
   width: 64vw;
-  margin: 30px 0 0 0;
+  margin: 30px 0 20px 0;
   font-size: 15px;
   color: #888888;
+  @media screen and (max-width: 690px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const LikesHeader = () => {

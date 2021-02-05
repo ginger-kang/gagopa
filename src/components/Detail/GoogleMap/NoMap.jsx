@@ -4,15 +4,25 @@ import doodle from '../../../static/assets/doodle.png';
 
 const LocationContainer = styled.div`
   width: 950px;
-  height: 700px;
+  margin: 0 auto;
+  height: 600px;
+  @media screen and (max-width: 1000px) {
+    width: 95vw;
+    height: 450px;
+  }
 `;
 
 const Container = styled.div`
   width: 950px;
+  margin: 0 auto;
   height: 550px;
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 1000px) {
+    width: 95vw;
+    height: 400px;
+  }
 `;
 
 const ContentWrap = styled.div`
@@ -26,6 +36,11 @@ const ContentWrap = styled.div`
     font-size: 1.3rem;
     font-weight: 600;
     line-height: 1.5;
+    @media screen and (max-width: 1000px) {
+      width: 300px;
+      text-align: center;
+      margin: 10px auto;
+    }
   }
 `;
 

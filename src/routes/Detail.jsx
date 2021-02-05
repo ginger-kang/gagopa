@@ -13,6 +13,7 @@ import Geocode from '../components/Detail/GoogleMap/Geocode';
 const Container = styled.main`
   width: 100%;
   max-width: 1450px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,6 +28,10 @@ const HorizontalLine = styled.div`
   width: 1000px;
   height: 1px;
   margin: 30px 0;
+  @media screen and (max-width: 1000px) {
+    width: 95vw;
+    margin: 15px 0;
+  }
 `;
 
 const Detail = ({ match }) => {

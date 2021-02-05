@@ -13,6 +13,7 @@ const MyLikesContainer = styled.main`
   margin-top: 60px;
   width: 100%;
   max-width: 1450px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,6 +26,11 @@ const MyLikesGridWrap = styled.div`
   grid-column-gap: 8px;
   grid-row-gap: 8px;
   margin-bottom: 60px;
+  @media screen and (max-width: 500px) {
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 13px;
+    grid-row-gap: 13px;
+  }
 `;
 
 const LikesByUser = () => {
