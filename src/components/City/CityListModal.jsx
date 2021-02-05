@@ -25,6 +25,9 @@ const ListWrap = styled.div`
   height: 500px;
   border-radius: 15px;
   background: ${(props) => props.theme.itemBackground};
+  @media screen and (max-width: 500px) {
+    width: 300px;
+  }
 `;
 
 const ListHeader = styled.header`

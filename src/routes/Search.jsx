@@ -26,6 +26,11 @@ const SearchGridWrap = styled.div`
   grid-column-gap: 8px;
   grid-row-gap: 8px;
   margin-bottom: 60px;
+  @media screen and (max-width: 500px) {
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 13px;
+    grid-row-gap: 13px;
+  }
 `;
 
 const SearchHeader = styled.header`
@@ -39,6 +44,10 @@ const SearchHeader = styled.header`
 const SearchBarWrap = styled.div`
   width: 400px;
   position: relative;
+  @media screen and (max-width: 500px) {
+    width: 250px;
+    margin-bottom: 15px;
+  }
 `;
 
 const SearchBar = styled.input`
@@ -79,6 +88,10 @@ const SearchContentWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  @media screen and (max-width: 900px) {
+    width: 95%;
+    align-items: center;
+  }
 `;
 
 const SearchContent = styled.span`
@@ -98,9 +111,18 @@ const RecommendWrap = styled.div`
 const TagWrap = styled.div`
   width: 100%;
   margin: 25px 0 0 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  @media screen and (max-width: 900px) {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
 `;
 
-const Tag = styled.span`
+const Tag = styled.div`
   padding: 10px 20px;
   border: 1px solid #bfbac5cc;
   border-radius: 30px;
@@ -115,6 +137,9 @@ const Tag = styled.span`
     color: ${(props) => (props.theme === lightTheme ? '#fcfcfc' : '#363537')};
     background: ${(props) =>
       props.theme === lightTheme ? '#7038d4' : '#fcfcfc'};
+  }
+  @media screen and (max-width: 900px) {
+    margin: 2px;
   }
 `;
 

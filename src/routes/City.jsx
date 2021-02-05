@@ -52,7 +52,7 @@ const CityItemWrap = styled.div`
   justify-content: flex-end;
   align-items: center;
   @media screen and (max-width: 500px) {
-    width: 100%;
+    width: 98%;
   }
 `;
 
