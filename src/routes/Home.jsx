@@ -10,6 +10,7 @@ import { CognitoContext } from '../App';
 const HomeContainer = styled.main`
   width: 100%;
   max-width: 1450px;
+  margin: 0 auto;
 `;
 
 const BackgroundContainer = styled.div`
@@ -30,7 +31,10 @@ const HomeCityListContainer = styled.ul`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px 50px 30px 50px;
+  padding: 30px 50px;
+  @media screen and (max-width: 800px) {
+    padding: 30px 5px;
+  }
 `;
 
 const Home = () => {

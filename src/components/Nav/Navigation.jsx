@@ -12,10 +12,12 @@ import { AUTH_ALERT_MESSAGE } from '../../utils/constant';
 const NavBarContainer = styled.nav`
   width: 100vw;
   max-width: 1450px;
+  margin: 0 auto;
   height: 70px;
   position: fixed;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 100;
   padding: 0 90px 0 90px;
   color: white;
@@ -30,17 +32,18 @@ const NavBarContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 800px) {
+    padding: 0 10px 0 10px;
+    justify-content: space-around;
+  }
 `;
 
 const TitleContainer = styled.div`
   width: 200px;
   height: 100%;
-  font-size: 23px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 600;
-  font-family: 'Comfortaa', cursive;
   & a {
     color: white;
     ${(props) =>
@@ -48,6 +51,9 @@ const TitleContainer = styled.div`
       css`
         color: ${props.themeProps.text};
       `};
+  }
+  @media screen and (max-width: 800px) {
+    width: auto;
   }
 `;
 
@@ -57,6 +63,9 @@ const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 800px) {
+    width: auto;
+  }
 `;
 
 const NavMenuContainer = styled.div`
@@ -65,18 +74,49 @@ const NavMenuContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 800px) {
+    width: 40px;
+  }
 `;
 
-const UploadPictureContent = styled.span`
+const UploadPictureContent = styled.div`
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   color: white;
+  @media screen and (max-width: 800px) {
+    display: none;
+  }
   ${(props) =>
     props.show &&
     css`
       color: ${props.theme.text};
     `};
+`;
+
+const ResponsiveTitle = styled.div`
+  display: none;
+  font-size: 23px;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-family: 'Comfortaa', cursive;
+  @media screen and (max-width: 800px) {
+    display: block;
+    width: 40px;
+  }
+`;
+
+const Title = styled.div`
+  font-size: 23px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-family: 'Comfortaa', cursive;
+  @media screen and (max-width: 800px) {
+    display: none;
+  }
 `;
 
 const Navigation = ({ show, navSearch }) => {
@@ -96,7 +136,12 @@ const Navigation = ({ show, navSearch }) => {
     <>
       <NavBarContainer themeProps={theme} show={show}>
         <TitleContainer themeProps={theme} show={show}>
-          <Link to="/">gagopa</Link>
+          <Link to="/">
+            <Title>gagopa</Title>
+          </Link>
+          <Link to="/">
+            <ResponsiveTitle>g</ResponsiveTitle>
+          </Link>
         </TitleContainer>
         <SearchContainer>
           {navSearch && <NavSearchBar show={show} />}

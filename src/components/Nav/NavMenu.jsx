@@ -10,6 +10,9 @@ import { AUTH_ALERT_MESSAGE } from '../../utils/constant';
 const ProfileWrap = styled.div`
   position: relative;
   margin-left: 20px;
+  @media screen and (max-width: 800px) {
+    margin-left: 0;
+  }
 
   & svg {
     cursor: pointer;
