@@ -15,6 +15,9 @@ const SearchBarWrap = styled.div`
 const Search = styled.div`
   width: 250px;
   position: relative;
+  @media screen and (max-width: 420px) {
+    width: 200px;
+  }
 `;
 
 const SearchBar = styled.input`

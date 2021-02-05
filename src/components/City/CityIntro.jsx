@@ -6,7 +6,7 @@ import { translateToKo } from '../../utils/translate';
 import { ThemeContext } from '../../App';
 import { lightTheme } from '../../theme';
 
-const CityIntroContainer = styled.div`
+const CityIntroContainer = styled.header`
   width: 100%;
   margin: 50px 0 5px 0;
   display: flex;
@@ -28,15 +28,32 @@ const IntroPictureWrap = styled.div`
     border-radius: 100%;
     object-fit: cover;
   }
+  @media screen and (max-width: 400px) {
+    width: 80px;
+    height: 80px;
+  }
+  @media screen and (max-width: 338px) {
+    width: 60px;
+    height: 60px;
+  }
 `;
 
 const IntroContentWrap = styled.div`
   padding: 30px;
+  @media screen and (max-width: 800px) {
+    padding: 15px;
+  }
 `;
 
 const IntroSubhead = styled.h3`
   font-size: 2.5rem;
   font-weight: bold;
+  @media screen and (max-width: 400px) {
+    font-size: 35px;
+  }
+  @media screen and (max-width: 338px) {
+    font-size: 30px;
+  }
 `;
 
 const IntroContent = styled.div`

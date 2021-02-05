@@ -23,9 +23,9 @@ import CitySort from '../components/City/CitySort';
 import { POST_COUNT } from '../utils/constant';
 
 const CityContainer = styled.main`
-  margin-top: 60px;
   width: 100%;
   max-width: 1450px;
+  margin: 60px auto 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,6 +38,11 @@ const CityGridWrap = styled.div`
   grid-column-gap: 8px;
   grid-row-gap: 8px;
   margin-bottom: 60px;
+  @media screen and (max-width: 500px) {
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 13px;
+    grid-row-gap: 13px;
+  }
 `;
 
 const CityItemWrap = styled.div`
@@ -46,6 +51,9 @@ const CityItemWrap = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 const City = ({ match }) => {
