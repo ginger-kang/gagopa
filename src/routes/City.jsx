@@ -46,7 +46,8 @@ const CityGridWrap = styled.div`
 `;
 
 const CityItemWrap = styled.div`
-  width: 63vw;
+  width: 64vw;
+  max-width: 1200px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;

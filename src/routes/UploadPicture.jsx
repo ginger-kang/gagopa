@@ -20,15 +20,16 @@ const {
 
 const UploadContainer = styled.main`
   width: 100%;
-  max-width: 1450px;
   margin: 0 auto;
   padding-top: 70px;
+  background: ${(props) =>
+    props.theme === lightTheme ? '#f5f5f5' : '#252424'};
 `;
 
 const UploadFormWrap = styled.div`
   width: 600px;
   border-radius: 10px;
-  margin: 40px auto;
+  margin: 40px auto 0 auto;
   padding: 50px 0;
   display: flex;
   flex-direction: column;
@@ -396,7 +397,7 @@ const UploadPicture = () => {
   return (
     <>
       <Navigation show={true} navSearch={true} />
-      <UploadContainer>
+      <UploadContainer theme={theme}>
         <UploadFormWrap themeProps={theme}>
           <Title>사진 업로드</Title>
           <FileUploadContainer>

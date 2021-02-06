@@ -46,6 +46,7 @@ const HeaderSubhead = styled.h3`
 
 const HeaderContent = styled.div`
   width: 64vw;
+  max-width: 1200px;
   margin: 30px 0 20px 0;
   font-size: 15px;
   color: #888888;

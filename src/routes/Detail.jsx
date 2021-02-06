@@ -12,7 +12,6 @@ import Geocode from '../components/Detail/GoogleMap/Geocode';
 
 const Container = styled.main`
   width: 100%;
-  max-width: 1450px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

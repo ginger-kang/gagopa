@@ -11,9 +11,9 @@ import { lightTheme } from '../theme';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 const SearchContainer = styled.main`
-  margin-top: 120px;
   width: 100%;
   max-width: 1450px;
+  margin: 120px auto 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,10 +26,12 @@ const SearchGridWrap = styled.div`
   grid-column-gap: 8px;
   grid-row-gap: 8px;
   margin-bottom: 60px;
+  margin-top: 10px;
   @media screen and (max-width: 500px) {
     grid-template-columns: repeat(1, 1fr);
     grid-column-gap: 13px;
     grid-row-gap: 13px;
+    margin-top: 25px;
   }
 `;
 
@@ -82,6 +84,7 @@ const SearchButton = styled.button`
 
 const SearchContentWrap = styled.div`
   width: 64vw;
+  max-width: 1200px;
   height: 110px;
   margin: 40px 0 10px 0;
   display: flex;

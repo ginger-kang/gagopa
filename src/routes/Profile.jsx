@@ -12,12 +12,13 @@ import ProfilePost from '../components/Profile/ProfilePost';
 
 const ProfileContainer = styled.main`
   width: 100vw;
-  max-width: 1450px;
-  margin-top: 70px auto 0 auto;
+  margin: 10px auto 0 auto;
   padding-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: ${(props) =>
+    props.theme === lightTheme ? '#f5f5f5' : '#252424'};
 `;
 
 const ProfileWrap = styled.article`
@@ -38,7 +39,7 @@ const UserInfoWrap = styled.div`
   width: 300px;
   border: 1px solid
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#565656')};
-  //background: ${(props) => props.theme.itemBackground};
+  background: ${(props) => props.theme.itemBackground};
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -140,6 +141,7 @@ const PostContainer = styled.div`
   margin-left: 30px;
   border: 1px solid
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#565656')};
+  background: ${(props) => props.theme.itemBackground};
   border-radius: 8px;
   margin-bottom: 60px;
   @media screen and (max-width: 800px) {
@@ -198,7 +200,7 @@ const Profile = ({ match }) => {
   return (
     <>
       <Navigation show={true} navSearch={true} />
-      <ProfileContainer>
+      <ProfileContainer theme={theme}>
         <ProfileWrap>
           {isLoading ? (
             <LoadingPage />

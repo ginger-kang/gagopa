@@ -11,15 +11,9 @@ import { AUTH_ALERT_MESSAGE } from '../../utils/constant';
 
 const NavBarContainer = styled.nav`
   width: 100vw;
-  max-width: 1450px;
-  margin: 0 auto;
-  height: 70px;
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
   z-index: 100;
-  padding: 0 90px 0 90px;
   color: white;
   background: transparent;
   ${(props) =>
@@ -29,6 +23,17 @@ const NavBarContainer = styled.nav`
       color: ${props.themeProps.text};
       box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
     `};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const NavBarWrap = styled.div`
+  width: 100vw;
+  max-width: 1450px;
+  margin: 0 auto;
+  height: 70px;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -135,39 +140,41 @@ const Navigation = ({ show, navSearch }) => {
   return (
     <>
       <NavBarContainer themeProps={theme} show={show}>
-        <TitleContainer themeProps={theme} show={show}>
-          <Link to="/">
-            <Title>gagopa</Title>
-          </Link>
-          <Link to="/">
-            <ResponsiveTitle>g</ResponsiveTitle>
-          </Link>
-        </TitleContainer>
-        <SearchContainer>
-          {navSearch && <NavSearchBar show={show} />}
-        </SearchContainer>
-        <NavMenuContainer>
-          {cognitoUser ? (
-            <Link to="/upload">
-              <UploadPictureContent theme={theme} show={show}>
+        <NavBarWrap>
+          <TitleContainer themeProps={theme} show={show}>
+            <Link to="/">
+              <Title>gagopa</Title>
+            </Link>
+            <Link to="/">
+              <ResponsiveTitle>g</ResponsiveTitle>
+            </Link>
+          </TitleContainer>
+          <SearchContainer>
+            {navSearch && <NavSearchBar show={show} />}
+          </SearchContainer>
+          <NavMenuContainer>
+            {cognitoUser ? (
+              <Link to="/upload">
+                <UploadPictureContent theme={theme} show={show}>
+                  사진 올리기
+                </UploadPictureContent>
+              </Link>
+            ) : (
+              <UploadPictureContent
+                theme={theme}
+                show={show}
+                onClick={alertMessage}
+              >
                 사진 올리기
               </UploadPictureContent>
-            </Link>
-          ) : (
-            <UploadPictureContent
-              theme={theme}
-              show={show}
-              onClick={alertMessage}
-            >
-              사진 올리기
-            </UploadPictureContent>
-          )}
-          <NavMenu
-            handleDarkTheme={handleDarkTheme}
-            toggleSignIn={toggleSignIn}
-            toggleSignUp={toggleSignUp}
-          />
-        </NavMenuContainer>
+            )}
+            <NavMenu
+              handleDarkTheme={handleDarkTheme}
+              toggleSignIn={toggleSignIn}
+              toggleSignUp={toggleSignUp}
+            />
+          </NavMenuContainer>
+        </NavBarWrap>
       </NavBarContainer>
       {darkTheme && <DarkModeToggle handleDarkTheme={handleDarkTheme} />}
       {signIn && <SignIn toggleSignIn={toggleSignIn} />}

@@ -8,6 +8,8 @@ import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 const Post = styled.div`
   width: 21vw;
   height: 21vw;
+  max-width: 400px;
+  max-height: 400px;
   min-width: 160px;
   min-height: 160px;
   cursor: pointer;

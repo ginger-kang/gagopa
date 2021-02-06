@@ -19,6 +19,12 @@ const ContentWrap = styled.div`
     font-size: 1.3rem;
     font-weight: 600;
     line-height: 1.5;
+    @media screen and (max-width: 500px) {
+      font-size: 1.2rem;
+      width: 80%;
+      text-align: center;
+      word-break: keep-all;
+    }
   }
 `;
 
