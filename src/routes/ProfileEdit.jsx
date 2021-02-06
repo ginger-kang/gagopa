@@ -17,12 +17,16 @@ const EditContainer = styled.main`
   width: 100%;
   max-width: 1450px;
   padding-top: 70px;
+  margin: 0 auto;
 `;
 
 const EditWrap = styled.div`
   width: 750px;
   margin: 0 auto;
   padding: 50px 0;
+  @media screen and (max-width: 750px) {
+    width: 95%;
+  }
 `;
 
 const EditTitle = styled.h2`
@@ -103,6 +107,10 @@ const InputContainer = styled.div`
     width: 90px;
     text-align: center;
     font-size: 15px;
+    @media screen and (max-width: 450px) {
+      width: 50px;
+      margin-right: 10px;
+    }
   }
 `;
 
@@ -136,15 +144,28 @@ const InputWrap = styled.div`
       border: 1px solid #7038d4;
     }
   }
+  @media screen and (max-width: 750px) {
+    width: 80%;
+  }
 `;
 
 const ButtonWrap = styled.div`
-  width: 40%;
+  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   margin-top: 45px;
+  & a {
+    @media screen and (max-width: 750px) {
+      width: 100%;
+    }
+  }
+  @media screen and (max-width: 750px) {
+    margin-top: 40px;
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 
 const SubmitButton = styled.button`
@@ -155,6 +176,9 @@ const SubmitButton = styled.button`
   border-radius: 5px;
   border: 1px solid
     ${(props) => (props.theme === lightTheme ? '#7038d4' : '#fcfcfc')};
+  @media screen and (max-width: 750px) {
+    width: 100%;
+  }
 `;
 
 const Cancel = styled.button`
@@ -164,6 +188,11 @@ const Cancel = styled.button`
   border: 1px solid #ca2121;
   font-size: 14px;
   border-radius: 5px;
+  margin: 0 0 0 25px;
+  @media screen and (max-width: 750px) {
+    width: 100%;
+    margin: 15px 0 0 0;
+  }
 `;
 
 const ProfileEdit = () => {

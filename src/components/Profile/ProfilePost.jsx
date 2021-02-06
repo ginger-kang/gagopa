@@ -15,6 +15,8 @@ const Post = styled.div`
   padding: 15px;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   border-bottom: 1px solid
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#565656')};
   &:last-child {
@@ -23,8 +25,8 @@ const Post = styled.div`
 `;
 
 const Picture = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   position: relative;
 
   & img {
@@ -41,6 +43,13 @@ const ContentWrap = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  @media screen and (max-width: 670px) {
+    width: 50%;
+  }
+  @media screen and (max-width: 550px) {
+    width: 130px;
+    justify-content: center;
+  }
 `;
 
 const Content = styled.div`
@@ -53,6 +62,9 @@ const Content = styled.div`
   & p {
     font-size: 15px;
     margin-top: 20px;
+  }
+  @media screen and (max-width: 550px) {
+    display: none;
   }
 `;
 

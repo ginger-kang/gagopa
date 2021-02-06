@@ -13,7 +13,8 @@ import ProfilePost from '../components/Profile/ProfilePost';
 const ProfileContainer = styled.main`
   width: 100vw;
   max-width: 1450px;
-  margin-top: 60px;
+  margin-top: 70px auto 0 auto;
+  padding-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,6 +27,11 @@ const ProfileWrap = styled.article`
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const UserInfoWrap = styled.div`
@@ -38,17 +44,26 @@ const UserInfoWrap = styled.div`
   justify-content: flex-start;
   align-items: center;
   border-radius: 8px;
+  @media screen and (max-width: 800px) {
+    width: 95%;
+    flex-direction: row;
+  }
 `;
 
 const Avatar = styled.div`
   width: 280px;
   height: 280px;
   background: #717171;
-  margin-top: 10px;
+  margin: 10px 0 0 0;
 
   & img {
     border-radius: 100%;
     object-fit: fill;
+  }
+  @media screen and (max-width: 800px) {
+    width: 30vw;
+    height: 30vw;
+    margin: 10px;
   }
 `;
 
@@ -59,11 +74,22 @@ const InfoWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  & a {
+    @media screen and (max-width: 800px) {
+      width: 100%;
+    }
+  }
+  @media screen and (max-width: 800px) {
+    width: 70vw;
+  }
 `;
 
 const Name = styled.span`
   font-size: 26px;
   font-weight: 600;
+  @media screen and (max-width: 500px) {
+    font-size: 20px;
+  }
 `;
 
 const Email = styled.div`
@@ -99,6 +125,9 @@ const EditButton = styled.button`
     background: ${(props) =>
       props.theme === lightTheme ? '#5e2fb3' : '#d4d4d4'};
   }
+  @media screen and (max-width: 800px) {
+    width: 100%;
+  }
 `;
 
 const PostContainer = styled.div`
@@ -113,6 +142,11 @@ const PostContainer = styled.div`
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#565656')};
   border-radius: 8px;
   margin-bottom: 60px;
+  @media screen and (max-width: 800px) {
+    width: 95%;
+    margin-left: 0;
+    margin-top: 20px;
+  }
 `;
 
 const PostHeader = styled.h4`
