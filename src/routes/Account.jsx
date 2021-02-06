@@ -10,13 +10,17 @@ import { AUTH_ALERT_MESSAGE } from '../utils/constant';
 const AccountContainer = styled.main`
   width: 100%;
   max-width: 1450px;
-  padding-top: 70px;
+  margin: 70px auto 0 auto;
 `;
 
 const AccountWrap = styled.div`
   width: 850px;
   margin: 0 auto 0 auto;
   padding: 50px 0 50px 0;
+  @media screen and (max-width: 850px) {
+    width: 100%;
+    padding: 50px 10px;
+  }
 `;
 
 const AccountMenu = styled.div`
@@ -42,6 +46,13 @@ const AccountMenu = styled.div`
     line-height: 1.5;
     font-size: 14px;
     color: #888888;
+    word-break: keep-all;
+  }
+  @media screen and (max-width: 850px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 450px) {
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
 
@@ -78,16 +89,23 @@ const AvatarWrap = styled.div`
     border-radius: 100%;
     object-fit: cover;
   }
+  @media screen and (max-width: 450px) {
+    width: 120px;
+    height: 120px;
+  }
 `;
 
 const ProfileContent = styled.div`
-  width: 650px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   padding-left: 30px;
   line-height: 1.5;
+  @media screen and (max-width: 450px) {
+    grid-template-columns: repeat(2, 1fr);
+    padding-left: 15px;
+  }
 `;
 
 const SubHead = styled.span`

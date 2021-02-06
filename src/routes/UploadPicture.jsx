@@ -21,6 +21,7 @@ const {
 const UploadContainer = styled.main`
   width: 100%;
   max-width: 1450px;
+  margin: 0 auto;
   padding-top: 70px;
 `;
 
@@ -36,6 +37,9 @@ const UploadFormWrap = styled.div`
   border: 1px solid
     ${(props) => (props.themeProps === lightTheme ? '#dadada' : '#565656')};
   background: ${(props) => props.themeProps.itemBackground};
+  @media screen and (max-width: 600px) {
+    width: 95%;
+  }
 `;
 
 const Title = styled.h2`
@@ -158,12 +162,18 @@ const InputWrap = styled.div`
         ${(props) => (props.theme === lightTheme ? '#7038d4' : 'none')};
     }
   }
+  @media screen and (max-width: 450px) {
+    width: 220px;
+  }
 `;
 
 const ButtonContainer = styled.div`
   width: 400px;
   display: flex;
   justify-content: space-evenly;
+  @media screen and (max-width: 400px) {
+    width: 100%;
+  }
 `;
 
 const Select = styled.select`
@@ -181,6 +191,9 @@ const Select = styled.select`
     min-height: 20px;
     padding: 0px 2px 1px;
   }
+  @media screen and (max-width: 450px) {
+    width: 220px;
+  }
 `;
 
 const FileName = styled.span`
@@ -197,6 +210,10 @@ const InputDescription = styled.p`
   color: #a0a0a0;
   line-height: 1.2;
   margin-bottom: 20px;
+  word-break: keep-all;
+  @media screen and (max-width: 450px) {
+    width: 200px;
+  }
 `;
 
 const InputContainer = styled.div`
@@ -210,6 +227,9 @@ const InputContainer = styled.div`
     width: 90px;
     text-align: center;
     font-size: 15px;
+    @media screen and (max-width: 600px) {
+      width: 80px;
+    }
   }
 `;
 
@@ -228,6 +248,9 @@ const LeftSlideButton = styled.div`
   &:hover {
     background: rgba(0, 0, 0, 0.07);
   }
+  @media screen and (max-width: 450px) {
+    left: -35px;
+  }
 `;
 
 const RightSlideButton = styled.div`
@@ -244,6 +267,9 @@ const RightSlideButton = styled.div`
   cursor: pointer;
   &:hover {
     background: rgba(0, 0, 0, 0.07);
+  }
+  @media screen and (max-width: 450px) {
+    right: -35px;
   }
 `;
 
