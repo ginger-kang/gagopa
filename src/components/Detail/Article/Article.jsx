@@ -307,7 +307,7 @@ const Article = ({ pictureObj }) => {
   const [likesId, setLikesId] = useState(undefined);
   const [description, setDescription] = useState(
     pictureObj.description.length > 47
-      ? pictureObj.description.slice(0, 47)
+      ? pictureObj.description.slice(0, 44) + '...'
       : pictureObj.description,
   );
   const [descriptionFlag, setDescriptionFlag] = useState(
