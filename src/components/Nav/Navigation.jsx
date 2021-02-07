@@ -44,7 +44,7 @@ const NavBarWrap = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  width: 200px;
+  width: 250px;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -101,7 +101,7 @@ const UploadPictureContent = styled.div`
 
 const ResponsiveTitle = styled.div`
   display: none;
-  font-size: 23px;
+  font-size: 32px;
   justify-content: center;
   align-items: center;
   font-weight: 600;
@@ -146,7 +146,7 @@ const Navigation = ({ show, navSearch }) => {
               <Title>gagopa</Title>
             </Link>
             <Link to="/">
-              <ResponsiveTitle>g</ResponsiveTitle>
+              <ResponsiveTitle>🦄</ResponsiveTitle>
             </Link>
           </TitleContainer>
           <SearchContainer>

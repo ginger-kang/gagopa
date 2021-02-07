@@ -23,7 +23,7 @@ const Search = styled.div`
 const SearchBar = styled.input`
   width: 100%;
   padding: 12px;
-  border-radius: 15px;
+  border-radius: 30px;
   border: 1px solid white;
   background: none;
   color: white;

@@ -57,7 +57,7 @@ const SearchBarWrap = styled.div`
 const SearchBar = styled.input`
   width: 100%;
   padding: 13px;
-  border-radius: 15px;
+  border-radius: 30px;
   background: ${(props) => props.theme.itemBackground};
   color: ${(props) => props.theme.text};
   border: 1px solid

@@ -82,7 +82,7 @@ const InfoWrap = styled.div`
     }
   }
   @media screen and (max-width: 800px) {
-    width: 70vw;
+    width: 58vw;
   }
 `;
 
@@ -103,6 +103,16 @@ const Email = styled.div`
   & span {
     font-size: 15px;
     margin-left: 7px;
+    @media screen and (max-width: 500px) {
+      font-size: 14px;
+      margin-left: 0;
+      word-break: break-all;
+    }
+  }
+  & svg {
+    @media screen and (max-width: 500px) {
+      display: none;
+    }
   }
 `;
 
@@ -110,6 +120,9 @@ const Introduce = styled.p`
   font-size: 16px;
   line-height: 20px;
   margin-top: 20px;
+  @media screen and (max-width: 500px) {
+    margin-top: 12px;
+  }
 `;
 
 const EditButton = styled.button`
@@ -129,6 +142,9 @@ const EditButton = styled.button`
   }
   @media screen and (max-width: 800px) {
     width: 100%;
+  }
+  @media screen and (max-width: 500px) {
+    margin-top: 12px;
   }
 `;
 
