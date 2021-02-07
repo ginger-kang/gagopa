@@ -54,7 +54,8 @@ const UserInfoWrap = styled.div`
 const Avatar = styled.div`
   width: 280px;
   height: 280px;
-  background: #717171;
+  background: none;
+  border-radius: 100%;
   margin: 10px 0 0 0;
 
   & img {

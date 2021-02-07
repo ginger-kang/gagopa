@@ -31,7 +31,6 @@ const SearchGridWrap = styled.div`
     grid-template-columns: repeat(1, 1fr);
     grid-column-gap: 13px;
     grid-row-gap: 13px;
-    margin-top: 25px;
   }
 `;
 
@@ -41,6 +40,9 @@ const SearchHeader = styled.header`
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  @media screen and (max-width: 450px) {
+    width: 100%;
+  }
 `;
 
 const SearchBarWrap = styled.div`
@@ -80,6 +82,9 @@ const SearchButton = styled.button`
   & svg {
     color: ${(props) => (props.theme === lightTheme ? '#949494' : '#828282')};
   }
+  @media screen and (max-width: 450px) {
+    display: none;
+  }
 `;
 
 const SearchContentWrap = styled.div`
@@ -92,7 +97,7 @@ const SearchContentWrap = styled.div`
   justify-content: center;
   align-items: flex-start;
   @media screen and (max-width: 900px) {
-    width: 95%;
+    width: 100%;
     align-items: center;
   }
 `;
@@ -118,10 +123,13 @@ const TagWrap = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  @media screen and (max-width: 900px) {
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 20px;
+  overflow: auto;
+  @media screen and (max-width: 580px) {
+    display: -webkit-box;
+  }
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    margin: 20px 0 0 0;
   }
 `;
 

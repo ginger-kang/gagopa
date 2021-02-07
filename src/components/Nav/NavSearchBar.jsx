@@ -13,9 +13,9 @@ const SearchBarWrap = styled.div`
 `;
 
 const Search = styled.div`
-  width: 250px;
+  width: 350px;
   position: relative;
-  @media screen and (max-width: 420px) {
+  @media screen and (max-width: 500px) {
     width: 200px;
   }
 `;
@@ -62,6 +62,9 @@ const SearchButton = styled.button`
         color: ${(props) =>
           props.theme === lightTheme ? '#949494' : '#828282'};
       `};
+  }
+  @media screen and (max-width: 450px) {
+    display: none;
   }
 `;
 
