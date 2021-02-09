@@ -65,12 +65,16 @@ const MenuList = styled.li`
 
 const EditWrap = styled.div`
   width: 400px;
-  height: 250px;
+  height: 300px;
   border-radius: 12px;
   background: ${(props) => props.theme.itemBackground};
   display: ${(props) => (props.isEdit ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 420px) {
+    width: 95vw;
+  }
 `;
 
 const EditTitle = styled.h3`
@@ -90,12 +94,13 @@ const Edit = styled.div`
   align-items: center;
 `;
 
-const EditInput = styled.input`
+const EditInput = styled.textarea`
   width: 90%;
   height: 60px;
   padding: 15px;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.2);
+  resize: none;
 
   &:focus {
     outline: none;
@@ -104,14 +109,15 @@ const EditInput = styled.input`
 `;
 
 const EditButtonWrap = styled.div`
-  width: 100%;
+  width: 90%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
 const EditButton = styled.button`
-  width: 90px;
+  width: 100%;
   height: 40px;
   background: none;
   color: ${(props) => (props.theme === lightTheme ? '#7038d4' : '#fcfcfc')};
@@ -122,14 +128,14 @@ const EditButton = styled.button`
 `;
 
 const EditCancelButton = styled.button`
-  width: 90px;
+  width: 100%;
   height: 40px;
   color: #ca2121;
   background: none;
   border: 1px solid #ca2121;
   font-size: 14px;
   border-radius: 5px;
-  margin-left: 50px;
+  margin-top: 10px;
 `;
 
 const EditDeleteComment = ({ id, toggle, refresh, text }) => {
@@ -205,7 +211,7 @@ const EditDeleteComment = ({ id, toggle, refresh, text }) => {
         ) : (
           <Edit>
             <EditTitle>댓글 수정</EditTitle>
-            <EditInput value={editText} onChange={onChange} maxLength="100" />
+            <EditInput value={editText} onChange={onChange} maxLength="120" />
             <EditButtonWrap>
               <EditButton theme={theme} onClick={handleEdit}>
                 수정
