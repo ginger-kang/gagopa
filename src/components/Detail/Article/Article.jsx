@@ -270,10 +270,21 @@ const IconWrap = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+`;
 
+const Icon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   svg {
     cursor: pointer;
   }
+`;
+
+const IconContent = styled.div`
+  margin-left: 8px;
+  border-radius: 8px;
+  font-size: 13px;
 `;
 
 const Description = styled.span`
@@ -281,9 +292,9 @@ const Description = styled.span`
 `;
 
 const UploadLinkButton = styled.button`
-  width: 240px;
-  height: 45px;
-  background: linear-gradient(45deg, #9f04ff, #3a19f1);
+  width: 260px;
+  height: 40px;
+  background: #7038d4;
   color: white;
   border-radius: 8px;
 `;
@@ -315,6 +326,7 @@ const Article = ({ pictureObj }) => {
   );
   const [pictureIndex, setPictureIndex] = useState(0);
 
+  const commentsCount = pictureObj.comments.items.length;
   const pictures = pictureObj.attachment;
 
   useEffect(() => {
@@ -442,21 +454,30 @@ const Article = ({ pictureObj }) => {
             </div>
           </InfoWrap>
           <IconWrap theme={theme}>
-            {isLiked ? (
-              <IoIosHeart size={28} onClick={handleDeleteLike} />
-            ) : (
-              <IoIosHeartEmpty size={28} onClick={handleLike} />
-            )}
-            <GoComment size={24} />
-            <IoLogoInstagram
-              size={28}
-              onClick={() =>
-                window.open(
-                  `https://instagram.com/${pictureObj.instagram}`,
-                  '_blank',
-                )
-              }
-            />
+            <Icon>
+              {isLiked ? (
+                <IoIosHeart size={28} onClick={handleDeleteLike} />
+              ) : (
+                <IoIosHeartEmpty size={28} onClick={handleLike} />
+              )}
+              <IconContent>{likesCount}</IconContent>
+            </Icon>
+            <Icon>
+              <GoComment size={24} />
+              <IconContent>{commentsCount}</IconContent>
+            </Icon>
+            <Icon>
+              <IoLogoInstagram
+                size={28}
+                onClick={() =>
+                  window.open(
+                    `https://instagram.com/${pictureObj.instagram}`,
+                    '_blank',
+                  )
+                }
+              />
+              <IconContent>{pictureObj.instagram}</IconContent>
+            </Icon>
           </IconWrap>
         </ContentWrap>
         <ContentSticky theme={theme}>

@@ -26,7 +26,7 @@ const HorizontalLine = styled.div`
     props.theme === lightTheme ? '#cacaca' : '#4c4949'};
   width: 1000px;
   height: 1px;
-  margin: 30px 0;
+  margin: 15px 0;
   @media screen and (max-width: 1000px) {
     width: 95vw;
     margin: 15px 0;

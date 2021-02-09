@@ -19,6 +19,8 @@ const CommentContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 8px;
+  background: ${(props) => props.theme.itemBackground};
   border: 1px solid
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
   @media screen and (max-width: 1000px) {
@@ -28,13 +30,14 @@ const CommentContainer = styled.div`
 
 const CommentHeader = styled.header`
   width: 100%;
-  height: 80px;
-  padding: 0 25px;
-  font-size: 1.1rem;
+  padding: 15px;
+  font-size: 1.2rem;
   font-weight: 600;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  border-bottom: 1px solid
+    ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
 `;
 
 const CommentWrap = styled.div`
@@ -53,7 +56,7 @@ const CommentWrap = styled.div`
 const CommentBox = styled.div`
   width: 50%;
   height: 200px;
-  padding: 5px 20px;
+  padding: 20px;
   @media screen and (max-width: 1000px) {
     width: 100%;
   }
@@ -70,8 +73,8 @@ const CommentAuthor = styled.div`
 `;
 
 const Avatar = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   object-fit: cover;
   border-radius: 100%;
 `;
@@ -122,11 +125,47 @@ const CommentInputWrap = styled.div`
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
 `;
 
+const InputWrap = styled.div`
+  width: 75%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media screen and (min-width: 1000px) {
+    width: 60%;
+  }
+`;
+
 const Input = styled.textarea`
-  width: 500px;
+  width: 100%;
   height: 40px;
-  padding: 10px;
-  margin: 0 10px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  resize: none;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0 10px 0 15px;
+  padding: 8px 45px 8px 8px;
+  color: ${(props) => (props.theme === lightTheme ? '#353536' : 'white')};
+  background: ${(props) =>
+    props.theme === lightTheme ? '#f5f5f5' : '#252424'};
+  border: 1px solid
+    ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
+  &:focus {
+    outline: none;
+    border: 1px solid #7038d4;
+  }
+`;
+
+const CommentSubmitButton = styled.button`
+  border-radius: 8px;
+  font-size: 14px;
+  color: ${(props) => (props.theme === lightTheme ? '#7038d4' : '#8c52f3')};
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  background: none;
+  transform: translateY(-50%);
 `;
 
 const Comment = ({ pictureId }) => {
@@ -206,7 +245,7 @@ const Comment = ({ pictureId }) => {
           <LoadingPage />
         ) : (
           <>
-            <CommentHeader>
+            <CommentHeader theme={theme}>
               <span>댓글</span>
               &nbsp;
               <span>{comments.length}개</span>
@@ -240,18 +279,23 @@ const Comment = ({ pictureId }) => {
               {cognitoUser ? (
                 <Avatar src={cognitoUser.avatar.uri} alt="avatar" />
               ) : (
-                <span style={{ fontSize: '1.5rem' }}>👻</span>
+                <span style={{ fontSize: '30px' }}>👻</span>
               )}
-              <Input
-                type="text"
-                value={commentInput}
-                placeholder="댓글"
-                onChange={onChange}
-                autoComplete="off"
-                autoCorrect="off"
-                maxLength="100"
-              />
-              <button onClick={onSubmit}>등록</button>
+              <InputWrap>
+                <Input
+                  type="text"
+                  value={commentInput}
+                  placeholder="댓글 작성"
+                  onChange={onChange}
+                  autoComplete="off"
+                  autoCorrect="off"
+                  maxLength="100"
+                  theme={theme}
+                />
+                <CommentSubmitButton onClick={onSubmit} theme={theme}>
+                  등록
+                </CommentSubmitButton>
+              </InputWrap>
             </CommentInputWrap>
           </>
         )}
