@@ -29,6 +29,9 @@ const SignInWrap = styled.div`
   border-radius: 15px;
   box-shadow: 2px 2px 13px rgba(0, 0, 0, 0.1);
   background: ${(props) => props.theme.itemBackground};
+  @media screen and (max-width: 550px) {
+    width: 95vw;
+  }
 `;
 
 const SignInHeader = styled.header`
@@ -94,6 +97,9 @@ const InputWrap = styled.div`
       border: 1.5px solid #7038d4;
     }
   }
+  @media screen and (max-width: 550px) {
+    width: 85%;
+  }
 `;
 
 const LoginButton = styled.button`
@@ -104,6 +110,9 @@ const LoginButton = styled.button`
   font-size: 14px;
   margin-top: 18px;
   border-radius: 5px;
+  @media screen and (max-width: 550px) {
+    width: 85%;
+  }
 `;
 
 const GoogleLoginWrap = styled.div`
@@ -125,6 +134,9 @@ const GoogleLoginWrap = styled.div`
   & img {
     width: 25px;
     margin-right: 10px;
+  }
+  @media screen and (max-width: 550px) {
+    width: 85%;
   }
 `;
 

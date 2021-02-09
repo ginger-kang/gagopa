@@ -29,6 +29,12 @@ const SignUpWrap = styled.div`
   border-radius: 15px;
   box-shadow: 2px 2px 13px rgba(0, 0, 0, 0.1);
   background: ${(props) => props.theme.itemBackground};
+  @media screen and (max-width: 550px) {
+    width: 95vw;
+  }
+  @media screen and (max-width: 330px) {
+    height: 550px;
+  }
 `;
 
 const SignUpHeader = styled.header`
@@ -77,6 +83,9 @@ const SignUpMain = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0 15px;
+  @media screen and (max-width: 330px) {
+    height: 500px;
+  }
 `;
 
 const InputWrap = styled.div`
@@ -101,6 +110,12 @@ const InputWrap = styled.div`
     font-size: 8px;
     opacity: 0.6;
   }
+  @media screen and (max-width: 550px) {
+    width: 85%;
+  }
+  @media screen and (max-width: 330px) {
+    height: 60px;
+  }
 `;
 
 const ConfirmInputWrap = styled.div`
@@ -121,6 +136,9 @@ const ConfirmInputWrap = styled.div`
     font-size: 8px;
     opacity: 0.6;
   }
+  @media screen and (max-width: 550px) {
+    width: 85%;
+  }
 `;
 
 const SubmitButton = styled.button`
@@ -131,6 +149,9 @@ const SubmitButton = styled.button`
   font-size: 14px;
   margin-top: 10px;
   border-radius: 5px;
+  @media screen and (max-width: 550px) {
+    width: 85%;
+  }
 `;
 
 const ConfirmButton = styled.button`
@@ -141,6 +162,9 @@ const ConfirmButton = styled.button`
   font-size: 14px;
   border-radius: 5px;
   margin-top: 15px;
+  @media screen and (max-width: 550px) {
+    width: 85%;
+  }
 `;
 
 const GoogleLoginWrap = styled.div`
@@ -164,6 +188,9 @@ const GoogleLoginWrap = styled.div`
     width: 25px;
     margin-right: 10px;
   }
+  @media screen and (max-width: 550px) {
+    width: 85%;
+  }
 `;
 
 const ConfirmContent = styled.div`
@@ -177,11 +204,16 @@ const ConfirmContent = styled.div`
   text-align: center;
   word-break: keep-all;
   line-height: 20px;
+  @media screen and (max-width: 550px) {
+    width: 85%;
+  }
 `;
 
 const DoodleWrap = styled.div`
   width: 300px;
-  height: 300px;
+  @media screen and (max-width: 330px) {
+    width: 200px;
+  }
 `;
 
 const ConfirmWrap = styled.div`
