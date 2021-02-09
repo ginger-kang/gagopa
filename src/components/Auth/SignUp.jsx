@@ -101,7 +101,7 @@ const InputWrap = styled.div`
     border: 1px solid rgba(0, 0, 0, 0.2);
     &:focus {
       outline: none;
-      border: 2px solid #7038d4;
+      border: 1px solid #7038d4;
     }
   }
   & span {
@@ -127,7 +127,7 @@ const ConfirmInputWrap = styled.div`
     border: 1px solid rgba(0, 0, 0, 0.2);
     &:focus {
       outline: none;
-      border: 2px solid #7038d4;
+      border: 1px solid #7038d4;
     }
   }
   & span {

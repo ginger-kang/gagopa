@@ -94,7 +94,7 @@ const InputWrap = styled.div`
 
     &:focus {
       outline: none;
-      border: 1.5px solid #7038d4;
+      border: 1px solid #7038d4;
     }
   }
   @media screen and (max-width: 550px) {
