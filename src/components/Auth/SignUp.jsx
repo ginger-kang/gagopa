@@ -7,6 +7,7 @@ import { IoIosClose } from 'react-icons/io';
 import googleLogo from '../../static/assets/googleLogo.svg';
 import LoadingPage from '../Load/LoadingPage';
 import { AUTH_ALERT_MESSAGE } from '../../utils/constant';
+import sprintingDoodle from '../../static/assets/sprintingDoodle.png';
 
 const SignUpContainer = styled.div`
   width: 100vw;
@@ -102,6 +103,26 @@ const InputWrap = styled.div`
   }
 `;
 
+const ConfirmInputWrap = styled.div`
+  width: 70%;
+  & input {
+    padding: 15px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    &:focus {
+      outline: none;
+      border: 2px solid #7038d4;
+    }
+  }
+  & span {
+    display: inline-block;
+    margin: 5px;
+    font-size: 8px;
+    opacity: 0.6;
+  }
+`;
+
 const SubmitButton = styled.button`
   width: 70%;
   height: 47px;
@@ -110,6 +131,16 @@ const SubmitButton = styled.button`
   font-size: 14px;
   margin-top: 10px;
   border-radius: 5px;
+`;
+
+const ConfirmButton = styled.button`
+  width: 70%;
+  height: 47px;
+  background: #7038d4;
+  color: white;
+  font-size: 14px;
+  border-radius: 5px;
+  margin-top: 15px;
 `;
 
 const GoogleLoginWrap = styled.div`
@@ -133,6 +164,33 @@ const GoogleLoginWrap = styled.div`
     width: 25px;
     margin-right: 10px;
   }
+`;
+
+const ConfirmContent = styled.div`
+  width: 80%;
+  padding: 20px 10px;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  word-break: keep-all;
+  line-height: 20px;
+`;
+
+const DoodleWrap = styled.div`
+  width: 300px;
+  height: 300px;
+`;
+
+const ConfirmWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 `;
 
 const SignUp = ({ toggleSignUp }) => {
@@ -276,18 +334,26 @@ const SignUp = ({ toggleSignUp }) => {
               </>
             ) : (
               <>
-                <div>{email}로 보낸 회원가입 코드를 입력해주세요.</div>
-                <InputWrap>
-                  <input
-                    name="code"
-                    type="code"
-                    required
-                    value={code}
-                    onChange={onChange}
-                    placeholder="확인코드"
-                  />
-                </InputWrap>
-                <SubmitButton onClick={confirmSignUp}>확인</SubmitButton>
+                <ConfirmWrap>
+                  <ConfirmContent>
+                    <DoodleWrap>
+                      <img src={sprintingDoodle} alt="doodle" />
+                    </DoodleWrap>
+                    <span style={{ fontWeight: '600' }}>{email}</span>(으)로
+                    보낸 회원가입 코드를 입력해주세요.
+                  </ConfirmContent>
+                  <ConfirmInputWrap>
+                    <input
+                      name="code"
+                      type="code"
+                      required
+                      value={code}
+                      onChange={onChange}
+                      placeholder="확인코드"
+                    />
+                  </ConfirmInputWrap>
+                  <ConfirmButton onClick={confirmSignUp}>확인</ConfirmButton>
+                </ConfirmWrap>
               </>
             )}
           </SignUpMain>
