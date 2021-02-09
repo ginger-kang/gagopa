@@ -15,4 +15,5 @@ export const UPLOAD_ALERT_MESSAGE = {
   LACK_REQUIRED_FIELD: '필수 항목들을 빠짐없이 입력해주세요.',
   COMPLETE_UPLOAD_PICTURE: '사진을 성공적으로 업로드했습니다 🙆',
   OVER_PICTURE_MAX_COUNT: '사진은 최대 6장 까지 올릴 수 있습니다.',
+  COMPLETE_UPDATE_PICTURE: '사진 정보를 수정했습니다.',
 };

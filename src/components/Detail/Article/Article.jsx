@@ -6,6 +6,7 @@ import { lightTheme } from '../../../theme';
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
 import { GoComment } from 'react-icons/go';
 import { IoLogoInstagram } from 'react-icons/io';
+import { AiOutlineEllipsis } from 'react-icons/ai';
 import { API, graphqlOperation } from 'aws-amplify';
 import {
   createPictureLike,
@@ -15,6 +16,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { dateToString } from '../../../utils/utils';
 import { FaQuestion } from 'react-icons/fa';
 import { AUTH_ALERT_MESSAGE } from '../../../utils/constant';
+import EditDeletePost from './EditDeletePost';
 
 const ArticleWrap = styled.article`
   width: 1000px;
@@ -225,12 +227,26 @@ const Info = styled.div`
 `;
 
 const InfoHeader = styled.h3`
+  position: relative;
   width: 100%;
   padding: 15px;
   font-size: 1.2rem;
   font-weight: 600;
   border-bottom: 1px solid
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
+`;
+
+const ModifyAndDelete = styled.div`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  @media screen and (max-width: 1000px) {
+    right: 15px;
+  }
 `;
 
 const InfoTitle = styled.h5`
@@ -325,6 +341,8 @@ const Article = ({ pictureObj }) => {
     pictureObj.description.length > 48,
   );
   const [pictureIndex, setPictureIndex] = useState(0);
+  const [editToggle, setEditToggle] = useState(false);
+  const [editPostId, setEditPostId] = useState('');
 
   const commentsCount = pictureObj.comments.items.length;
   const pictures = pictureObj.attachment;
@@ -387,122 +405,148 @@ const Article = ({ pictureObj }) => {
     setDescriptionFlag(false);
   };
 
+  const handleEditPost = (id) => {
+    setEditToggle((prev) => !prev);
+    setEditPostId(id);
+  };
+
   return (
-    <ArticleWrap>
-      <PictureWrap theme={theme}>
-        <MainPicture>
-          <img src={pictures[pictureIndex].uri} alt="post" />
-        </MainPicture>
-        <PicturePreview index={pictureIndex}>
-          {pictures.map((picture, index) => (
-            <Picture key={index} onClick={() => onPicturePreviewClick(index)}>
-              <img src={picture.uri} alt="post" />
-            </Picture>
-          ))}
-        </PicturePreview>
-      </PictureWrap>
-      <ContentContainer>
-        <ContentWrap theme={theme}>
-          <InfoHeader theme={theme}>사진</InfoHeader>
-          <InfoWrap>
-            <AuthorWrap theme={theme}>
-              <Avatar src={pictureObj.author.avatar.uri} alt="avatar" />
-              <Content theme={theme}>
-                <Link to={{ pathname: `/user/${pictureObj.authorId}` }}>
-                  <AuthorName>{pictureObj.author.username}</AuthorName>
-                </Link>
-                <CreatedDate>{dateToString(pictureObj.createdAt)}</CreatedDate>
-              </Content>
-            </AuthorWrap>
-            <div style={{ width: '450px', padding: '15px 3px' }}>
-              <Info>
-                <InfoContent>
-                  <InfoTitle>제목</InfoTitle>
-                  <span>{pictureObj.title}</span>
-                </InfoContent>
-              </Info>
-              <Info>
-                <InfoContent>
-                  <InfoTitle>도시</InfoTitle>
-                  <span>{pictureObj.city}</span>
-                </InfoContent>
-              </Info>
-              <Info>
-                <InfoContent>
-                  <InfoTitle>위치</InfoTitle>
-                  <span>{pictureObj.location}</span>
-                </InfoContent>
-              </Info>
-              <Info>
-                <InfoContent>
-                  <InfoTitle>설명</InfoTitle>
-                  <Description>
-                    {descriptionFlag ? (
-                      <>
-                        <span>{description}</span>
-                        &nbsp;
-                        <MoreDescription onClick={moreDescriptionClick}>
-                          더보기
-                        </MoreDescription>
-                      </>
-                    ) : (
-                      <span>{description}</span>
-                    )}
-                  </Description>
-                </InfoContent>
-              </Info>
-            </div>
-          </InfoWrap>
-          <IconWrap theme={theme}>
-            <Icon>
-              {isLiked ? (
-                <IoIosHeart size={28} onClick={handleDeleteLike} />
-              ) : (
-                <IoIosHeartEmpty size={28} onClick={handleLike} />
+    <>
+      <ArticleWrap>
+        <PictureWrap theme={theme}>
+          <MainPicture>
+            <img src={pictures[pictureIndex].uri} alt="post" />
+          </MainPicture>
+          <PicturePreview index={pictureIndex}>
+            {pictures.map((picture, index) => (
+              <Picture key={index} onClick={() => onPicturePreviewClick(index)}>
+                <img src={picture.uri} alt="post" />
+              </Picture>
+            ))}
+          </PicturePreview>
+        </PictureWrap>
+        <ContentContainer>
+          <ContentWrap theme={theme}>
+            <InfoHeader theme={theme}>
+              사진
+              {cognitoUser && cognitoUser.userId === pictureObj.authorId && (
+                <ModifyAndDelete>
+                  <AiOutlineEllipsis
+                    size={30}
+                    onClick={() => handleEditPost(pictureObj.id)}
+                  />
+                </ModifyAndDelete>
               )}
-              <IconContent>{likesCount}</IconContent>
-            </Icon>
-            <Icon>
-              <GoComment size={24} />
-              <IconContent>{commentsCount}</IconContent>
-            </Icon>
-            <Icon>
-              <IoLogoInstagram
-                size={28}
-                onClick={() =>
-                  window.open(
-                    `https://instagram.com/${pictureObj.instagram}`,
-                    '_blank',
-                  )
-                }
-              />
-              <IconContent>{pictureObj.instagram}</IconContent>
-            </Icon>
-          </IconWrap>
-        </ContentWrap>
-        <ContentSticky theme={theme}>
-          <span>
-            여러분들만의
-            <br />
-            일본 여행 사진을 올려주세요.
-          </span>
-          <div>
-            <FaQuestion size={28} />
-          </div>
-          {cognitoUser ? (
-            <>
-              <Link to="/upload">
-                <UploadLinkButton>사진 올리러 가기</UploadLinkButton>
-              </Link>
-            </>
-          ) : (
-            <UploadLinkButton onClick={alertMessage}>
-              여행 사진 올리기
-            </UploadLinkButton>
-          )}
-        </ContentSticky>
-      </ContentContainer>
-    </ArticleWrap>
+            </InfoHeader>
+            <InfoWrap>
+              <AuthorWrap theme={theme}>
+                <Avatar src={pictureObj.author.avatar.uri} alt="avatar" />
+                <Content theme={theme}>
+                  <Link to={{ pathname: `/user/${pictureObj.authorId}` }}>
+                    <AuthorName>{pictureObj.author.username}</AuthorName>
+                  </Link>
+                  <CreatedDate>
+                    {dateToString(pictureObj.createdAt)}
+                  </CreatedDate>
+                </Content>
+              </AuthorWrap>
+              <div style={{ width: '450px', padding: '15px 3px' }}>
+                <Info>
+                  <InfoContent>
+                    <InfoTitle>제목</InfoTitle>
+                    <span>{pictureObj.title}</span>
+                  </InfoContent>
+                </Info>
+                <Info>
+                  <InfoContent>
+                    <InfoTitle>도시</InfoTitle>
+                    <span>{pictureObj.city}</span>
+                  </InfoContent>
+                </Info>
+                <Info>
+                  <InfoContent>
+                    <InfoTitle>위치</InfoTitle>
+                    <span>{pictureObj.location}</span>
+                  </InfoContent>
+                </Info>
+                <Info>
+                  <InfoContent>
+                    <InfoTitle>설명</InfoTitle>
+                    <Description>
+                      {descriptionFlag ? (
+                        <>
+                          <span>{description}</span>
+                          &nbsp;
+                          <MoreDescription onClick={moreDescriptionClick}>
+                            더보기
+                          </MoreDescription>
+                        </>
+                      ) : (
+                        <span>{description}</span>
+                      )}
+                    </Description>
+                  </InfoContent>
+                </Info>
+              </div>
+            </InfoWrap>
+            <IconWrap theme={theme}>
+              <Icon>
+                {isLiked ? (
+                  <IoIosHeart size={28} onClick={handleDeleteLike} />
+                ) : (
+                  <IoIosHeartEmpty size={28} onClick={handleLike} />
+                )}
+                <IconContent>{likesCount}</IconContent>
+              </Icon>
+              <Icon>
+                <GoComment size={24} />
+                <IconContent>{commentsCount}</IconContent>
+              </Icon>
+              <Icon>
+                <IoLogoInstagram
+                  size={28}
+                  onClick={() =>
+                    window.open(
+                      `https://instagram.com/${pictureObj.instagram}`,
+                      '_blank',
+                    )
+                  }
+                />
+                <IconContent>{pictureObj.instagram}</IconContent>
+              </Icon>
+            </IconWrap>
+          </ContentWrap>
+          <ContentSticky theme={theme}>
+            <span>
+              여러분들만의
+              <br />
+              일본 여행 사진을 올려주세요.
+            </span>
+            <div>
+              <FaQuestion size={28} />
+            </div>
+            {cognitoUser ? (
+              <>
+                <Link to="/upload">
+                  <UploadLinkButton>사진 올리러 가기</UploadLinkButton>
+                </Link>
+              </>
+            ) : (
+              <UploadLinkButton onClick={alertMessage}>
+                여행 사진 올리기
+              </UploadLinkButton>
+            )}
+          </ContentSticky>
+        </ContentContainer>
+      </ArticleWrap>
+      {editToggle && (
+        <EditDeletePost
+          id={editPostId}
+          toggle={handleEditPost}
+          pictureObj={pictureObj}
+        />
+      )}
+    </>
   );
 };
 export default Article;

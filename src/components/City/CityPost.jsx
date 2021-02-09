@@ -141,7 +141,6 @@ const CityPost = ({ post, cityName }) => {
         key={post.id}
         to={{
           pathname: `/city/${cityName}/${post.id}`,
-          state: { cityName: cityName, post: post },
         }}
       >
         <Hover>

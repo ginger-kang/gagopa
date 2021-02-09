@@ -169,7 +169,6 @@ const ProfilePost = ({ post }) => {
         <Link
           to={{
             pathname: `/city/${cityName}/${post.id}`,
-            state: { cityName: cityName, post: post },
           }}
         >
           <img src={post.attachment[pictureIndex].uri} alt="attachment" />
