@@ -142,7 +142,6 @@ const LikesPost = ({ post }) => {
         key={post.id}
         to={{
           pathname: `/city/${cityName}/${post.id}`,
-          state: { cityName: cityName, post: post },
         }}
       >
         <Hover>

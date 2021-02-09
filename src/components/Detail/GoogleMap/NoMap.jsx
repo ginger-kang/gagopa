@@ -38,6 +38,7 @@ const ContentWrap = styled.div`
     line-height: 1.5;
     @media screen and (max-width: 1000px) {
       width: 300px;
+      font-size: 1.1rem;
       text-align: center;
       margin: 10px auto;
     }
@@ -48,6 +49,10 @@ const ImageWrap = styled.div`
   width: 320px;
   height: 250px;
   margin-bottom: 20px;
+  @media screen and (max-width: 500px) {
+    width: 280px;
+    height: 210px;
+  }
 `;
 
 const MapTitle = styled.h3`

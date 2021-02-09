@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import doodle from '../../static/assets/doodle.png';
+import doodle from '../../../static/assets/doodle.png';
 
 const Container = styled.div`
   width: 100%;
   display: flex;
-  margin-bottom: 60px;
+  margin: 30px 0;
 `;
 
 const ContentWrap = styled.div`
@@ -20,7 +20,7 @@ const ContentWrap = styled.div`
     font-weight: 600;
     line-height: 1.5;
     @media screen and (max-width: 500px) {
-      font-size: 1.2rem;
+      font-size: 1rem;
       width: 80%;
       text-align: center;
       word-break: keep-all;
@@ -32,25 +32,21 @@ const ImageWrap = styled.div`
   width: 320px;
   height: 250px;
   margin-bottom: 20px;
-  @media screen and (max-width: 500px) {
-    width: 280px;
-    height: 210px;
-  }
 `;
 
-const NoLikesPost = ({ hasPost }) => {
+const NoComment = ({ hasComment }) => {
   return (
-    !hasPost && (
+    !hasComment && (
       <Container>
         <ContentWrap>
           <ImageWrap>
             <img src={doodle} alt="doodle" />
           </ImageWrap>
-          <span>좋아요한 사진이 없습니다.</span>
+          <span>등록된 댓글이 없습니다.</span>
         </ContentWrap>
       </Container>
     )
   );
 };
 
-export default NoLikesPost;
+export default NoComment;

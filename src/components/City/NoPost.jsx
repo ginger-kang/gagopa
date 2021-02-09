@@ -20,7 +20,7 @@ const ContentWrap = styled.div`
     font-weight: 600;
     line-height: 1.5;
     @media screen and (max-width: 500px) {
-      font-size: 1.2rem;
+      font-size: 1rem;
       width: 80%;
       text-align: center;
       word-break: keep-all;
@@ -32,6 +32,10 @@ const ImageWrap = styled.div`
   width: 320px;
   height: 250px;
   margin-bottom: 20px;
+  @media screen and (max-width: 500px) {
+    width: 280px;
+    height: 210px;
+  }
 `;
 
 const NoPost = ({ hasPost, cityName }) => {

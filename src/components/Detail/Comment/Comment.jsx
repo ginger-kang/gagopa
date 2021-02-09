@@ -10,6 +10,7 @@ import { dateToString } from '../../../utils/utils';
 import { AiOutlineEllipsis } from 'react-icons/ai';
 import EditDeleteComment from './EditDeleteComment';
 import { AUTH_ALERT_MESSAGE, EMPTY_COMMENT } from '../../../utils/constant';
+import NoComment from './NoComment';
 
 const CommentContainer = styled.div`
   width: 1000px;
@@ -44,7 +45,7 @@ const CommentWrap = styled.div`
   width: 100%;
   height: ${(props) => (props.isMany ? '600px' : 'auto')};
   overflow-y: ${(props) => (props.isMany ? 'auto' : 'unset')};
-  display: flex;
+  display: ${(props) => (props.hasComment ? 'flex' : 'none')};
   flex-direction: row;
   flex-wrap: wrap;
   @media screen and (max-width: 1000px) {
@@ -180,6 +181,7 @@ const Comment = ({ pictureId }) => {
   const [editToggle, setEditToggle] = useState(false);
   const [editCommentId, setEditCommentId] = useState('');
   const [editText, setEditText] = useState('');
+  const [hasComment, setHasComment] = useState(false);
 
   const fetchComments = useCallback(async () => {
     setIsLoading(true);
@@ -194,6 +196,7 @@ const Comment = ({ pictureId }) => {
       setComments(comments);
       setCommentCount(comments.length);
       commentCount > 6 ? setIsMany(true) : setIsMany(false);
+      setHasComment(comments.length > 0);
     } catch (error) {
       console.log(error);
     } finally {
@@ -250,7 +253,8 @@ const Comment = ({ pictureId }) => {
               &nbsp;
               <span>{comments.length}개</span>
             </CommentHeader>
-            <CommentWrap isMany={isMany}>
+            <NoComment hasComment={hasComment} />
+            <CommentWrap isMany={isMany} hasComment={hasComment}>
               {comments.map((comment) => (
                 <CommentBox key={comment.id}>
                   <CommentAuthor>
