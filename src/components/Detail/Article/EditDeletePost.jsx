@@ -6,6 +6,7 @@ import { deletePicture } from '../../../graphql/mutations';
 import LoadingPage from '../../Load/LoadingPage';
 import { Link, useHistory } from 'react-router-dom';
 import { translateToKo } from '../../../utils/translate';
+import { getKeyByValue } from '../../../utils/utils';
 
 const ModalContainer = styled.div`
   width: 100vw;
@@ -71,10 +72,7 @@ const EditDeletePost = ({ id, toggle, pictureObj }) => {
   const { theme } = useContext(ThemeContext);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
-
-  const cityName = Object.keys(translateToKo).find(
-    (key) => translateToKo[key] === pictureObj.city,
-  );
+  const cityName = getKeyByValue(translateToKo, pictureObj.city);
 
   const handleDelete = async () => {
     const ok = window.confirm('정말 삭제하시겠습니까?');
