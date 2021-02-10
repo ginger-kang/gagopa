@@ -11,12 +11,16 @@ const EditContainer = styled.main`
   width: 100%;
   max-width: 1450px;
   padding-top: 70px;
+  margin: 0 auto;
 `;
 
 const EditWrap = styled.div`
   width: 750px;
   margin: 0 auto;
   padding: 50px 0;
+  @media screen and (max-width: 750px) {
+    width: 95%;
+  }
 `;
 
 const EditTitle = styled.h2`
@@ -49,6 +53,9 @@ const InputContainer = styled.div`
     text-align: center;
     font-size: 15px;
     margin-right: 10px;
+    @media screen and (max-width: 750px) {
+      display: none;
+    }
   }
   :first-child {
     margin: 40px 0;
@@ -73,6 +80,9 @@ const InputWrap = styled.div`
       border: 1px solid #7038d4;
     }
   }
+  @media screen and (max-width: 750px) {
+    width: 85%;
+  }
 `;
 const ButtonWrap = styled.div`
   width: 40%;
@@ -81,6 +91,17 @@ const ButtonWrap = styled.div`
   justify-content: space-evenly;
   align-items: center;
   margin-top: 45px;
+  & a {
+    @media screen and (max-width: 750px) {
+      width: 100%;
+    }
+  }
+  @media screen and (max-width: 750px) {
+    width: 85%;
+    margin-top: 40px;
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 
 const SubmitButton = styled.button`
@@ -92,6 +113,9 @@ const SubmitButton = styled.button`
   border-radius: 5px;
   border: 1px solid
     ${(props) => (props.theme === lightTheme ? '#7038d4' : '#fcfcfc')};
+  @media screen and (max-width: 750px) {
+    width: 100%;
+  }
 `;
 
 const Cancel = styled.button`
@@ -102,6 +126,10 @@ const Cancel = styled.button`
   border: 1px solid #ca2121;
   font-size: 14px;
   border-radius: 5px;
+  @media screen and (max-width: 750px) {
+    width: 100%;
+    margin: 15px 0 0 0;
+  }
 `;
 
 const PasswordEdit = () => {
@@ -165,19 +193,19 @@ const PasswordEdit = () => {
               </InputWrap>
             </InputContainer>
             <InputContainer>
-              <span>새로운 비밀번호</span>
+              <span>새 비밀번호</span>
               <InputWrap>
                 <input
                   name="newPassword"
                   type="password"
-                  placeholder="비밀번호는 8 ~ 15자리의 숫자, 영문 및 특수문자 사용"
+                  placeholder="8~15자리의 숫자, 영문 및 특수문자 사용"
                   onChange={onChange}
                   required
                 ></input>
               </InputWrap>
             </InputContainer>
             <InputContainer>
-              <span>새로운 비밀번호 확인</span>
+              <span>새 비밀번호 확인</span>
               <InputWrap>
                 <input
                   type="password"
