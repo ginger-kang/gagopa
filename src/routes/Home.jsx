@@ -6,6 +6,7 @@ import SetUserNameModal from '../components/Home/SetUserNameModal';
 import Navigation from '../components/Nav/Navigation';
 import { NAV_SCROLL_OFFSET } from '../utils/constant';
 import { CognitoContext } from '../App';
+import PopularPost from '../components/Home/PopularPost';
 
 const HomeContainer = styled.main`
   width: 100%;
@@ -15,7 +16,7 @@ const HomeContainer = styled.main`
 
 const BackgroundContainer = styled.div`
   width: 100%;
-  height: 750px;
+  height: 720px;
 `;
 
 const ImageWrap = styled.div`
@@ -32,6 +33,9 @@ const HomeCityListContainer = styled.ul`
   justify-content: center;
   align-items: center;
   padding: 30px 50px;
+  @media screen and (max-width: 1415px) {
+    padding: 30px;
+  }
   @media screen and (max-width: 800px) {
     padding: 30px 5px;
   }
@@ -76,6 +80,7 @@ const Home = () => {
         <HomeCityListContainer>
           <HomeCityList />
         </HomeCityListContainer>
+        <PopularPost />
       </HomeContainer>
       {isFirstGoogleUser && (
         <SetUserNameModal toggleFirstUser={toggleFirstUser} />

@@ -30,3 +30,11 @@ export const sortByLikes = (a, b) => {
 export const sortByComments = (a, b) => {
   return b.comments.items.length - a.comments.items.length;
 };
+
+export const sortByPopular = (a, b) => {
+  return (
+    b.comments.items.length +
+    b.likes.items.length -
+    (a.comments.items.length + a.likes.items.length)
+  );
+};
