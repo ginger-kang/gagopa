@@ -5,6 +5,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { listMenus } from '../../graphql/queries';
 import { translateToKo } from '../../utils/translate';
 import { ThemeContext } from '../../App';
+import { sortByName } from '../../utils/utils';
 
 const HomeCityListWrap = styled.div`
   display: grid;
@@ -59,6 +60,9 @@ const HomeCityList = () => {
     try {
       const data = await API.graphql(graphqlOperation(listMenus));
       const menus = await data.data.listMenus.items;
+      menus.sort((a, b) =>
+        sortByName(translateToKo[a.city], translateToKo[b.city]),
+      );
       setMenuObj(menus);
     } catch (error) {
       console.log(error.message);

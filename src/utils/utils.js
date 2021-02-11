@@ -38,3 +38,7 @@ export const sortByPopular = (a, b) => {
     (a.comments.items.length + a.likes.items.length)
   );
 };
+
+export const sortByName = (a, b) => {
+  return a.localeCompare(b);
+};
