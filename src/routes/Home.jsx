@@ -7,6 +7,7 @@ import Navigation from '../components/Nav/Navigation';
 import { NAV_SCROLL_OFFSET } from '../utils/constant';
 import { CognitoContext } from '../App';
 import PopularPost from '../components/Home/PopularPost';
+import HomeIntroContent from '../components/Home/HomeIntroContent';
 
 const HomeContainer = styled.main`
   width: 100%;
@@ -16,7 +17,8 @@ const HomeContainer = styled.main`
 
 const BackgroundContainer = styled.div`
   width: 100%;
-  height: 720px;
+  height: 90vh;
+  position: relative;
 `;
 
 const ImageWrap = styled.div`
@@ -76,6 +78,7 @@ const Home = () => {
           <ImageWrap>
             <img src={mainImage} alt="main" />
           </ImageWrap>
+          <HomeIntroContent />
         </BackgroundContainer>
         <HomeCityListContainer>
           <HomeCityList />

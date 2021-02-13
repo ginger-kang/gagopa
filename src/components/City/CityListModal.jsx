@@ -6,6 +6,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import LoadingPage from '../Load/LoadingPage';
 import { translateToKo } from '../../utils/translate';
 import { Link } from 'react-router-dom';
+import { sortByName } from '../../utils/utils';
 
 const ModalContainer = styled.div`
   width: 100vw;
@@ -85,8 +86,11 @@ const CityListModal = ({ toggleList, initializeNext }) => {
     setIsLoading(true);
     try {
       const data = await API.graphql(graphqlOperation(listMenus));
-      const rtn = await data.data.listMenus.items;
-      setCityList(rtn);
+      const menus = await data.data.listMenus.items;
+      menus.sort((a, b) =>
+        sortByName(translateToKo[a.city], translateToKo[b.city]),
+      );
+      setCityList(menus);
     } catch (error) {
       console.log(error);
     } finally {
