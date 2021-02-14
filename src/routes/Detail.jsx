@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useCallback, useContext } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useContext,
+  useRef,
+} from 'react';
 import styled from 'styled-components';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getPicture } from '../graphql/queries';
@@ -37,6 +43,7 @@ const Detail = ({ match }) => {
   const [pictureObj, setPictureObj] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { theme } = useContext(ThemeContext);
+  const commentRef = useRef();
   const pictureId = match.params.id;
 
   const fetchPictures = useCallback(async () => {
@@ -60,6 +67,11 @@ const Detail = ({ match }) => {
     fetchPictures();
   }, [fetchPictures]);
 
+  const moveScrollToComment = () => {
+    const { offsetTop } = commentRef.current;
+    window.scrollTo(0, offsetTop - 60);
+  };
+
   return (
     <>
       <Navigation show={true} navSearch={true} />
@@ -67,10 +79,13 @@ const Detail = ({ match }) => {
         <LoadingPage />
       ) : (
         <Container theme={theme}>
-          <Article pictureObj={pictureObj} />
+          <Article
+            pictureObj={pictureObj}
+            moveScrollToComment={moveScrollToComment}
+          />
           <HorizontalLine theme={theme} />
           <Geocode location={pictureObj.location} />
-          <HorizontalLine theme={theme} />
+          <HorizontalLine theme={theme} ref={commentRef} />
           <Comment pictureId={pictureId} />
         </Container>
       )}

@@ -49,6 +49,7 @@ const CommentWrap = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   @media screen and (max-width: 1000px) {
+    display: block;
     flex-direction: column;
     flex-wrap: none;
   }
@@ -240,7 +241,6 @@ const Comment = ({ pictureId }) => {
     setEditCommentId(id);
     setEditToggle((prev) => !prev);
   };
-
   return (
     <>
       <CommentContainer theme={theme}>

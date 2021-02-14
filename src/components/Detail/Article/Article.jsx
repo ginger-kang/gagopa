@@ -325,7 +325,7 @@ const MoreDescription = styled.span`
   }
 `;
 
-const Article = ({ pictureObj }) => {
+const Article = ({ pictureObj, moveScrollToComment }) => {
   const { theme } = useContext(ThemeContext);
   const { cognitoUser } = useContext(CognitoContext);
   const [likesList, setLikesList] = useState(pictureObj.likes.items);
@@ -498,7 +498,7 @@ const Article = ({ pictureObj }) => {
                 )}
                 <IconContent>{likesCount}</IconContent>
               </Icon>
-              <Icon>
+              <Icon onClick={moveScrollToComment}>
                 <GoComment size={24} />
                 <IconContent>{commentsCount}</IconContent>
               </Icon>
