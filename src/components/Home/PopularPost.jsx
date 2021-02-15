@@ -16,7 +16,7 @@ const PopularContainer = styled.div`
   align-items: center;
   padding: 5px 30px;
   @media screen and (max-width: 800px) {
-    padding: 30px 2px;
+    padding: 5px 2px;
   }
 `;
 
@@ -28,16 +28,13 @@ const PupularHeader = styled.header`
     font-weight: 700;
   }
   @media screen and (max-width: 1415px) {
-    padding: 0 20px;
-  }
-  @media screen and (max-width: 800px) {
     padding: 0 8px;
   }
 `;
 
 const PopularWrap = styled.ul`
   width: 100%;
-  padding: 20px 22px;
+  padding: 20px 22px 0 20px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -46,10 +43,7 @@ const PopularWrap = styled.ul`
     color: ${(props) => props.theme.text};
   }
   @media screen and (max-width: 1415px) {
-    padding: 20px 12px;
-  }
-  @media screen and (max-width: 800px) {
-    padding: 20px 0;
+    padding: 20px 0px;
   }
 `;
 

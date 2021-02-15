@@ -8,6 +8,7 @@ import { NAV_SCROLL_OFFSET } from '../utils/constant';
 import { CognitoContext } from '../App';
 import PopularPost from '../components/Home/PopularPost';
 import HomeIntroContent from '../components/Home/HomeIntroContent';
+import HomeFooter from '../components/Home/HomeFooter';
 
 const HomeContainer = styled.main`
   width: 100%;
@@ -84,6 +85,7 @@ const Home = () => {
           <HomeCityList />
         </HomeCityListContainer>
         <PopularPost />
+        <HomeFooter />
       </HomeContainer>
       {isFirstGoogleUser && (
         <SetUserNameModal toggleFirstUser={toggleFirstUser} />
