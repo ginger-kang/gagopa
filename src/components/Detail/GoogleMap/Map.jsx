@@ -61,24 +61,29 @@ const MapSticky = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-
-  & span {
-    text-align: center;
+  & h5 {
     font-size: 14px;
+    font-weight: 600;
+  }
+  & span {
+    width: 90%;
+    text-align: center;
+    font-size: 12px;
     line-height: 1.3;
   }
   & div {
-    width: 100px;
-    height: 100px;
+    width: 130px;
+    height: 130px;
     border-radius: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid
-      ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
     &:hover {
       transition: all 0.2s ease-in;
       transform: scale(1.1);
+    }
+    & img {
+      border-radius: 100%;
     }
   }
   @media screen and (max-width: 1000px) {
@@ -86,7 +91,7 @@ const MapSticky = styled.div`
   }
 `;
 
-const Map = ({ location }) => {
+const Map = ({ location, pictureObj }) => {
   const { theme } = useContext(ThemeContext);
   const { ref, map, google } = useGoogleMaps(process.env.REACT_APP_API_KEY, {
     zoom: 15,
@@ -106,7 +111,16 @@ const Map = ({ location }) => {
             <div ref={ref} style={{ width: '100%', height: '100%' }} />
           </Container>
         </MapContainer>
-        <MapSticky theme={theme}></MapSticky>
+        <MapSticky theme={theme}>
+          <h5>{pictureObj.location}</h5>
+          <div>
+            <img src={pictureObj.attachment[0].uri} alt="attachment" />
+          </div>
+          <span>
+            해당 위치가 잘못되었거나 더 정확한 위치를 알고 있다면 댓글로
+            알려주세요.
+          </span>
+        </MapSticky>
       </LocationContainer>
     </>
   );

@@ -84,7 +84,7 @@ const Detail = ({ match }) => {
             moveScrollToComment={moveScrollToComment}
           />
           <HorizontalLine theme={theme} />
-          <Geocode location={pictureObj.location} />
+          <Geocode location={pictureObj.location} pictureObj={pictureObj} />
           <HorizontalLine theme={theme} ref={commentRef} />
           <Comment pictureId={pictureId} />
         </Container>

@@ -3,7 +3,7 @@ import Geocode from 'react-geocode';
 import Map from './Map';
 import NoMap from './NoMap';
 
-export default function Geocoding({ location }) {
+export default function Geocoding({ location, pictureObj }) {
   const [resultLatitude, setResultLatitue] = useState(0);
   const [resultLongitude, setResultLongitude] = useState(0);
 
@@ -27,7 +27,7 @@ export default function Geocoding({ location }) {
   const resultLocation = { lat: resultLatitude, lng: resultLongitude };
 
   return resultLocation.lat && resultLocation.lng ? (
-    <Map location={resultLocation} isError={false} />
+    <Map location={resultLocation} pictureObj={pictureObj} />
   ) : (
     <NoMap />
   );

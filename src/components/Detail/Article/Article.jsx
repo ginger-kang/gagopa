@@ -134,14 +134,12 @@ const ContentSticky = styled.div`
     line-height: 1.3;
   }
   & div {
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     border-radius: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid
-      ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
     &:hover {
       transition: all 0.2s ease-in;
       transform: scale(1.1);
