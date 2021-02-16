@@ -1,3 +1,11 @@
+import config from '../aws-exports';
+
+const {
+  aws_user_files_s3_bucket_region: region,
+  aws_user_files_s3_bucket: bucket,
+} = config;
+
+export const AWS_S3_PREFIX = `https://${bucket}.s3.${region}.amazonaws.com/public/`;
 export const POST_COUNT = 18;
 export const NAV_SCROLL_OFFSET = 70;
 export const PICTURE_MAX_COUNT = 6;

@@ -1,3 +1,5 @@
+import { AWS_S3_PREFIX } from './constant';
+
 export const dateToString = (timestamp) => {
   const time = timestamp.split('T');
   const date = {
@@ -17,6 +19,14 @@ export const recommendKeyword = [
   '후지산',
   '벚꽃',
   '코엔지',
+];
+
+export const backgroundImage = [
+  AWS_S3_PREFIX + 'TokyoTowerSakura.jpg',
+  AWS_S3_PREFIX + 'FujiSakura.jpg',
+  AWS_S3_PREFIX + 'Otaru.jpg',
+  AWS_S3_PREFIX + 'Fuji.jpg',
+  AWS_S3_PREFIX + 'SkyTree.jpg',
 ];
 
 export function getKeyByValue(object, value) {
@@ -41,4 +51,8 @@ export const sortByPopular = (a, b) => {
 
 export const sortByName = (a, b) => {
   return a.localeCompare(b);
+};
+
+export const getRandomIndex = (n) => {
+  return Math.floor(Math.random() * n);
 };
