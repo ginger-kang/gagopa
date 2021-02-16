@@ -64,6 +64,8 @@ const MapSticky = styled.div`
   & h5 {
     font-size: 14px;
     font-weight: 600;
+    width: 90%;
+    text-align: center;
   }
   & span {
     width: 90%;
