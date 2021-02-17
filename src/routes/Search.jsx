@@ -58,7 +58,8 @@ const SearchBar = styled.input`
   width: 100%;
   padding: 13px;
   border-radius: 30px;
-  background: ${(props) => props.theme.itemBackground};
+  background: ${(props) =>
+    props.theme === lightTheme ? '#f5f5f5' : '#333333'};
   color: ${(props) => props.theme.text};
   border: 1px solid
     ${(props) => (props.theme === lightTheme ? '#bfbac5cc' : '#7b7b7b')};

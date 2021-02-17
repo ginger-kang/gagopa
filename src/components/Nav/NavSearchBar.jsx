@@ -31,7 +31,8 @@ const SearchBar = styled.input`
   ${(props) =>
     props.show &&
     css`
-      background: ${props.theme.itemBackground};
+      background: ${(props) =>
+        props.theme === lightTheme ? '#f5f5f5' : '#252424'};
       color: ${props.theme.text};
       border: 1px solid
         ${(props) => (props.theme === lightTheme ? '#bfbac5cc' : '#7b7b7b')};
