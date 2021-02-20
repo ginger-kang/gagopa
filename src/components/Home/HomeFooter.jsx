@@ -16,12 +16,12 @@ const Footer = styled.footer`
     ${(props) => (props.theme === lightTheme ? '#bfbac5cc' : '#7b7b7b')};
   padding: 0 55px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
 
 const FooterLogoWrap = styled.div`
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 600;
   font-family: 'Comfortaa', cursive;
   margin-right: 5px;
@@ -42,7 +42,7 @@ const FooterIconWrap = styled.div`
 `;
 
 const Icon = styled.div`
-  margin: 0 5px;
+  margin: 0 10px;
   cursor: pointer;
 `;
 
@@ -58,7 +58,7 @@ const HomeFooter = () => {
         <FooterIconWrap theme={theme}>
           <Icon>
             <AiOutlineGithub
-              size={25}
+              size={28}
               onClick={() =>
                 window.open(`https://github.com/ginger-kang`, '_blank')
               }
@@ -66,14 +66,14 @@ const HomeFooter = () => {
           </Icon>
           <Icon>
             <AiOutlineInstagram
-              size={25}
+              size={28}
               onClick={() =>
                 window.open(`https://instagram.com/dehhun`, '_blank')
               }
             />
           </Icon>
           <Icon>
-            <AiOutlineMail size={25} onClick={contactTrigger} />
+            <AiOutlineMail size={28} onClick={contactTrigger} />
           </Icon>
         </FooterIconWrap>
       </Footer>
