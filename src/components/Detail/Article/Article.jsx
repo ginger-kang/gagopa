@@ -6,7 +6,7 @@ import { lightTheme } from '../../../theme';
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
 import { GoComment } from 'react-icons/go';
 import { IoLogoInstagram } from 'react-icons/io';
-import { AiOutlineEllipsis } from 'react-icons/ai';
+import { AiOutlineEllipsis, AiOutlineFullscreen } from 'react-icons/ai';
 import { API, graphqlOperation } from 'aws-amplify';
 import {
   createPictureLike,
@@ -17,6 +17,7 @@ import { dateToString } from '../../../utils/utils';
 import { FaQuestion } from 'react-icons/fa';
 import { AUTH_ALERT_MESSAGE } from '../../../utils/constant';
 import EditDeletePost from './EditDeletePost';
+import PictureExpand from './PictureExpand';
 
 const ArticleWrap = styled.article`
   width: 1000px;
@@ -48,10 +49,18 @@ const PictureWrap = styled.div`
 const MainPicture = styled.div`
   width: 550px;
   height: 550px;
+  position: relative;
 
   & img {
     width: 100%;
     height: 100%;
+  }
+  & svg {
+    color: white;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
   }
   @media screen and (max-width: 1000px) {
     width: 55vw;
@@ -341,6 +350,7 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
   const [pictureIndex, setPictureIndex] = useState(0);
   const [editToggle, setEditToggle] = useState(false);
   const [editPostId, setEditPostId] = useState('');
+  const [expandPicture, setExpandPicture] = useState(false);
 
   const commentsCount = pictureObj.comments.items.length;
   const pictures = pictureObj.attachment;
@@ -408,12 +418,17 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
     setEditPostId(id);
   };
 
+  const handleExpandPicture = () => {
+    setExpandPicture((prev) => !prev);
+  };
+
   return (
     <>
       <ArticleWrap>
         <PictureWrap theme={theme}>
           <MainPicture>
             <img src={pictures[pictureIndex].uri} alt="post" />
+            <AiOutlineFullscreen size={30} onClick={handleExpandPicture} />
           </MainPicture>
           <PicturePreview index={pictureIndex}>
             {pictures.map((picture, index) => (
@@ -542,6 +557,12 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
           id={editPostId}
           toggle={handleEditPost}
           pictureObj={pictureObj}
+        />
+      )}
+      {expandPicture && (
+        <PictureExpand
+          picture={pictures[pictureIndex].uri}
+          toggle={handleExpandPicture}
         />
       )}
     </>
