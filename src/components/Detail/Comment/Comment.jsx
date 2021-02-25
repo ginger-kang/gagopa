@@ -56,9 +56,9 @@ const CommentWrap = styled.div`
 `;
 
 const CommentBox = styled.div`
-  width: 50%;
+  width: 100%;
   height: 200px;
-  padding: 20px;
+  padding: 20px 15px 20px 25px;
   @media screen and (max-width: 1000px) {
     width: 100%;
   }
@@ -91,10 +91,15 @@ const UserName = styled.span`
   font-weight: 600;
 `;
 
-const Text = styled.p`
-  margin-top: 18px;
-  font-size: 15px;
+const TextWrap = styled.div`
+  height: 100px;
+  overflow: auto;
+  margin-top: 13px;
   padding: 0 40px 15px 0;
+`;
+
+const Text = styled.p`
+  font-size: 15px;
   line-height: 1.5;
 `;
 
@@ -109,7 +114,7 @@ const ModifyAndDelete = styled.div`
   height: 30px;
   position: absolute;
   top: 50%;
-  right: 35px;
+  right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
   @media screen and (max-width: 1000px) {
@@ -275,7 +280,9 @@ const Comment = ({ pictureId }) => {
                         </ModifyAndDelete>
                       )}
                   </CommentAuthor>
-                  <Text>{comment.text}</Text>
+                  <TextWrap>
+                    <Text>{comment.text}</Text>
+                  </TextWrap>
                 </CommentBox>
               ))}
             </CommentWrap>
