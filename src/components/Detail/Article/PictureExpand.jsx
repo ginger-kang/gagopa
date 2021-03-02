@@ -24,6 +24,7 @@ const CloseButton = styled.div`
   top: 15px;
   left: 15px;
   cursor: pointer;
+  color: white;
 `;
 
 const PictureExpand = ({ picture, toggle }) => {
