@@ -8,6 +8,7 @@ import SignIn from '../Auth/SignIn';
 import SignUp from '../Auth/SignUp';
 import NavSearchBar from './NavSearchBar';
 import { AUTH_ALERT_MESSAGE } from '../../utils/constant';
+import Logo from '../../static/assets/logo.png';
 
 const NavBarContainer = styled.nav`
   width: 100vw;
@@ -101,7 +102,6 @@ const UploadPictureContent = styled.div`
 
 const ResponsiveTitle = styled.div`
   display: none;
-  font-size: 32px;
   justify-content: center;
   align-items: center;
   font-weight: 600;
@@ -109,6 +109,9 @@ const ResponsiveTitle = styled.div`
   @media screen and (max-width: 800px) {
     display: block;
     width: 40px;
+  }
+  & img {
+    width: 32px;
   }
 `;
 
@@ -146,7 +149,9 @@ const Navigation = ({ show, navSearch }) => {
               <Title>gagopa</Title>
             </Link>
             <Link to="/">
-              <ResponsiveTitle>🦄</ResponsiveTitle>
+              <ResponsiveTitle>
+                <img src={Logo} alt="logo" />
+              </ResponsiveTitle>
             </Link>
           </TitleContainer>
           <SearchContainer>

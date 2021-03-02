@@ -21,7 +21,7 @@ const Footer = styled.footer`
 `;
 
 const FooterLogoWrap = styled.div`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
   font-family: 'Comfortaa', cursive;
   margin-right: 5px;
