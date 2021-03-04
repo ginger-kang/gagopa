@@ -18,6 +18,7 @@ import { FaQuestion } from 'react-icons/fa';
 import { AUTH_ALERT_MESSAGE } from '../../../utils/constant';
 import EditDeletePost from './EditDeletePost';
 import PictureExpand from './PictureExpand';
+import PostLikesUser from './PostLikesUser';
 
 const ArticleWrap = styled.article`
   width: 1000px;
@@ -302,12 +303,16 @@ const Icon = styled.div`
   svg {
     cursor: pointer;
   }
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const IconContent = styled.div`
   margin-left: 8px;
   border-radius: 8px;
   font-size: 13px;
+  cursor: pointer;
 `;
 
 const Description = styled.span`
@@ -339,6 +344,8 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
   const [likesCount, setLikesCount] = useState(likesList.length);
   const [isLiked, setIsLiked] = useState(false);
   const [likesId, setLikesId] = useState(undefined);
+  const [likesUserToggle, setLikesUserToggle] = useState(false);
+  const [likesUserIds, setLikesUserIds] = useState(null);
   const [description, setDescription] = useState(
     pictureObj.description.length > 47
       ? pictureObj.description.slice(0, 44) + '...'
@@ -420,6 +427,15 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
 
   const handleExpandPicture = () => {
     setExpandPicture((prev) => !prev);
+  };
+
+  const handleLikesUser = () => {
+    let ids = [];
+    likesList.forEach((data) => {
+      ids.push(data.userId);
+    });
+    setLikesUserIds(ids);
+    setLikesUserToggle((prev) => !prev);
   };
 
   return (
@@ -509,22 +525,23 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
                 ) : (
                   <IoIosHeartEmpty size={28} onClick={handleLike} />
                 )}
-                <IconContent>{likesCount}</IconContent>
+                <IconContent onClick={handleLikesUser}>
+                  {likesCount}개
+                </IconContent>
               </Icon>
               <Icon onClick={moveScrollToComment}>
                 <GoComment size={24} />
-                <IconContent>{commentsCount}</IconContent>
+                <IconContent>{commentsCount}개</IconContent>
               </Icon>
-              <Icon>
-                <IoLogoInstagram
-                  size={28}
-                  onClick={() =>
-                    window.open(
-                      `https://instagram.com/${pictureObj.instagram}`,
-                      '_blank',
-                    )
-                  }
-                />
+              <Icon
+                onClick={() =>
+                  window.open(
+                    `https://instagram.com/${pictureObj.instagram}`,
+                    '_blank',
+                  )
+                }
+              >
+                <IoLogoInstagram size={28} />
                 <IconContent>{pictureObj.instagram}</IconContent>
               </Icon>
             </IconWrap>
@@ -564,6 +581,9 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
           picture={pictures[pictureIndex].uri}
           toggle={handleExpandPicture}
         />
+      )}
+      {likesUserToggle && (
+        <PostLikesUser ids={likesUserIds} toggle={handleLikesUser} />
       )}
     </>
   );
