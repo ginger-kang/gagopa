@@ -53,6 +53,7 @@ export const getPicture = /* GraphQL */ `
           authorId
           text
           createdAt
+          reaction
           updatedAt
         }
         nextToken
@@ -223,6 +224,7 @@ export const getComment = /* GraphQL */ `
       authorId
       text
       createdAt
+      reaction
       likes {
         items {
           id
@@ -300,6 +302,7 @@ export const listComments = /* GraphQL */ `
         authorId
         text
         createdAt
+        reaction
         likes {
           nextToken
         }
@@ -673,6 +676,7 @@ export const commentsByDate = /* GraphQL */ `
         authorId
         text
         createdAt
+        reaction
         likes {
           nextToken
         }

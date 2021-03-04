@@ -53,6 +53,7 @@ export const onCreatePicture = /* GraphQL */ `
           authorId
           text
           createdAt
+          reaction
           updatedAt
         }
         nextToken
@@ -113,6 +114,7 @@ export const onUpdatePicture = /* GraphQL */ `
           authorId
           text
           createdAt
+          reaction
           updatedAt
         }
         nextToken
@@ -173,6 +175,7 @@ export const onDeletePicture = /* GraphQL */ `
           authorId
           text
           createdAt
+          reaction
           updatedAt
         }
         nextToken
@@ -189,6 +192,7 @@ export const onCreateComment = /* GraphQL */ `
       authorId
       text
       createdAt
+      reaction
       likes {
         items {
           id
@@ -261,6 +265,7 @@ export const onUpdateComment = /* GraphQL */ `
       authorId
       text
       createdAt
+      reaction
       likes {
         items {
           id
@@ -333,6 +338,7 @@ export const onDeleteComment = /* GraphQL */ `
       authorId
       text
       createdAt
+      reaction
       likes {
         items {
           id
