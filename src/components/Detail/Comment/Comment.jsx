@@ -41,7 +41,7 @@ const CommentHeader = styled.header`
     ${(props) => (props.theme === lightTheme ? '#cacaca' : '#4c4949')};
 `;
 
-const CommentWrap = styled.div`
+const CommentWrap = styled.ul`
   width: 100%;
   height: ${(props) => (props.isMany ? '600px' : 'auto')};
   overflow-y: ${(props) => (props.isMany ? 'auto' : 'unset')};
@@ -55,9 +55,8 @@ const CommentWrap = styled.div`
   }
 `;
 
-const CommentBox = styled.div`
+const CommentBox = styled.li`
   width: 100%;
-  height: 200px;
   padding: 20px 15px 20px 25px;
   @media screen and (max-width: 1000px) {
     width: 100%;
@@ -92,10 +91,9 @@ const UserName = styled.span`
 `;
 
 const TextWrap = styled.div`
-  height: 100px;
   overflow: auto;
   margin-top: 13px;
-  padding: 0 40px 15px 0;
+  padding: 0 40px 5px 0;
 `;
 
 const Text = styled.p`
@@ -173,6 +171,10 @@ const CommentSubmitButton = styled.button`
   top: 50%;
   background: none;
   transform: translateY(-50%);
+`;
+
+const ReactionBox = styled.div`
+  padding: 15px 0 5px 0;
 `;
 
 const Comment = ({ pictureId }) => {
@@ -283,6 +285,7 @@ const Comment = ({ pictureId }) => {
                   <TextWrap>
                     <Text>{comment.text}</Text>
                   </TextWrap>
+                  <ReactionBox>🤍💙🤍💙🤍💙</ReactionBox>
                 </CommentBox>
               ))}
             </CommentWrap>
