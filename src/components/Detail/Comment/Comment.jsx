@@ -285,7 +285,7 @@ const Comment = ({ pictureId }) => {
                   <TextWrap>
                     <Text>{comment.text}</Text>
                   </TextWrap>
-                  <ReactionBox>🤍💙🤍💙🤍💙</ReactionBox>
+                  <ReactionBox></ReactionBox>
                 </CommentBox>
               ))}
             </CommentWrap>

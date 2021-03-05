@@ -47,7 +47,6 @@ type Comment
   authorId: ID!
   text: String!
   createdAt: String!
-  reaction: [String]
   likes: [CommentLike]
     @connection(keyName: "commentLikesByCommentId", fields: ["id"])
   author: User @connection(fields: ["authorId"])
