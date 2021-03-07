@@ -11,6 +11,7 @@ import { AiOutlineEllipsis } from 'react-icons/ai';
 import EditDeleteComment from './EditDeleteComment';
 import { AUTH_ALERT_MESSAGE, EMPTY_COMMENT } from '../../../utils/constant';
 import NoComment from './NoComment';
+import { Link } from 'react-router-dom';
 
 const CommentContainer = styled.div`
   width: 1000px;
@@ -88,6 +89,11 @@ const InfoWrap = styled.div`
 
 const UserName = styled.span`
   font-weight: 600;
+  cursor: pointer;
+  color: ${(props) => props.theme.text};
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const TextWrap = styled.div`
@@ -267,7 +273,11 @@ const Comment = ({ pictureId }) => {
                   <CommentAuthor>
                     <Avatar src={comment.author.avatar.uri} alt="avatar" />
                     <InfoWrap>
-                      <UserName>{comment.author.username}</UserName>
+                      <Link to={{ pathname: `/user/${comment.author.userId}` }}>
+                        <UserName theme={theme}>
+                          {comment.author.username}
+                        </UserName>
+                      </Link>
                       <Date>{dateToString(comments[0].createdAt)}</Date>
                     </InfoWrap>
                     {cognitoUser &&
