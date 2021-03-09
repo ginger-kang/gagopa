@@ -47,8 +47,8 @@ type Comment
   authorId: ID!
   text: String!
   createdAt: String!
-  likes: [CommentLike]
-    @connection(keyName: "commentLikesByCommentId", fields: ["id"])
+  reactions: [CommentReaction]
+    @connection(keyName: "commentReactionsByCommentId", fields: ["id"])
   author: User @connection(fields: ["authorId"])
   picture: Picture @connection(fields: ["pictureId"])
 }
@@ -77,13 +77,14 @@ type PictureLike
   createdAt: String!
 }
 
-type CommentLike
+type CommentReaction
   @model
-  @key(name: "commentLikesByCommentId", fields: ["commentId"]) {
+  @key(name: "commentReactionsByCommentId", fields: ["commentId"]) {
   id: ID!
   userId: ID!
   pictureId: ID!
   commentId: ID!
+  emoji: String!
   user: User @connection(fields: ["userId"])
   picture: Picture @connection(fields: ["pictureId"])
   createdAt: String!

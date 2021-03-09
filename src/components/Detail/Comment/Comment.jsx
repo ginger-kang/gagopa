@@ -12,6 +12,7 @@ import EditDeleteComment from './EditDeleteComment';
 import { AUTH_ALERT_MESSAGE, EMPTY_COMMENT } from '../../../utils/constant';
 import NoComment from './NoComment';
 import { Link } from 'react-router-dom';
+import Reaction from './Reaction';
 
 const CommentContainer = styled.div`
   width: 1000px;
@@ -254,6 +255,7 @@ const Comment = ({ pictureId }) => {
     setEditCommentId(id);
     setEditToggle((prev) => !prev);
   };
+
   return (
     <>
       <CommentContainer theme={theme}>
@@ -295,7 +297,9 @@ const Comment = ({ pictureId }) => {
                   <TextWrap>
                     <Text>{comment.text}</Text>
                   </TextWrap>
-                  <ReactionBox></ReactionBox>
+                  <ReactionBox>
+                    <Reaction reactions={comment.reactions} />
+                  </ReactionBox>
                 </CommentBox>
               ))}
             </CommentWrap>

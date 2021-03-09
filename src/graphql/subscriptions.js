@@ -189,12 +189,13 @@ export const onCreateComment = /* GraphQL */ `
       authorId
       text
       createdAt
-      likes {
+      reactions {
         items {
           id
           userId
           pictureId
           commentId
+          emoji
           createdAt
           updatedAt
         }
@@ -261,12 +262,13 @@ export const onUpdateComment = /* GraphQL */ `
       authorId
       text
       createdAt
-      likes {
+      reactions {
         items {
           id
           userId
           pictureId
           commentId
+          emoji
           createdAt
           updatedAt
         }
@@ -333,12 +335,13 @@ export const onDeleteComment = /* GraphQL */ `
       authorId
       text
       createdAt
-      likes {
+      reactions {
         items {
           id
           userId
           pictureId
           commentId
+          emoji
           createdAt
           updatedAt
         }
@@ -631,13 +634,14 @@ export const onDeletePictureLike = /* GraphQL */ `
     }
   }
 `;
-export const onCreateCommentLike = /* GraphQL */ `
-  subscription OnCreateCommentLike {
-    onCreateCommentLike {
+export const onCreateCommentReaction = /* GraphQL */ `
+  subscription OnCreateCommentReaction {
+    onCreateCommentReaction {
       id
       userId
       pictureId
       commentId
+      emoji
       user {
         userId
         pictures {
@@ -692,13 +696,14 @@ export const onCreateCommentLike = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateCommentLike = /* GraphQL */ `
-  subscription OnUpdateCommentLike {
-    onUpdateCommentLike {
+export const onUpdateCommentReaction = /* GraphQL */ `
+  subscription OnUpdateCommentReaction {
+    onUpdateCommentReaction {
       id
       userId
       pictureId
       commentId
+      emoji
       user {
         userId
         pictures {
@@ -753,13 +758,14 @@ export const onUpdateCommentLike = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteCommentLike = /* GraphQL */ `
-  subscription OnDeleteCommentLike {
-    onDeleteCommentLike {
+export const onDeleteCommentReaction = /* GraphQL */ `
+  subscription OnDeleteCommentReaction {
+    onDeleteCommentReaction {
       id
       userId
       pictureId
       commentId
+      emoji
       user {
         userId
         pictures {
