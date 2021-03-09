@@ -223,12 +223,13 @@ export const getComment = /* GraphQL */ `
       authorId
       text
       createdAt
-      likes {
+      reactions {
         items {
           id
           userId
           pictureId
           commentId
+          emoji
           createdAt
           updatedAt
         }
@@ -300,7 +301,7 @@ export const listComments = /* GraphQL */ `
         authorId
         text
         createdAt
-        likes {
+        reactions {
           nextToken
         }
         author {
@@ -476,13 +477,14 @@ export const listPictureLikes = /* GraphQL */ `
     }
   }
 `;
-export const getCommentLike = /* GraphQL */ `
-  query GetCommentLike($id: ID!) {
-    getCommentLike(id: $id) {
+export const getCommentReaction = /* GraphQL */ `
+  query GetCommentReaction($id: ID!) {
+    getCommentReaction(id: $id) {
       id
       userId
       pictureId
       commentId
+      emoji
       user {
         userId
         pictures {
@@ -537,18 +539,23 @@ export const getCommentLike = /* GraphQL */ `
     }
   }
 `;
-export const listCommentLikes = /* GraphQL */ `
-  query ListCommentLikes(
-    $filter: ModelCommentLikeFilterInput
+export const listCommentReactions = /* GraphQL */ `
+  query ListCommentReactions(
+    $filter: ModelCommentReactionFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listCommentLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listCommentReactions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
         userId
         pictureId
         commentId
+        emoji
         user {
           userId
           username
@@ -673,7 +680,7 @@ export const commentsByDate = /* GraphQL */ `
         authorId
         text
         createdAt
-        likes {
+        reactions {
           nextToken
         }
         author {

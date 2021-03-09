@@ -254,6 +254,7 @@ const Comment = ({ pictureId }) => {
     setEditCommentId(id);
     setEditToggle((prev) => !prev);
   };
+
   return (
     <>
       <CommentContainer theme={theme}>

@@ -309,12 +309,13 @@ export const createComment = /* GraphQL */ `
       authorId
       text
       createdAt
-      likes {
+      reactions {
         items {
           id
           userId
           pictureId
           commentId
+          emoji
           createdAt
           updatedAt
         }
@@ -384,12 +385,13 @@ export const updateComment = /* GraphQL */ `
       authorId
       text
       createdAt
-      likes {
+      reactions {
         items {
           id
           userId
           pictureId
           commentId
+          emoji
           createdAt
           updatedAt
         }
@@ -459,12 +461,13 @@ export const deleteComment = /* GraphQL */ `
       authorId
       text
       createdAt
-      likes {
+      reactions {
         items {
           id
           userId
           pictureId
           commentId
+          emoji
           createdAt
           updatedAt
         }
@@ -775,16 +778,17 @@ export const deletePictureLike = /* GraphQL */ `
     }
   }
 `;
-export const createCommentLike = /* GraphQL */ `
-  mutation CreateCommentLike(
-    $input: CreateCommentLikeInput!
-    $condition: ModelCommentLikeConditionInput
+export const createCommentReaction = /* GraphQL */ `
+  mutation CreateCommentReaction(
+    $input: CreateCommentReactionInput!
+    $condition: ModelCommentReactionConditionInput
   ) {
-    createCommentLike(input: $input, condition: $condition) {
+    createCommentReaction(input: $input, condition: $condition) {
       id
       userId
       pictureId
       commentId
+      emoji
       user {
         userId
         pictures {
@@ -839,16 +843,17 @@ export const createCommentLike = /* GraphQL */ `
     }
   }
 `;
-export const updateCommentLike = /* GraphQL */ `
-  mutation UpdateCommentLike(
-    $input: UpdateCommentLikeInput!
-    $condition: ModelCommentLikeConditionInput
+export const updateCommentReaction = /* GraphQL */ `
+  mutation UpdateCommentReaction(
+    $input: UpdateCommentReactionInput!
+    $condition: ModelCommentReactionConditionInput
   ) {
-    updateCommentLike(input: $input, condition: $condition) {
+    updateCommentReaction(input: $input, condition: $condition) {
       id
       userId
       pictureId
       commentId
+      emoji
       user {
         userId
         pictures {
@@ -903,16 +908,17 @@ export const updateCommentLike = /* GraphQL */ `
     }
   }
 `;
-export const deleteCommentLike = /* GraphQL */ `
-  mutation DeleteCommentLike(
-    $input: DeleteCommentLikeInput!
-    $condition: ModelCommentLikeConditionInput
+export const deleteCommentReaction = /* GraphQL */ `
+  mutation DeleteCommentReaction(
+    $input: DeleteCommentReactionInput!
+    $condition: ModelCommentReactionConditionInput
   ) {
-    deleteCommentLike(input: $input, condition: $condition) {
+    deleteCommentReaction(input: $input, condition: $condition) {
       id
       userId
       pictureId
       commentId
+      emoji
       user {
         userId
         pictures {
