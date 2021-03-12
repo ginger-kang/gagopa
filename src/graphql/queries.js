@@ -681,6 +681,21 @@ export const commentsByDate = /* GraphQL */ `
         text
         createdAt
         reactions {
+          items {
+            commentId
+            emoji
+            id
+            user {
+              avatar {
+                bucket
+                key
+                region
+                uri
+              }
+            }
+            userId
+            pictureId
+          }
           nextToken
         }
         author {

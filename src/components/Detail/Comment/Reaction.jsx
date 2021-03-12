@@ -20,13 +20,12 @@ const Reaction = ({ reactions }) => {
   const [isActive, setIsActive] = useDetectOutsideClick(emojiRef, false);
 
   const onClick = () => setIsActive(!isActive);
-
   return (
     <>
       <ReactionWrap></ReactionWrap>
       <EmojiWrap onClick={onClick} ref={emojiRef}>
         <HiOutlineEmojiHappy size={22} />
-        {isActive && <Emoji />}
+        {isActive && <Emoji reactionData={reactions} />}
       </EmojiWrap>
     </>
   );

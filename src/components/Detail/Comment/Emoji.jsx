@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { ThemeContext } from '../../../App';
 import { lightTheme } from '../../../theme';
 import { REACTIONS } from '../../../utils/constant';
+import { API, graphqlOperation } from 'aws-amplify';
+import { createCommentReaction } from '../../../graphql/mutations';
 
 const IconWrap = styled.ul`
   width: 170px;
@@ -34,12 +36,17 @@ const Character = styled.li`
   }
 `;
 
-const Emoji = () => {
+const Emoji = ({ reactionData }) => {
   const { theme } = useContext(ThemeContext);
+  console.log(reactionData);
+  const onClick = (character) => {};
+
   return (
     <IconWrap theme={theme}>
       {REACTIONS.map((character, index) => (
-        <Character key={index}>{character}</Character>
+        <Character key={index} onClick={() => onClick(character)}>
+          {character}
+        </Character>
       ))}
     </IconWrap>
   );
