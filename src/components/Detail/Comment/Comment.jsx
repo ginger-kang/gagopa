@@ -181,7 +181,8 @@ const CommentSubmitButton = styled.button`
 `;
 
 const ReactionBox = styled.div`
-  padding: 15px 0 5px 0;
+  margin-top: 15px;
+  padding: 0 40px 5px 0;
 `;
 
 const Comment = ({ pictureId }) => {

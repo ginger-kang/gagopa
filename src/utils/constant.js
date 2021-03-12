@@ -25,3 +25,18 @@ export const UPLOAD_ALERT_MESSAGE = {
   OVER_PICTURE_MAX_COUNT: '사진은 최대 6장 까지 올릴 수 있습니다.',
   COMPLETE_UPDATE_PICTURE: '사진 정보를 수정했습니다.',
 };
+
+export const REACTIONS = [
+  '😍',
+  '🤭',
+  '😎',
+  '🙊',
+  '👍',
+  '👎',
+  '👏',
+  '👀',
+  '✨',
+  '🔥',
+  '❤️',
+  '💜',
+];
