@@ -191,7 +191,7 @@ const Profile = ({ match }) => {
   const { theme } = useContext(ThemeContext);
   const { cognitoUser } = useContext(CognitoContext);
   const userId = match.params.id;
-  const isOwnUser = userId === cognitoUser.userId;
+  const isOwnUser = cognitoUser && userId === cognitoUser.userId;
 
   const fetchUsers = useCallback(async () => {
     setIsLoading(true);
