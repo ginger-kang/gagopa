@@ -299,7 +299,7 @@ const Comment = ({ pictureId }) => {
                     <Text>{comment.text}</Text>
                   </TextWrap>
                   <ReactionBox>
-                    <Reaction reactions={comment.reactions} />
+                    {/* <Reaction commentId={comment.id} pictureId={pictureId} /> */}
                   </ReactionBox>
                 </CommentBox>
               ))}

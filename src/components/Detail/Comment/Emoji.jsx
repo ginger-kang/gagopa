@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { ThemeContext } from '../../../App';
+import { ThemeContext, CognitoContext } from '../../../App';
 import { lightTheme } from '../../../theme';
 import { REACTIONS } from '../../../utils/constant';
 import { API, graphqlOperation } from 'aws-amplify';
@@ -36,10 +36,25 @@ const Character = styled.li`
   }
 `;
 
-const Emoji = ({ reactionData }) => {
+const Emoji = ({ commentId, pictureId }) => {
   const { theme } = useContext(ThemeContext);
-  console.log(reactionData);
-  const onClick = (character) => {};
+  const { cognitoUser } = useContext(CognitoContext);
+
+  const createReactions = async (character) => {
+    const inputData = {
+      userId: cognitoUser.userId,
+      commentId: commentId,
+      pictureId: pictureId,
+      emoji: character,
+    };
+    await API.graphql(
+      graphqlOperation(createCommentReaction, { input: inputData }),
+    );
+  };
+
+  const onClick = (character) => {
+    createReactions(character);
+  };
 
   return (
     <IconWrap theme={theme}>
