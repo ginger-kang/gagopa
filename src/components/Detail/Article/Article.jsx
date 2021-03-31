@@ -438,6 +438,8 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
     setLikesUserToggle((prev) => !prev);
   };
 
+  console.log(pictureObj);
+
   return (
     <>
       <ArticleWrap>
@@ -544,7 +546,22 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
               </Icon>
               <Icon onClick={moveScrollToComment}>
                 <GoComment size={24} />
-                <IconContent>{commentsCount}개</IconContent>
+                <IconContent>
+                  {pictureObj.comments.items.length ? (
+                    <>
+                      <span style={{ fontWeight: 'bold' }}>
+                        {pictureObj?.comments?.items[0]?.author?.username}
+                      </span>
+                      님 외
+                      <span style={{ fontWeight: 'bold' }}>
+                        {' '}
+                        {commentsCount - 1}명
+                      </span>
+                    </>
+                  ) : (
+                    <span>0개</span>
+                  )}
+                </IconContent>
               </Icon>
               <Icon
                 onClick={() =>
@@ -555,7 +572,11 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
                 }
               >
                 <IoLogoInstagram size={28} />
-                <IconContent>{pictureObj.instagram}</IconContent>
+                <IconContent>
+                  <span style={{ fontWeight: 'bold' }}>
+                    {pictureObj.instagram}
+                  </span>
+                </IconContent>
               </Icon>
             </IconWrap>
           </ContentWrap>

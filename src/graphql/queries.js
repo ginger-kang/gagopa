@@ -58,6 +58,10 @@ export const getPicture = /* GraphQL */ `
           text
           createdAt
           updatedAt
+          author {
+            username
+            userId
+          }
         }
         nextToken
       }
