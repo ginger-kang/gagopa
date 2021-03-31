@@ -526,7 +526,20 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
                   <IoIosHeartEmpty size={28} onClick={handleLike} />
                 )}
                 <IconContent onClick={handleLikesUser}>
-                  {likesCount}개
+                  {likesCount ? (
+                    <>
+                      <span style={{ fontWeight: 'bold' }}>
+                        {likesList[0].user.username}
+                      </span>
+                      님 외
+                      <span style={{ fontWeight: 'bold' }}>
+                        {' '}
+                        {likesCount - 1}명
+                      </span>
+                    </>
+                  ) : (
+                    <span>0개</span>
+                  )}
                 </IconContent>
               </Icon>
               <Icon onClick={moveScrollToComment}>

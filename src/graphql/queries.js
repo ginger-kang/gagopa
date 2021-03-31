@@ -43,6 +43,10 @@ export const getPicture = /* GraphQL */ `
           userId
           createdAt
           updatedAt
+          user {
+            username
+            userId
+          }
         }
         nextToken
       }
