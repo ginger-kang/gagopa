@@ -346,6 +346,9 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
   const [likesId, setLikesId] = useState(undefined);
   const [likesUserToggle, setLikesUserToggle] = useState(false);
   const [likesUserIds, setLikesUserIds] = useState(null);
+  const [firstLikesUser, setFirstLikesUser] = useState(
+    pictureObj.likes?.items[0]?.user.username,
+  );
   const [description, setDescription] = useState(
     pictureObj.description.length > 47
       ? pictureObj.description.slice(0, 44) + '...'
@@ -361,6 +364,9 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
 
   const commentsCount = pictureObj.comments.items.length;
   const pictures = pictureObj.attachment;
+
+  // console.log(pictureObj);
+  // console.log(firstLikesUser);
 
   useEffect(() => {
     if (cognitoUser) {
@@ -531,7 +537,7 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
                   {likesCount ? (
                     <>
                       <span style={{ fontWeight: 'bold' }}>
-                        {likesList[0].user.username}
+                        {likesList[0]?.user?.username}
                       </span>
                       님 외
                       <span style={{ fontWeight: 'bold' }}>
