@@ -365,9 +365,6 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
   const commentsCount = pictureObj.comments.items.length;
   const pictures = pictureObj.attachment;
 
-  // console.log(pictureObj);
-  // console.log(firstLikesUser);
-
   useEffect(() => {
     if (cognitoUser) {
       let user = likesList.find(
@@ -394,6 +391,10 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
     await API.graphql(graphqlOperation(createPictureLike, { input: inputData }))
       .then(() => setIsLiked(true))
       .then(() => setLikesId(id));
+
+    if (likesCount === 0) {
+      setFirstLikesUser(cognitoUser.username);
+    }
     setLikesList((prev) => [...prev, inputData]);
     setLikesCount((prev) => prev + 1);
   };
@@ -444,7 +445,25 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
     setLikesUserToggle((prev) => !prev);
   };
 
-  console.log(pictureObj);
+  const displayLikeUsers = () => {
+    if (likesCount === 0) {
+      return <span>0개</span>;
+    } else if (likesCount === 1) {
+      return (
+        <>
+          <span style={{ fontWeight: 'bold' }}>{firstLikesUser}</span>
+          <span>님이 좋아합니다.</span>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <span style={{ fontWeight: 'bold' }}>{firstLikesUser}</span>님 외
+          <span style={{ fontWeight: 'bold' }}> {likesCount - 1}명</span>
+        </>
+      );
+    }
+  };
 
   return (
     <>
@@ -534,40 +553,12 @@ const Article = ({ pictureObj, moveScrollToComment }) => {
                   <IoIosHeartEmpty size={28} onClick={handleLike} />
                 )}
                 <IconContent onClick={handleLikesUser}>
-                  {likesCount ? (
-                    <>
-                      <span style={{ fontWeight: 'bold' }}>
-                        {likesList[0]?.user?.username}
-                      </span>
-                      님 외
-                      <span style={{ fontWeight: 'bold' }}>
-                        {' '}
-                        {likesCount - 1}명
-                      </span>
-                    </>
-                  ) : (
-                    <span>0개</span>
-                  )}
+                  {displayLikeUsers()}
                 </IconContent>
               </Icon>
               <Icon onClick={moveScrollToComment}>
                 <GoComment size={24} />
-                <IconContent>
-                  {pictureObj.comments.items.length ? (
-                    <>
-                      <span style={{ fontWeight: 'bold' }}>
-                        {pictureObj?.comments?.items[0]?.author?.username}
-                      </span>
-                      님 외
-                      <span style={{ fontWeight: 'bold' }}>
-                        {' '}
-                        {commentsCount - 1}명
-                      </span>
-                    </>
-                  ) : (
-                    <span>0개</span>
-                  )}
-                </IconContent>
+                <IconContent>{commentsCount}개</IconContent>
               </Icon>
               <Icon
                 onClick={() =>
