@@ -42,11 +42,6 @@ const Button = styled.button`
   background: none;
   margin-top: 30px;
   font-size: 14px;
-  &:hover {
-    color: #353537;
-    border: none;
-    background: white;
-  }
 `;
 
 const HomeIntroContent = () => {
