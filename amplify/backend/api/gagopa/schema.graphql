@@ -1,6 +1,5 @@
 type Picture
   @model
-  @searchable
   @key(name: "picturesByUserId", fields: ["authorId"])
   @key(
     name: "picturesByDate"
@@ -24,7 +23,7 @@ type Picture
     @connection(keyName: "commentsByPictureId", fields: ["id"])
 }
 
-type User @model(subscriptions: null) @searchable @key(fields: ["userId"]) {
+type User @model(subscriptions: null) @key(fields: ["userId"]) {
   userId: ID!
   pictures: [Picture]
     @connection(keyName: "picturesByUserId", fields: ["userId"])

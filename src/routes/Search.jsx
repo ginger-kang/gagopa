@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Navigation from '../components/Nav/Navigation';
 import LoadingPage from '../components/Load/LoadingPage';
 import CityPost from '../components/City/CityPost';
-import { searchPictures } from '../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
 import { recommendKeyword } from '../utils/utils';
 import { ThemeContext } from '../App';
@@ -179,11 +178,12 @@ const Search = ({ match }) => {
     };
 
     try {
-      const data = await API.graphql(
-        graphqlOperation(searchPictures, { filter: filter }),
-      );
-      const posts = await data.data.searchPictures.items;
-      setPosts(posts);
+      // Pause search function
+      // const data = await API.graphql(
+      //   graphqlOperation(searchPictures, { filter: filter }),
+      // );
+      // const posts = await data?.data?.searchPictures?.items;
+      // setPosts(posts);
     } catch (error) {
       console.log(error);
     } finally {
@@ -253,11 +253,11 @@ const Search = ({ match }) => {
                 </RecommendWrap>
               </SearchContentWrap>
             </SearchHeader>
-            <SearchGridWrap hasPost={true}>
+            {/* <SearchGridWrap hasPost={true}>
               {posts.map((post) => (
                 <CityPost key={post.id} post={post} cityName={post.city} />
               ))}
-            </SearchGridWrap>
+            </SearchGridWrap> */}
           </>
         )}
       </SearchContainer>
