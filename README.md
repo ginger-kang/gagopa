@@ -29,6 +29,24 @@
 - GraphQL
 - styled-components
 
+## 🧑‍🔧 Node version manage
+
+가고파는 `nvm`을 통해 Node 버전 관리를 하고 있습니다.
+
+```shell
+$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+$ command -v nvm
+$ nvm install
+$ which node
+```
+
+프로젝트의 루트에서 `.nvmrc`파일을 통해 가고파 프로젝트에서 사용되는 노드 버전을 사용합니다.
+
+```shell
+$ nvm use
+Found '/Users/gingerkang/ginger-kang/gagopa/.nvmrc' with version <v14.17.0>
+```
+
 ## 🌏 Website
 
 [gagopa](https://gagopa.app)
