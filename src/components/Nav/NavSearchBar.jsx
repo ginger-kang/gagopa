@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { ThemeContext } from '../../App';
 import { lightTheme } from '../../theme';
 import { AiOutlineSearch } from 'react-icons/ai';
+import PauseSearchNotice from '../Notice/PauseSearchNotice';
 
 const SearchBarWrap = styled.div`
   width: 100%;
@@ -92,40 +93,49 @@ const NavSearchBar = ({ show }) => {
   };
 
   return (
-    <SearchBarWrap>
-      <Search>
-        {show ? (
-          <SearchBar
-            type="text"
-            value={keyword}
-            onChange={onChange}
-            onKeyPress={onKeyPress}
-            placeholder="사진 검색"
-            theme={theme}
-            show={show}
-            maxLength="17"
-          />
-        ) : (
-          <SearchBar
-            type="text"
-            value={keyword}
-            onChange={onChange}
-            onKeyPress={onKeyPress}
-            theme={theme}
-            show={show}
-            maxLength="17"
-          />
-        )}
-        {/* <Link to={`/search/${keyword}`}>
+    <>
+      <SearchBarWrap>
+        <Search>
+          {show ? (
+            <SearchBar
+              type="text"
+              value={keyword}
+              onChange={onChange}
+              onKeyPress={onKeyPress}
+              placeholder="사진 검색"
+              theme={theme}
+              show={show}
+              maxLength="17"
+            />
+          ) : (
+            <SearchBar
+              type="text"
+              value={keyword}
+              onChange={onChange}
+              onKeyPress={onKeyPress}
+              theme={theme}
+              show={show}
+              maxLength="17"
+            />
+          )}
+          {/* <Link to={`/search/${keyword}`}>
           <SearchButton show={show} theme={theme}>
             <AiOutlineSearch size={20} />
           </SearchButton>
         </Link> */}
-        <SearchButton show={show} theme={theme}>
-          <AiOutlineSearch size={20} />
-        </SearchButton>
-      </Search>
-    </SearchBarWrap>
+          <SearchButton
+            show={show}
+            theme={theme}
+            onClick={() => setNoticeToggle((prev) => !prev)}
+          >
+            <AiOutlineSearch size={20} />
+          </SearchButton>
+        </Search>
+      </SearchBarWrap>
+      {noticeToggle && (
+        <PauseSearchNotice trigger={() => setNoticeToggle((prev) => !prev)} />
+      )}
+    </>
   );
 };
 
