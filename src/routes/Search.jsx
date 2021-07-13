@@ -178,7 +178,7 @@ const Search = ({ match }) => {
     };
 
     try {
-      // Pause search function
+      // 검색 기능 중지
       // const data = await API.graphql(
       //   graphqlOperation(searchPictures, { filter: filter }),
       // );
@@ -253,11 +253,11 @@ const Search = ({ match }) => {
                 </RecommendWrap>
               </SearchContentWrap>
             </SearchHeader>
-            {/* <SearchGridWrap hasPost={true}>
+            <SearchGridWrap hasPost={true}>
               {posts.map((post) => (
                 <CityPost key={post.id} post={post} cityName={post.city} />
               ))}
-            </SearchGridWrap> */}
+            </SearchGridWrap>
           </>
         )}
       </SearchContainer>

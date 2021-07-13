@@ -154,9 +154,9 @@ const Navigation = ({ show, navSearch }) => {
               </ResponsiveTitle>
             </Link>
           </TitleContainer>
-          {/* <SearchContainer>
+          <SearchContainer>
             {navSearch && <NavSearchBar show={show} />}
-          </SearchContainer> */}
+          </SearchContainer>
           <NavMenuContainer>
             {cognitoUser ? (
               <Link to="/upload">

@@ -71,22 +71,24 @@ const SearchButton = styled.button`
 
 const NavSearchBar = ({ show }) => {
   const { theme } = useContext(ThemeContext);
+  const [noticeToggle, setNoticeToggle] = useState(false);
   const [keyword, setKeyword] = useState('');
-  const history = useHistory();
+  // const history = useHistory();
 
   const onChange = (event) => {
     const {
       target: { value },
     } = event;
-    setKeyword(value);
+    setNoticeToggle((prev) => !prev);
   };
 
   const onKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      history.push({
-        pathname: `/search/${keyword}`,
-      });
-    }
+    // 검색 기능 중지
+    // if (e.key === 'Enter') {
+    //   history.push({
+    //     pathname: `/search/${keyword}`,
+    //   });
+    // }
   };
 
   return (
@@ -95,6 +97,7 @@ const NavSearchBar = ({ show }) => {
         {show ? (
           <SearchBar
             type="text"
+            value={keyword}
             onChange={onChange}
             onKeyPress={onKeyPress}
             placeholder="사진 검색"
@@ -105,6 +108,7 @@ const NavSearchBar = ({ show }) => {
         ) : (
           <SearchBar
             type="text"
+            value={keyword}
             onChange={onChange}
             onKeyPress={onKeyPress}
             theme={theme}
@@ -112,11 +116,14 @@ const NavSearchBar = ({ show }) => {
             maxLength="17"
           />
         )}
-        <Link to={`/search/${keyword}`}>
+        {/* <Link to={`/search/${keyword}`}>
           <SearchButton show={show} theme={theme}>
             <AiOutlineSearch size={20} />
           </SearchButton>
-        </Link>
+        </Link> */}
+        <SearchButton show={show} theme={theme}>
+          <AiOutlineSearch size={20} />
+        </SearchButton>
       </Search>
     </SearchBarWrap>
   );
